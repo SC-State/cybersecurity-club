@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IC CAE Cybersecurity Club — SC State</title>
+<meta name="description" content="The IC CAE Cybersecurity Club at South Carolina State University. Train red team and blue team, and build an internship-ready portfolio from the bank of hands-on project runbooks.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230F1B35'/%3E%3Cpath d='M32 10 L32 54 Q14 48 14 28 L14 18 Z' fill='%238E1B30'/%3E%3Cpath d='M32 10 L32 54 Q50 48 50 28 L50 18 Z' fill='%231D4FA3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --garnet:#8E1B30; --garnet-d:#73152635; --blue:#1D4FA3; --navy:#0F1B35;
+  --ink:#131A2B; --mut:#5A6478; --paper:#FFFFFF; --bg:#F6F7FB; --line:#E4E8F0;
+  --term:#0B1222; --term-line:#1E2A47;
+  --disp:'Big Shoulders Display',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --body:'Public Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+img{max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
+h1,h2,h3{margin:0}
+.sec{padding:76px 0}
+.sec-title{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:.01em;font-size:clamp(28px,4.4vw,44px);line-height:1.02;color:var(--navy)}
+.sec-sub{color:var(--mut);max-width:60ch;margin:14px 0 0;font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 24px;border-radius:5px;font-weight:600;font-size:16px;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:.15s}
+.btn-garnet{background:var(--garnet);color:#fff}
+.btn-garnet:hover{background:#7a1629}
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:18px;color:var(--navy);text-decoration:none}
+.brand .mark{width:22px;height:22px;border-radius:5px;background:linear-gradient(105deg,var(--garnet) 0 50%,var(--blue) 50% 100%)}
+.topnav{display:flex;gap:24px}
+.topnav a{color:var(--navy);text-decoration:none;font-weight:600;font-size:15px}
+.topnav a:hover{color:var(--garnet)}
+
+/* hero */
+.hero{background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-top:64px;padding-bottom:72px}
+.hero .wrap>div{min-width:0}
+.hero h1{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.92;font-size:clamp(46px,8vw,92px);letter-spacing:.005em;color:var(--navy)}
+.hero h1 .g{color:var(--garnet)} .hero h1 .b{color:var(--blue)}
+.hero .lede{font-size:19px;color:#2A3346;margin:22px 0 0;max-width:46ch}
+.hero .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 30px}
+.hero .split .p{border-left:3px solid var(--garnet);padding:2px 0 2px 14px}
+.hero .split .p.b{border-color:var(--blue)}
+.hero .split h4{margin:0 0 4px;font-size:15px;font-weight:700;color:var(--navy)}
+.hero .split p{margin:0;font-size:14px;color:var(--mut)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+
+/* terminal */
+.term{background:var(--term);border:1px solid var(--term-line);border-radius:10px;overflow:hidden;max-width:100%;box-shadow:0 20px 50px -24px rgba(8,16,40,.5)}
+.term-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#0E1730;border-bottom:1px solid var(--term-line)}
+.term-bar .dot{width:11px;height:11px;border-radius:50%}
+.term-bar .t{margin-left:10px;font-family:var(--mono);font-size:12px;color:#8793AE}
+.term-body{padding:16px;font-family:var(--mono);font-size:13.5px;line-height:1.65;height:300px;overflow:auto}
+.term-body .ln{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+.term-body .prompt{color:#5F79C9}
+.term-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid var(--term-line);background:#0E1730}
+.term-row .prompt{font-family:var(--mono);font-size:13.5px;color:#5F79C9}
+.term-row input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#E6E9F0;font-family:var(--mono);font-size:13.5px}
+.term-row button{background:var(--blue);color:#fff;border:0;border-radius:4px;height:30px;padding:0 14px;font-weight:600;cursor:pointer;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips .lbl{font-family:var(--mono);font-size:11px;color:var(--mut);align-self:center;margin-right:2px;text-transform:uppercase;letter-spacing:.12em}
+.chip{font-family:var(--mono);font-size:12.5px;background:#fff;border:1px solid var(--line);color:var(--navy);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.ctf-note{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.ctf-note h4{font-size:15px;color:var(--navy);margin:0 0 6px}
+.ctf-note p{margin:0;font-size:14px;color:var(--mut)}
+
+/* iccae stats */
+.iccae{background:var(--navy);color:#fff}
+.iccae .sec-title{color:#fff}
+.iccae .sec-sub{color:#AEB8D0}
+.defn{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.defn .d{background:#15223F;border:1px solid #243457;border-radius:10px;padding:22px}
+.defn .d .k{font-family:var(--disp);font-weight:800;font-size:30px;color:#fff;text-transform:uppercase}
+.defn .d .k span{color:#6E8AD6}
+.defn .d .n{font-weight:700;margin:2px 0 8px;color:#DCE3F4}
+.defn .d p{margin:0;color:#A9B4D0;font-size:14.5px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.stats .s{background:#15223F;border:1px solid #243457;border-radius:10px;padding:20px}
+.stats .s .big{font-family:var(--disp);font-weight:800;font-size:24px;color:#fff}
+.stats .s p{margin:6px 0 0;color:#A9B4D0;font-size:13.5px}
+
+/* pick a side */
+.sides{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.side{border:1px solid var(--line);border-radius:12px;padding:24px;background:#fff}
+.side.red{border-top:4px solid var(--garnet)}
+.side.blue{border-top:4px solid var(--blue)}
+.side.both{border-top:4px solid #6B4E9E}
+.side h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:22px;color:var(--navy)}
+.side .tag{font-size:14px;color:var(--mut);margin:6px 0 14px}
+.side ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.side li{position:relative;padding-left:20px;font-size:14.5px;color:#2A3346}
+.side li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--garnet)}
+.side.blue li::before{background:var(--blue)} .side.both li::before{background:#6B4E9E}
+
+/* bank */
+.bank{background:var(--bg)}
+.bankhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+.weekflag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--garnet);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--mut)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.ldot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.subhead{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:18px;color:var(--navy);letter-spacing:.03em;margin:40px 0 4px}
+.subhead .m{font-family:var(--body);font-weight:400;text-transform:none;font-size:14px;color:var(--mut);letter-spacing:0;display:block;margin-top:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.15s;display:flex;flex-direction:column;gap:9px}
+.card:hover{border-color:#C2CCDE;box-shadow:0 14px 30px -20px rgba(16,27,53,.35);transform:translateY(-2px)}
+.card .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card .num{font-family:var(--mono);font-size:12px;color:#AEB6C6}
+.card .lvl{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--mut)}
+.card .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--garnet)}
+.card h4{font-family:var(--disp);font-weight:800;font-size:21px;line-height:1.05;color:var(--navy)}
+.card p{margin:0;font-size:14px;color:var(--mut)}
+.card .open{margin-top:auto;font-size:13px;font-weight:600;color:var(--blue)}
+.pinned .card{background:linear-gradient(180deg,#fff, #fbfcff);border-color:#D7DEEC}
+
+/* runbook detail */
+.rb{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;margin-top:8px;max-width:820px}
+.rb .back{background:none;border:0;color:var(--blue);font:inherit;font-weight:600;cursor:pointer;padding:0;margin-bottom:18px}
+.rb .meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:13px;color:var(--mut)}
+.rb .meta .num{font-family:var(--mono);color:#AEB6C6}
+.rb .meta .tag{font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--garnet)}
+.rb h3.name{font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(28px,4vw,38px);line-height:1.02;color:var(--navy);margin:12px 0 10px}
+.rb .why{font-size:17px;color:#2A3346;margin:0 0 20px}
+.rb .note{background:#FFF6E9;border:1px solid #F0D9AE;border-radius:9px;padding:13px 16px;font-size:14px;color:#6B4F17;margin-bottom:24px}
+.rb .note b{color:#5A3E0C}
+.rb .blocktitle{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:16px;letter-spacing:.04em;color:var(--navy);margin:26px 0 12px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:st;display:flex;flex-direction:column;gap:10px}
+.step{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.step .hd{display:flex;gap:12px;align-items:flex-start}
+.step .n{font-family:var(--mono);font-size:13px;color:#fff;background:var(--navy);min-width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.step .tx{font-size:15.5px;color:var(--ink)}
+.step .toggle{background:none;border:0;color:var(--blue);font:inherit;font-weight:600;font-size:13.5px;cursor:pointer;padding:0;margin:10px 0 0 38px}
+.detail{margin:12px 0 2px 38px;display:flex;flex-direction:column;gap:9px}
+.detail .pz{font-size:14px;color:#39435A}
+.detail .cmd{font-family:var(--mono);font-size:13px;background:var(--term);color:#D7DEF0;border-radius:8px;padding:12px 14px;white-space:pre-wrap;word-break:break-word;overflow:auto}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skills .sk{background:#EEF2FA;border:1px solid #DCE4F2;color:#2C3858;border-radius:999px;padding:6px 13px;font-size:13px}
+.proof{display:flex;flex-direction:column;gap:14px}
+.proof .p{border:1px solid var(--line);border-radius:10px;padding:16px}
+.proof .p .lab{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.proof .p .lab h5{margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.proof .copy{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.proof .copy.done{background:#2E7D52}
+.proof .val{font-size:14.5px;color:#2A3346;white-space:pre-wrap}
+.proof .hint{font-size:12.5px;color:var(--mut);margin:0 0 8px}
+.whybox{background:#F3F6FC;border:1px solid #DDE6F4;border-radius:10px;padding:16px;font-size:14.5px;color:#39435A}
+.pastbar{margin-top:28px;text-align:center}
+.pastlink{background:none;border:1px solid var(--line);border-radius:999px;padding:10px 22px;font:inherit;font-weight:600;font-size:14px;color:var(--navy);cursor:pointer}
+.pastlink:hover{border-color:var(--blue);color:var(--blue)}
+.pastback{background:none;border:0;color:var(--blue);font:inherit;font-weight:600;cursor:pointer;padding:0;margin:0 0 4px}
+.empty{border:1px dashed #C7D0E0;border-radius:12px;padding:44px 24px;text-align:center;margin-top:18px;background:#fff}
+.empty h4{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:20px;color:var(--navy);margin:0 0 8px}
+.empty p{margin:0 auto;max-width:48ch;color:var(--mut);font-size:14.5px}
+.iv{display:flex;flex-direction:column;gap:13px}
+.iv .ivq{border-left:3px solid var(--blue);padding:3px 0 3px 14px}
+.iv .q{margin:0 0 5px;font-weight:700;color:var(--navy);font-size:15px}
+.iv .a{margin:0;color:#39435A;font-size:14.5px}
+.report{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--mut)}
+.report a{color:var(--blue)}
+
+/* join */
+.join .meet{display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:var(--navy);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:30px}
+.join .meet .flag{font-family:var(--mono);font-size:12px;letter-spacing:.16em;background:var(--garnet);padding:6px 12px;border-radius:5px}
+.join .meet .when{font-family:var(--disp);font-weight:800;font-size:22px;text-transform:uppercase}
+.join .meet .room{color:#AEB8D0;font-size:15px}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px 0 30px}
+.steps3 .s{border:1px solid var(--line);border-radius:12px;padding:22px}
+.steps3 .s .n{font-family:var(--disp);font-weight:900;font-size:34px;color:var(--garnet);line-height:1}
+.steps3 .s h4{font-size:16px;color:var(--navy);margin:8px 0 6px}
+.steps3 .s p{margin:0;font-size:14px;color:var(--mut)}
+.join .cta{display:flex;flex-wrap:wrap;gap:12px}
+
+/* footer */
+footer{background:var(--navy);color:#C4CCDD;padding:54px 0 30px}
+.fcols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+footer h3{color:#fff;font-size:15px;margin:0 0 14px}
+footer p{margin:0;font-size:14px;color:#AEB8D0}
+footer ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px}
+footer a{color:#C4CCDD;text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+.fbar{border-top:1px solid #25365C;margin-top:34px;padding-top:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px}
+.fbar p{font-size:13.5px;color:#9AA6C0}
+
+@media(max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;gap:34px;padding-top:40px}
+  .defn,.stats,.sides,.steps3,.fcols{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .topnav{display:none}
+  .sec{padding:54px 0}
+  .rb{padding:22px}
+}
+@media(max-width:480px){
+  .hero .split{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .step .toggle,.detail{margin-left:0}
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="#top"><span class="mark"></span>IC CAE Cyber</a>
+  <nav class="topnav">
+    <a href="#about">About</a>
+    <a href="#sides">Red / Blue</a>
+    <a href="#bank">The Bank</a>
+    <a href="#join">Join</a>
+  </nav>
+</div></header>
+
+<a id="top"></a>
+<section class="hero"><div class="wrap">
+  <div>
+    <p class="eyebrow">IC CAE Cybersecurity Club · SC State University</p>
+    <h1><span class="g">GARNET</span> &amp; <span class="b">BLUE</span></h1>
+    <p class="lede">SC State's colors happen to be the two sides of cybersecurity. We're the campus club that trains on both.</p>
+    <div class="split">
+      <div class="p"><h4>Garnet — red team</h4><p>Attack systems you have permission to attack, and find the gaps before anyone else does.</p></div>
+      <div class="p b"><h4>Blue — blue team</h4><p>Harden networks, watch the logs, and respond when something gets through.</p></div>
+    </div>
+    <div class="cta">
+      <a class="btn btn-garnet" href="#join">Join the club</a>
+      <a class="btn btn-ghost" href="#ctf">Try the flag challenge</a>
+    </div>
+  </div>
+  <div>
+    <div class="term" id="ctf">
+      <div class="term-bar">
+        <span class="dot" style="background:#FF5F57"></span>
+        <span class="dot" style="background:#FEBC2E"></span>
+        <span class="dot" style="background:#28C840"></span>
+        <span class="t">guest@scsu-cyber: ~</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
+      <div class="term-row">
+        <span class="prompt">guest@scsu:~$</span>
+        <input id="termInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="terminal input">
+        <button id="termRun">Run</button>
+      </div>
+    </div>
+    <div class="chips" id="chips"><span class="lbl">Quick</span></div>
+  </div>
+</div></section>
+
+<section class="sec" style="padding-bottom:0"><div class="wrap">
+  <div class="ctf-note">
+    <h4>Find the flag.</h4>
+    <p>A hidden file in this terminal holds an encoded flag. Find it, decode it, and submit it — that's a capture-the-flag challenge in miniature, the kind of thing we practice at meetings. Solved it? Screenshot the result and show an officer at the next meeting. Hint: hidden files start with a dot — start with <b>ls -a</b>.</p>
+  </div>
+</div></section>
+
+<section class="sec iccae" id="about"><div class="wrap">
+  <p class="eyebrow">What the name means</p>
+  <h2 class="sec-title">What IC CAE stands for</h2>
+  <p class="sec-sub">The name is long because it comes from a federal program. Here's the short version, and why it matters for your career.</p>
+  <div class="defn">
+    <div class="d"><div class="k">IC</div><div class="n">Intelligence Community</div><p>The federal agencies that collect and analyze intelligence for national security.</p></div>
+    <div class="d"><div class="k">CAE</div><div class="n">Centers of Academic Excellence</div><p>A program that partners with universities to prepare students for national security careers. SC State's Center of Excellence in Cybersecurity is a member.</p></div>
+  </div>
+  <div class="stats">
+    <div class="s"><div class="big">Since 2020</div><p>Based in the Department of Computer Science and Mathematics.</p></div>
+    <div class="s"><div class="big">25+ members</div><p>Active members, with room for more.</p></div>
+    <div class="s"><div class="big">CAE-CD to 2029</div><p>NSA and DHS designate SC State a National Center of Academic Excellence in Cyber Defense.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="sides"><div class="wrap">
+  <p class="eyebrow">How we train</p>
+  <h2 class="sec-title">Pick a side. Or both.</h2>
+  <div class="sides">
+    <div class="side red">
+      <h3>Red team</h3><div class="tag">Think like an attacker, inside a lab where it's legal.</div>
+      <ul><li>Capture-the-flag challenges</li><li>Web app attacks in a practice lab</li><li>Password cracking, and why long passwords win</li><li>Recon and open-source intelligence</li></ul>
+    </div>
+    <div class="side blue">
+      <h3>Blue team</h3><div class="tag">Keep systems running while someone tries to break them.</div>
+      <ul><li>Network hardening and firewall rules</li><li>Log analysis and traffic monitoring</li><li>Incident response drills</li><li>Cyber defense competitions against other schools</li></ul>
+    </div>
+    <div class="side both">
+      <h3>Both sides</h3><div class="tag">Everything the club was founded to do.</div>
+      <ul><li>Technical talks from people in the field</li><li>Hands-on workshops</li><li>Field trips</li><li>Programming contests</li></ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec bank" id="bank"><div class="wrap">
+  <div class="bankhead">
+    <div>
+      <p class="eyebrow">Build a portfolio</p>
+      <h2 class="sec-title">The bank</h2>
+      <p class="sec-sub">A growing library of cybersecurity projects you can actually do — each with the steps, the skills it proves, and ready-made résumé and LinkedIn write-ups. Tap one to open its runbook.</p>
+    </div>
+    <div class="weekflag" id="weekflag">WEEK OF —</div>
+  </div>
+  <div class="legend">
+    <span><i class="ldot" style="background:#0F1B35"></i>Essential</span>
+    <span><i class="ldot" style="background:#2E7D52"></i>Beginner</span>
+    <span><i class="ldot" style="background:#B7791F"></i>Intermediate</span>
+    <span><i class="ldot" style="background:#8E1B30"></i>Advanced</span>
+  </div>
+  <div id="bankView"></div>
+</div></section>
+
+<section class="sec join" id="join"><div class="wrap">
+  <div class="meet">
+    <span class="flag">NEXT MEETING</span>
+    <span class="when" id="meetWhen"></span>
+    <span class="room" id="meetRoom"></span>
+  </div>
+  <p class="eyebrow">Three steps</p>
+  <h2 class="sec-title">Join the club. No experience needed.</h2>
+  <div class="steps3">
+    <div class="s"><div class="n">1</div><h4>Come to a meeting</h4><p>Any major, any year. Bring a laptop if you have one.</p></div>
+    <div class="s"><div class="n">2</div><h4>Join the group chat</h4><p>Get reminders, slides, and practice links on GroupMe.</p></div>
+    <div class="s"><div class="n">3</div><h4>Pick a side</h4><p>Start with red, blue, or both. You can switch anytime.</p></div>
+  </div>
+  <div class="cta">
+    <a class="btn btn-garnet" href="https://groupme.com/join_group/109767668/8WQ9oDR2" target="_blank" rel="noopener">Get meeting reminders</a>
+    <a class="btn btn-ghost" href="mailto:nbookert@scsu.edu">Email the advisor</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fcols">
+    <div>
+      <h3>IC CAE Cybersecurity Club</h3>
+      <p>Department of Computer Science and Mathematics, South Carolina State University, Orangeburg, South Carolina.</p>
+    </div>
+    <div>
+      <h3>SC State links</h3>
+      <ul>
+        <li><a href="https://mcs.scsu.edu/">Computer Science and Mathematics</a></li>
+        <li><a href="https://mcs.scsu.edu/cybersecurity/">Center of Excellence in Cybersecurity</a></li>
+        <li><a href="https://scsu.edu/academics/programs/cybersecurity.php">Cybersecurity degree</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Follow the club</h3>
+      <ul><li><a href="https://groupme.com/join_group/109767668/8WQ9oDR2" target="_blank" rel="noopener">GroupMe</a></li></ul>
+    </div>
+  </div>
+  <div class="fbar">
+    <p>© 2026 IC CAE Cybersecurity Club at South Carolina State University. Student-run.</p>
+    <p>Site built and maintained by <a href="https://github.com/dezdickey" target="_blank" rel="noopener">Desmond Dickey</a>.</p>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ---- editable club details (update these as they change) ---- */
+var MEETING = { tba: true, day: 'Wednesday, October 7', time: '5:00 PM', room: 'Room 228' }; // set tba:false and fill day/time/room when a date is known
+var GROUPME = 'https://groupme.com/join_group/109767668/8WQ9oDR2';
+
+/* ---- runbook data (same content as reviewed) ---- */
+var push = 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.';
+var PROJECTS = [
+      {
+        id: 'gh-account', setup: true, level: 'Essential', tag: 'Set up once',
+        name: 'Create a GitHub account',
+        one: 'Your projects need a home. This is it.',
+        whyBox: 'Recruiters really do look here. A GitHub with a few clean projects says more than a line on a resume. Once this is set up, the portfolio runbook shows you how to fill it.',
+        steps: [
+          { text: 'Go to github.com and sign up for a free account.', detail: [
+            'Open github.com and click Sign up at the top right.',
+            'Enter an email you check and create a strong password; you will pick a username next.',
+            'GitHub emails you a code, and you enter it right there to verify your email and finish signing up; it is part of the flow, not a later step.',
+            'Complete the "verify you are human" puzzle if it appears.',
+            'The free plan is the default and is all you need; do not pay for anything.',
+            'Success: you land on your new GitHub dashboard.'
+          ] },
+          { text: 'Pick a professional username. Your name or initials beats a gamertag.', detail: [
+            'Your username becomes your profile address and part of every repo link, so treat it like something that goes on a resume.',
+            { cmd: 'github.com/your-username' },
+            'Good choices are your name or initials, like firstlast or f-last. Avoid gamertags and random-looking numbers.',
+            'Rules: letters, numbers, and single hyphens only, up to 39 characters, and it cannot start or end with a hyphen.',
+            'Changing it later breaks all your old links, so pick one you can keep now.',
+            'Success: GitHub tells you the username is available before you continue.'
+          ] },
+          { text: 'Add a profile photo and a one-line bio that says you study cybersecurity at SC State.', detail: [
+            'Click your avatar at the top right, choose Your profile, then Edit profile.',
+            'Add a clear photo of your face (a plain headshot is fine) and your real name.',
+            'In Bio, write one line like "Cybersecurity student at South Carolina State University."',
+            'A recruiter who lands here should know who you are in a few seconds.',
+            'Success: your profile page shows your photo, name, and bio.'
+          ] },
+          { text: 'Turn on two-factor authentication to secure the account.', detail: [
+            'As a security student, locking down your own accounts comes first, and GitHub now requires 2FA for many contributors anyway.',
+            'Go to Settings, Password and authentication, and enable two-factor authentication.',
+            'An authenticator app (like Google Authenticator or Authy) is more secure than text-message codes.',
+            'Save the recovery codes it gives you somewhere safe; they are how you get back in if you lose your phone.',
+            'Success: your account shows two-factor authentication as on.'
+          ] },
+          { text: 'Star or follow a few security projects so your feed is useful.', detail: [
+            'Search for a tool or topic you are curious about and click Star on a repo you like; starred repos are easy to find again and show what you are into.',
+            'Follow a few security people or organizations so your home feed surfaces real work.',
+            'This also makes your profile look active instead of empty.',
+            'Success: your profile shows a few stars and you are following at least a couple of accounts.'
+          ] }
+        ],
+        skills: ['Professional presence', 'Version control basics']
+      },
+      {
+        id: 'li-account', setup: true, level: 'Essential', tag: 'Set up once',
+        name: 'Create a LinkedIn account',
+        one: 'Where a lot of internships actually start.',
+        whyBox: 'Plenty of internships come through LinkedIn before they are posted anywhere else. You do not need to be an influencer, just findable, with a clear photo and headline.',
+        steps: [
+          { text: 'Sign up at linkedin.com with your school or personal email.', detail: [
+            'Go to linkedin.com and click Join now. A personal email is the safer choice — school email often stops working after you leave or transfer.',
+            'Use your real first and last name. This is a professional identity employers search, not a username or handle.',
+            'Enter the code LinkedIn emails you to verify the account.',
+            'Success: you can log in and see your new (mostly empty) profile.'
+          ] },
+          { text: 'Add a clear, plain photo.', detail: [
+            'On your profile, click the camera or photo icon on the circular avatar, upload a picture, adjust the crop, and save.',
+            'Keep it simple: your face centered, decent light, a plain background. A phone photo against a wall is fine — no suit, sunglasses, or heavy filters needed.',
+            'This matters more than it sounds: profiles with a photo get far more views, and a blank avatar reads as abandoned.',
+            'Success: your photo shows at the top of your profile.'
+          ] },
+          { text: 'Write a headline that says what you are.', detail: [
+            'The headline is the line under your name, and it follows you everywhere you appear on LinkedIn, so it does a lot of work.',
+            'Click the pencil on your intro section and replace the default (LinkedIn pre-fills a job title) with something like: Cybersecurity student at South Carolina State University.',
+            'You can add your focus to make it memorable: ... | interested in network and infrastructure defense.',
+            'Success: your name is followed by a clear student headline, not a blank or a stray job title.'
+          ] },
+          { text: 'Fill in your education, and add skills as you earn them from the bank.', detail: [
+            'Click Add profile section, then Education: add South Carolina State University, your degree (for example B.S. in Cybersecurity), and your dates.',
+            'Then Add profile section, Skills: recruiters filter candidates by these. Add one each time a runbook earns it — after the Nmap project add Network Scanning, after the phishing project add Phishing Analysis, and so on.',
+            'As you build your GitHub portfolio, add its link under Contact info (see the Start a security portfolio runbook) so your projects are one click away.',
+            'Success: your profile shows SC State under Education and a few relevant skills listed.'
+          ] },
+          { text: 'Connect with classmates and the club, and follow a few security pages.', detail: [
+            'Connect with classmates, club members, and professors — people who actually know you. Passing 50 or so connections noticeably widens your reach on the platform.',
+            'Follow a few security pages so your feed stays relevant and you show up as active: think CISA, SANS, and a couple of companies you would want to work for.',
+            'Keep it professional: you do not have to accept every stranger, and do not post anything you would not want a recruiter to read.',
+            'Success: you have a handful of real connections and follow a few security pages.'
+          ] }
+        ],
+        skills: ['Professional presence', 'Networking']
+      },
+      {
+        id: 'homelab', level: 'Beginner', tag: 'Foundations',
+        name: 'Build a cybersecurity home lab',
+        one: 'Spin up isolated virtual machines so you can break things safely.',
+        why: 'Almost every other project in the bank runs inside a lab. Build it once and reuse it all semester. Give yourself an afternoon the first time.',
+        steps: [
+          { text: 'Install VirtualBox (free) on your laptop or desktop.', detail: [
+            'Open virtualbox.org and download the build for your operating system: Windows hosts, macOS hosts, or Linux.',
+            'Run the installer and accept the defaults. On Windows, allow the network driver it installs when prompted.',
+            'From the same page, download the VirtualBox Extension Pack, then add it in VirtualBox under File, Tools, Extension Pack Manager.',
+            'Success: launch VirtualBox once and you should see the VirtualBox Manager open with an empty machine list.',
+            'On an Apple Silicon Mac, VirtualBox support is limited; UTM is a solid free alternative that runs the same kind of images.'
+          ] },
+          { text: 'Download Kali Linux and one target, like Metasploitable 2 or a TryHackMe box.', detail: [
+            'For Kali, go to kali.org/get-kali and choose the Virtual Machines tab, then the VirtualBox image. This is a prebuilt VM, not the installer ISO, and it saves hours.',
+            'The Kali VirtualBox download is a 7-Zip archive (.7z). Extract it (7-Zip on Windows, Keka on macOS) to get a folder that contains a .vbox file.',
+            'In VirtualBox, choose Machine, Add, and select that .vbox file. (Use File, Import Appliance only if your download is a .ova instead.)',
+            { cmd: 'Default Kali login:  kali / kali' },
+            'For the target, download Metasploitable 2 from its official SourceForge page, or skip the download and use a beginner TryHackMe room in your browser.',
+            { cmd: 'Default Metasploitable login:  msfadmin / msfadmin' },
+            'Success: Kali, and your target, show up in the VirtualBox machine list. Only ever download these images from the official project sites.'
+          ] },
+          { text: 'In VirtualBox, put both VMs on a host-only network so the lab cannot reach the internet or your real network.', detail: [
+            'Open File, Tools, Network Manager, go to the Host-only Networks tab, and click Create. This makes a private network, usually 192.168.56.0/24.',
+            'For each VM, open Settings, Network, Adapter 1, set Attached to: Host-only Adapter, and pick the network you just created.',
+            'Success: in both VMs, Settings, Network, Adapter 1 shows the same host-only network.',
+            'Now the two VMs can talk to each other but not to the internet or your real Wi-Fi.',
+            'If you want Kali to reach the internet to update its tools, add a second adapter set to NAT, and keep all attacks on the host-only one.'
+          ] },
+          { text: 'Boot both, log in, and confirm Kali can ping the target\u2019s IP address.', detail: [
+            'Start both VMs.',
+            'On Kali, open a terminal and find its address on the host-only interface (often eth0 or eth1).',
+            { cmd: 'ip a' },
+            'On the target, log in and find its address on the host-only network, and write that address down.',
+            { cmd: 'ifconfig' },
+            'ifconfig works on Metasploitable 2; on a newer target, use ip a instead.',
+            'From Kali, ping the target address you just found. The example below uses the typical Metasploitable address, 192.168.56.101; use whatever your target actually showed.',
+            { cmd: 'ping -c 4 192.168.56.101' },
+            'Success: four replies means they can see each other. No replies usually means one adapter is on the wrong network, so re-check that both VMs use the same host-only network.'
+          ] },
+          { text: 'Take a snapshot of each VM so you can undo any experiment instantly.', detail: [
+            'Select a VM (ideally powered off), open its Snapshots view, and click Take.',
+            'Name it clean install so you know it is the pristine state.',
+            'Success: the snapshot appears in the Snapshots list with your name on it.',
+            'After any messy experiment, select that snapshot and click Restore to roll back in seconds.',
+            'Snapshots are not backups; they live inside the same VM file, so keep the original download too.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'Before you shut the VMs down, take a screenshot of the successful ping output.',
+            'In your cybersecurity-projects repo, add a folder named home-lab.',
+            'Write a README.md: what you built (VirtualBox, Kali, a target, on a host-only network), that ping screenshot, and one thing you learned.',
+            'Commit and push it:',
+            { cmd: 'git add .\ngit commit -m "Add home lab writeup"\ngit push' }
+          ] }
+        ],
+        skills: ['Virtualization', 'Network isolation', 'Linux basics', 'Safe test environments'],
+        resume: 'Built an isolated virtual lab (VirtualBox, Kali Linux, host-only networking) to safely practice offensive and defensive security techniques.',
+        linkedin: 'Set up my first cybersecurity home lab this week: Kali and a target VM on an isolated network, with snapshots so I can break things and roll back. Small step, but now I have a safe place to actually practice instead of just reading. #cybersecurity #homelab',
+        prompt: 'I am a cybersecurity student. I built a home lab: VirtualBox with Kali Linux and a vulnerable target VM on an isolated host-only network, using snapshots. Here is what I actually did and ran: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about the skills this shows. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'ctf', level: 'Beginner', tag: 'Offense \u00b7 CTF',
+        name: 'Build a CTF track record',
+        one: 'Solve a set of beginner hacking puzzles and rack up a score you can cite.',
+        why: 'Capture the flag is how a lot of people fall for this field. One challenge is a nice afternoon; a track record across categories is a resume line.',
+        steps: ['Make a free account at picoCTF.org and open the picoGym practice area at play.picoctf.org/practice.', 'Start with a one-star General Skills challenge to learn the ropes.', 'Work through several challenges across at least two categories; General Skills, Forensics, and Cryptography are good first ones.', 'Use the hints when you are stuck. They are there to teach, not to cheat.', 'Keep a note for each solve: the challenge, its category, and how you cracked it.', 'Check your picoGym score so you have a number to point to.', push],
+        skills: ['Problem solving', 'Cryptography basics', 'Forensics basics', 'Persistence'],
+        resume: 'Solved multiple capture-the-flag challenges on picoCTF across several categories (general skills, forensics, cryptography); tracked solutions and score.',
+        linkedin: 'Been grinding picoGym this week and cleared challenges across a few categories; general skills, forensics, a bit of crypto. Watching the score climb as the puzzles finally click is weirdly addictive. #cybersecurity #CTF',
+        prompt: 'I am a cybersecurity student. I worked through multiple picoCTF challenges across several categories (general skills, forensics, cryptography) and tracked my score. Here is what I solved and how: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about the skills this shows. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'harden', level: 'Intermediate', tag: 'Defense \u00b7 Blue team',
+        name: 'Harden a Linux server',
+        one: 'Lock down a fresh server the way a real sysadmin would.',
+        why: 'Defending infrastructure is a whole career lane. This is the starter move.',
+        steps: ['Spin up a fresh Linux VM in your lab, or a free-tier cloud server.', 'Create a non-root user with sudo, and stop logging in as root.', 'Set up SSH key login, then disable password login in the SSH config.', 'Turn on the host firewall (UFW) and allow only the ports you need.', 'Install fail2ban and enable automatic security updates.', 'Run a Lynis audit and fix the easy wins it flags.', push],
+        skills: ['Linux administration', 'SSH key auth', 'Host firewalls', 'System hardening'],
+        resume: 'Hardened a Linux server with key-based SSH, host firewall (UFW), fail2ban, and automated patching; verified posture with a Lynis audit.',
+        linkedin: 'Spent this week hardening a Linux box: SSH keys only, firewall locked down, fail2ban watching for brute force, auto-updates on. Ran a Lynis audit at the end to check my work. Defense is detail work and I am here for it. #cybersecurity #blueteam #linux',
+        prompt: 'I am a cybersecurity student focused on network and infrastructure defense. I hardened a Linux server. Here is exactly what I configured: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a blue-team or sysadmin role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'wireshark', level: 'Beginner', tag: 'Defense \u00b7 Networking',
+        name: 'Read your own network traffic',
+        one: 'Capture live packets and see what your devices are really saying.',
+        why: 'Network analysis is a core skill for defenders. Seeing it beats reading about it.',
+        steps: [
+          { text: 'Install Wireshark and start a capture on your active network interface.', detail: [
+            'Download Wireshark from wireshark.org/download and run the installer.',
+            'On Windows, accept the Npcap install it offers; Wireshark needs it to capture traffic. If Wireshark later shows no interfaces, close it and reopen it as Administrator.',
+            'On macOS, during install run the included Install ChmodBPF step; without it Wireshark opens but shows no interfaces to capture on.',
+            'On Linux, install Wireshark. When the blue setup dialog asks whether non-superusers should be able to capture, choose Yes.',
+            { cmd: 'sudo apt install wireshark' },
+            'Then add yourself to the wireshark group, and log out and back in so it takes effect.',
+            { cmd: 'sudo usermod -aG wireshark $USER' },
+            'Open Wireshark; you will see a list of network interfaces, each with a small live traffic graph.',
+            'Double-click your active interface, the one with moving traffic (usually Wi-Fi or Ethernet), to start capturing.',
+            'Success: packets start scrolling in the main window.'
+          ] },
+          { text: 'Load a web page, then stop the capture.', detail: [
+            'With the capture running, open your browser and load one site. Pick one you have not visited in a while, so your computer does a fresh DNS lookup; a recently visited site may be cached and will not show one.',
+            'Keep it to a single site so the capture stays small and readable.',
+            'Click the red square Stop button to stop capturing.',
+            'Success: the list stops growing and you have a finite set of packets to examine.',
+            'Capturing your own traffic on your own machine is fine. Do not capture on networks you do not own; on public or campus Wi-Fi it can break the rules.'
+          ] },
+          { text: 'Filter for dns and find the lookup for the site you visited.', detail: [
+            'In the filter bar at the top, type dns and press Enter. This shows only DNS packets, the lookups that turn a name like example.com into an IP address.',
+            { cmd: 'dns' },
+            'Find the query for the site you visited (it reads Standard query, then A for an IPv4 address or AAAA for IPv6, then the domain) and the response just below it with the answer.',
+            'Success: you can see your computer ask for the site\u2019s IP address and the DNS server answer.'
+          ] },
+          { text: 'Filter for tcp and spot the three-way handshake (SYN, SYN-ACK, ACK).', detail: [
+            'Clear the filter, then type tcp to see TCP packets, or use tcp.flags.syn==1 to jump straight to the start of connections.',
+            { cmd: 'tcp.flags.syn==1' },
+            'Look for three packets in a row that open a connection: one marked [SYN], one [SYN, ACK], and one [ACK]. That is the three-way handshake every TCP connection starts with.',
+            'Success: you can point at the SYN, SYN-ACK, and ACK that open a connection.'
+          ] },
+          { text: 'Right-click a packet and Follow TCP Stream to see the conversation.', detail: [
+            'Right-click any packet in a connection and choose Follow, then TCP Stream.',
+            'Wireshark stitches the whole back-and-forth into one window: what your computer sent and what the server sent back.',
+            'On a normal HTTPS site this looks like scrambled text, and that is the lesson: it is encrypted (TLS), so you can see that a conversation happened and how big it was, but not its contents.',
+            'If you want to actually read a request and reply, run the capture again while you load a plain http:// site, for example neverssl.com, which intentionally serves unencrypted HTTP. Then the stream shows the real text.',
+            'Close that window, then clear the filter it set (click the X in the filter bar) to see all packets again.',
+            'Success: you saw one connection\u2019s full conversation in a single window.'
+          ] },
+          { text: 'Note one thing that surprised you and why.', detail: [
+            'Scroll through your capture and find one thing you did not expect.',
+            'Common surprises: how many different servers a single page visit talks to (ads, trackers, CDNs), how much of the traffic is encrypted, or how chatty background apps are even when you are not doing anything.',
+            'Write down one observation and why it surprised you.',
+            'Success: you have one specific takeaway in your own words.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'Save your capture with File, Save As, as a .pcapng file, and screenshot the DNS lookup and the three-way handshake.',
+            'Important: a capture can contain personal data like cookies, tokens, and every site you touched. Do not commit the raw .pcapng to a public repo; publish only screenshots of the specific, harmless parts you are explaining.',
+            'In your cybersecurity-projects repo, add a folder named packet-analysis.',
+            'Write a README.md: what you captured, your DNS and handshake screenshots, what Follow TCP Stream showed, and the one thing that surprised you.',
+            'Commit and push it:',
+            { cmd: 'git add .\ngit commit -m "Add packet analysis writeup"\ngit push' }
+          ] }
+        ],
+        skills: ['Packet analysis', 'TCP/IP', 'Protocol knowledge', 'Wireshark'],
+        resume: 'Captured and analyzed live network traffic in Wireshark; identified DNS resolution and the TCP three-way handshake and followed full TCP streams.',
+        linkedin: 'Watched my own traffic in Wireshark this week and finally saw the TCP handshake instead of just reading about it. Networking clicks differently when you can see the packets. #cybersecurity #networking #wireshark',
+        prompt: 'I am a cybersecurity student interested in network defense. I analyzed live traffic in Wireshark. Here is what I captured and found: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about network analysis skills. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'phish', level: 'Beginner', tag: 'Defense \u00b7 Analysis',
+        name: 'Investigate a phishing email',
+        one: 'Pull apart a real phishing email and document what gives it away.',
+        why: 'Analysts do this every day. It trains your eye for what is off.',
+        note: 'Never open attachments or click links in a suspicious email. Inspect, do not interact.',
+        steps: [
+          { text: 'Grab a sample from your own spam or junk folder.', detail: [
+            'Use a real message from your own spam/junk folder — a fake invoice, an “account locked” warning, a prize. Do not go hunting the open web for live malware samples.',
+            'While you are in there, do not click any link or open any attachment. You are only selecting one to study.',
+            'Heads-up: opening the message may auto-load its images, which can quietly tell the sender your address is real. That is fine for a one-off study; just know it happens.',
+            'Success: you have one suspicious email picked out, nothing clicked and no attachment opened.'
+          ] },
+          { text: 'Open the raw message and view the full email headers.', detail: [
+            'The headers are the hidden routing info at the top of every email, and they are where the evidence is.',
+            'Gmail (web): open the email, click the three-dot menu at the top right of the message, choose Show original. It opens a new tab with the full headers and an SPF/DKIM/DMARC results table.',
+            'Outlook (web): open the message, click the three-dot menu, then View, then View message source.',
+            'Outlook desktop app: double-click the email to open it in its own window, then File, Properties, and read the Internet headers box at the bottom.',
+            'Apple Mail: select the message, then View menu, Message, Raw Source (or All Headers).',
+            'Success: you can see the full header block — lines such as Received:, From:, and Authentication-Results:.'
+          ] },
+          { text: 'Check the From address, the Reply-To, and whether SPF and DKIM passed.', detail: [
+            'From: compare the display name to the actual address in angle brackets. “PayPal” shown with an address like billing@random-domain.ru is a giveaway.',
+            'Reply-To: if it is present and differs from the From address, your reply would go somewhere else. That is a classic flag.',
+            'Authentication-Results: find spf=, dkim=, and dmarc= and note whether each says pass or fail. Gmail’s Show original shows these as a small PASS/FAIL table at the top.',
+            'Important: a pass does not mean the email is legitimate — an attacker can pass SPF and DKIM on their own lookalike domain. A fail is a strong red flag; a pass is just not a red flag, not a clearance.',
+            'Success: you have recorded the From, the Reply-To, and the SPF/DKIM/DMARC results.'
+          ] },
+          { text: 'Get the link safely, defang it, and inspect it with urlscan.io or VirusTotal — never visit it.', detail: [
+            'Read the link without clicking: hover over it and read the real address in the status bar, or find the href in the raw source you opened.',
+            'Defang it so no one can click it by accident: change http to hxxp and wrap the dots in brackets, for example hxxps://secure-login[.]bad-site[.]com.',
+            'To see where it actually goes, paste the real (not defanged) URL into urlscan.io, which visits it in a sandbox for you, or VirusTotal, which checks it against many scanners. You never open it yourself.',
+            'Privacy caution: submissions to both tools can be visible to others — public urlscan scans are searchable by anyone, and URLs you submit to VirusTotal are shared with its community — and phishing links often carry your email address as a tracking token. If the URL contains your email or a long token, use urlscan’s unlisted/private option and strip the token before submitting.',
+            'Success: you know the real destination domain and what the scanner reported, without ever visiting the link.'
+          ] },
+          { text: 'List the indicators that give it away.', detail: [
+            'Pull your findings into one list — analysts call these IOCs, indicators of compromise. Each one should point to the evidence you saw.',
+            'Common indicators: a From/display-name mismatch, a differing Reply-To, SPF/DKIM/DMARC failures, a destination domain that is not the brand it claims, and urgency or threats (“your account closes in 24 hours”).',
+            'Also note lookalike-domain tricks: swapped characters (paypa1.com, micros0ft.com) and subdomain bait where the real domain is at the end (paypal.com.secure-login.ru is the ru domain, not paypal).',
+            'Generic greetings (“Dear customer”) and risky attachment types (.html, .zip, a .docx asking you to enable macros) count too.',
+            'Success: a written list of concrete indicators, each tied to what you saw in the message.'
+          ] },
+          { text: 'Write a short one-page report on why it is phishing.', detail: [
+            'Structure it: a one-line verdict (phishing, and how confident), the indicators with their evidence, the defanged URL and what urlscan/VirusTotal said, and a recommendation (delete and report it; the impersonated brand should be told).',
+            'Keep every URL defanged in the report, and redact your own email address and any personal tokens out of pasted headers.',
+            'Success: a one-page report someone could read and agree, from your evidence, that it is phishing.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'In your portfolio repo, add a folder named phishing-analysis and put your report in its README.md (see the Start a security portfolio runbook if you have not set the repo up yet).',
+            'Before you push, make this safe to be public: defang every URL (hxxp and [.]), remove your real email address and any tracking tokens from the headers you quote, and do not upload the raw .eml file or the attachment — that would be publishing a live link or live malware.',
+            'A cropped screenshot of the Show original auth-results table is fine, with personal details blurred.',
+            'Browser path: open the folder on github.com, Add file, Create new file, name it phishing-analysis/README.md, paste the report, Commit. Or from a local clone:',
+            { cmd: 'git add .\ngit commit -m "Add phishing email analysis (sanitized)"\ngit push' },
+            'Success: the sanitized report is in your repo with no live links and no personal data, and you have linked it from your main README.'
+          ] }
+        ],
+        skills: ['Email header analysis', 'Threat intelligence', 'Indicator documentation', 'Reporting'],
+        resume: 'Analyzed phishing emails by inspecting headers, SPF/DKIM results, and URLs; documented indicators of compromise in a short investigative report.',
+        linkedin: 'Took apart a phishing email this week: headers, SPF, DKIM, the works, and wrote up what gave it away. Wild how much a message tells you once you know where to look. #cybersecurity #phishing #threatintel',
+        prompt: 'I am a cybersecurity student. I investigated a phishing email: I checked the headers, SPF and DKIM, and the URL (safely), and documented the indicators. Here are my findings: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a SOC or analyst role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'nmap', level: 'Beginner', tag: 'Foundations \u00b7 Recon',
+        name: 'Map your own network',
+        one: 'Discover every device on your network and what it is running.',
+        why: 'You cannot defend what you have not inventoried. This is where defenders start.',
+        note: 'Only ever scan networks and devices you own. Here, that means your own home network.',
+        steps: [
+          { text: 'Install nmap.', detail: [
+            'On Windows, download the installer from nmap.org/download and run it; accept the Npcap install it bundles, since nmap needs it to see the network.',
+            'On macOS, install it with Homebrew, or use the installer from nmap.org.',
+            { cmd: 'brew install nmap' },
+            'On Linux (and on Kali, where it is already installed), use your package manager.',
+            { cmd: 'sudo apt install nmap' },
+            'Success: nmap prints a version number.',
+            { cmd: 'nmap --version' }
+          ] },
+          { text: 'Find your own subnet (something like 192.168.1.0/24) with ipconfig or ip a.', detail: [
+            'You need your own address and subnet so you know what range to scan.',
+            'On Windows, look at the IPv4 Address and Subnet Mask of your active adapter.',
+            { cmd: 'ipconfig' },
+            'On Linux, show your adapters with ip a; on macOS, use ifconfig. Find the inet address of your Wi-Fi or Ethernet adapter.',
+            { cmd: 'ip a' },
+            { cmd: 'ifconfig' },
+            'A home network is usually 192.168.1.x or 192.168.0.x with mask 255.255.255.0, which is /24, so your range is something like 192.168.1.0/24.',
+            'Success: you can write down your own subnet in that form. This is the one network you are authorized to scan; do not scan anything else.'
+          ] },
+          { text: 'Run a host-discovery scan to list the live devices on your network.', detail: [
+            'A ping scan (-sn) finds which devices are up without port-scanning them. It is fast and polite. Use your own subnet from the last step.',
+            { cmd: 'nmap -sn 192.168.1.0/24' },
+            'Scanning a whole /24 can take a little while, so let it finish rather than stopping it.',
+            'Run your terminal as Administrator (Windows) or with sudo (Linux or macOS) so nmap can also show each device vendor.',
+            'Success: you get a list of live IP addresses, probably your router, your computer, phones, a TV, and so on.'
+          ] },
+          { text: 'Run a service scan on one device you own to see its open ports.', detail: [
+            'Start with your router; it almost always has open ports, so it is the best first target. Your router is usually the .1 or .254 address on your subnet, but use whatever your discovery scan actually showed.',
+            'A service scan (-sV) checks the common ports and identifies the service and version on each open one. Replace the address with your device.',
+            { cmd: 'nmap -sV 192.168.1.1' },
+            'This takes up to a minute per host, so let it finish rather than stopping it.',
+            'If the device does not answer pings but you know it is on, add -Pn to scan it anyway.',
+            'Success: you see a table of open ports with a service and version, for example 80/tcp open http, or 53/tcp open domain.',
+            'If a device shows all ports filtered and no services, that is a valid, good result; it usually means a well-locked-down machine (for example a laptop with its firewall on) that is not exposing anything. Try your router or another device next.',
+            'Scan only devices you own. Your router and your own computer are fine; a roommate\u2019s laptop is not.'
+          ] },
+          { text: 'Look up each service and note what it is and whether it should be open.', detail: [
+            'For each open port, note the service and whether you know why it is on.',
+            'Common ones: 22 SSH (remote login), 80 and 443 HTTP and HTTPS (web, like a router admin page), 53 DNS, 445 SMB (Windows file sharing).',
+            'Flags worth a second look: 23 Telnet (old and unencrypted), or SMB open on a device you did not set up.',
+            'Success: for every open port you can say what it is and whether it belongs there.'
+          ] },
+          { text: 'Build a simple inventory table of what is on your network.', detail: [
+            'Make a table with a row per device: device name, IP, what it is, open ports, and a notes column.',
+            'This is the real deliverable. Keeping an asset inventory is exactly what defenders do, because you cannot protect what you have not listed.',
+            'Success: the table covers every live host from your discovery scan.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'Save your scan output to a file so you have evidence, then screenshot your inventory table.',
+            { cmd: 'nmap -sn 192.168.1.0/24 -oN hosts.txt' },
+            'In your cybersecurity-projects repo, add a folder named network-map.',
+            'Write a README.md: your subnet, the host list, the service scan of one device, your inventory table, and one thing that surprised you.',
+            'This is your own network, so it is fine to publish, but you can rename personal devices (for example change a name like "Mia\u2019s iPhone" to just "phone") if you prefer.',
+            'Commit and push it:',
+            { cmd: 'git add .\ngit commit -m "Add network map writeup"\ngit push' }
+          ] }
+        ],
+        skills: ['Network enumeration', 'nmap', 'Asset inventory', 'Recon'],
+        resume: 'Performed authorized network discovery and service enumeration with nmap; produced an asset inventory of devices and exposed services.',
+        linkedin: 'Ran nmap on my own home network this week and found a couple of devices I forgot were even online. You cannot defend what you have not inventoried. (Only ever scan what you own.) #cybersecurity #nmap #networking',
+        prompt: 'I am a cybersecurity student. I did authorized recon on my own home network with nmap: host discovery and service enumeration, then built an inventory. Here is what I found: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points. Be specific, skip buzzwords, and note that all scanning was on a network I own.'
+      },
+      {
+        id: 'firewall', level: 'Advanced', tag: 'Defense \u00b7 Networking',
+        name: 'Build a firewall for your lab',
+        one: 'Put a real firewall between two networks and write the rules yourself.',
+        why: 'Segmenting networks and writing firewall rules is day-one infrastructure defense. This is the hands-on version.',
+        note: 'Keep this inside your lab. Do not put experimental rules on the network your dorm or family relies on.',
+        steps: ['In your home lab, download pfSense or OPNsense. Both are free.', 'Create a new VM for the firewall and give it two network adapters: one WAN and one LAN (an internal-only network).', 'Install the firewall and run the setup wizard, assigning the WAN and LAN interfaces.', 'Put a second VM on the LAN side and confirm it gets an IP from the firewall and can reach the internet through it.', 'Write a rule that blocks that VM from reaching one specific site or port, then test that it is blocked.', 'Open the firewall logs and find the entry where your rule dropped the traffic.', push],
+        skills: ['Firewall configuration', 'Network segmentation', 'Rule writing', 'pfSense / OPNsense'],
+        resume: 'Deployed a pfSense firewall in a virtual lab with separate WAN and LAN segments; authored and tested filtering rules and verified enforcement in the firewall logs.',
+        linkedin: 'Stood up a pfSense firewall in my lab this week: two segments, my own rules, and watched the logs catch the traffic I blocked. Controlling what is allowed to talk to what is the heart of network defense. #cybersecurity #networking #firewall',
+        prompt: 'I am a cybersecurity student focused on network and infrastructure defense. I built a pfSense firewall in my home lab with separate WAN and LAN segments and wrote filtering rules. Here is exactly what I set up and tested: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a network or infrastructure security role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'portfolio', level: 'Beginner', tag: 'Career',
+        name: 'Start a security portfolio on GitHub',
+        one: 'Turn the work you have already done into something an employer can see.',
+        why: 'Every project in this bank ends by pushing a write-up here, so this is the repo they all point at. Set it up well once.',
+        note: 'Never put real passwords, keys, or anything from a system you do not own into a public repo.',
+        steps: [
+          { text: 'Make a new public repository called something like cybersecurity-projects.', detail: [
+            'This assumes you already have a GitHub account. If not, do the Set up a professional GitHub account essential first.',
+            'On github.com, click New (the green button on your Repositories tab, or the + menu at the top right then New repository). Name it cybersecurity-projects — lowercase with a hyphen, since GitHub turns spaces into dashes anyway.',
+            'Set it to Public so employers can actually see it, and check Add a README file so the repo is not empty.',
+            'Click Create repository.',
+            'Open that main README (click the pencil icon on it) and write a line or two on what the repo is — your hands-on cybersecurity project write-ups — because this front page is the first thing a visitor sees. As you add projects, list them here with links.',
+            'Success: the repo exists at github.com/your-username/cybersecurity-projects and its front-page README says what it is.'
+          ] },
+          { text: 'For one project you have finished, add a folder with a README that explains what you did, how, and what you learned.', detail: [
+            'GitHub makes a folder from the file path, so you do this in one move. On the repo home, click Add file then Create new file.',
+            'In the name box type the folder and file together, for example nmap-scan/README.md (name the folder after whichever project you are adding). The slash creates the folder.',
+            'Write three short parts: what you did, how you did it, and what you learned. Reuse the write-up you already made at the end of that project.',
+            'Markdown basics: a line starting with # is a heading, a line starting with - is a bullet, and wrapping commands in a code block (three backticks on their own line above and below) keeps them readable.',
+            'Scroll down and click Commit changes.',
+            'If you would rather work from your computer (requires git installed), clone the repo, add the folder there, and push:',
+            { cmd: 'git clone https://github.com/your-username/cybersecurity-projects.git\ncd cybersecurity-projects\ngit add .\ngit commit -m "Add nmap-scan writeup"\ngit push' },
+            'Success: the folder shows on the repo home and your README renders when you click into it.'
+          ] },
+          { text: 'Include a screenshot or two, plus the commands or config you used.', detail: [
+            'Open your project folder on github.com, click Add file then Upload files, and drag the screenshot into that same folder (not the repo root). Crop or blur anything personal first — email addresses, real IPs you do not own, account names.',
+            'Show the screenshot in your README by adding a line like ![scan results](screenshot.png), using the real file name. The image has to be in the same folder as the README or the link shows as broken.',
+            'Working from a local clone instead? Drop the image file into the project folder, then git add, commit, and push it along with your README.',
+            'Paste the actual commands or config you used into a code block so someone could repeat your work.',
+            'Never paste real passwords, API keys, or anything pulled from a system you do not own into a public repo.',
+            'Success: your README shows the screenshot inline and lists the commands you ran.'
+          ] },
+          { text: 'Write a short profile README so visitors see who you are and what you focus on.', detail: [
+            'This is the intro panel at the top of your GitHub profile page, and it uses a special trick most people miss.',
+            'Create a brand-new repository whose name is exactly your username (for example, if you are github.com/jsmith, name the repo jsmith). GitHub will pop up a note that you found a special repo.',
+            'Make it Public and check Add a README file, then open that README.md and click the pencil icon to edit it (it opens with placeholder text you replace).',
+            'Write two or three lines: that you are a cybersecurity student, the area you focus on (for example network and infrastructure defense), and a link to your cybersecurity-projects repo. Then commit the change.',
+            'Success: visiting github.com/your-username shows your intro at the top of the page.'
+          ] },
+          { text: 'Add the repository link to your resume and LinkedIn.', detail: [
+            'Copy your repo URL: github.com/your-username/cybersecurity-projects.',
+            'On your resume, put it near your contact line or in a Projects section so a recruiter can click straight through.',
+            'On LinkedIn, add it under Contact info as your website, or pin it in your Featured section.',
+            'Success: someone reading your resume or LinkedIn can reach your work in one click.'
+          ] }
+        ],
+        skills: ['Technical writing', 'Documentation', 'Git and GitHub', 'Personal branding'],
+        resume: 'Maintain a public GitHub portfolio documenting hands-on cybersecurity projects with write-ups, configurations, and results.',
+        linkedin: 'Started a GitHub portfolio for my cybersecurity projects this week. Doing the work is step one; writing it up so other people can see it is step two. First project is up. #cybersecurity #portfolio #github',
+        prompt: 'I am a cybersecurity student. I started a public GitHub portfolio and wrote up my first project with a README, screenshots, and the configuration I used. Here is what the project was and what the write-up covers: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two sentences I can put at the top of my repo README. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'account-audit', level: 'Beginner', tag: 'Foundations \u00b7 Personal security',
+        name: 'Lock down your own accounts',
+        one: 'Secure your real accounts and write up what you found and fixed.',
+        why: 'The fastest way to understand attacks is to defend yourself first, and it is a real, talkable security task.',
+        note: 'When you write this up, describe the process and lessons, never your actual passwords or your exact breach exposure.',
+        steps: [
+          { text: 'Install a password manager (Bitwarden, Proton Pass, or 1Password) and set a strong master passphrase.', detail: [
+            'A password manager stores a different password for every site behind one master passphrase, so you only have to memorize one.',
+            'Bitwarden and Proton Pass both have genuinely free tiers and work everywhere; 1Password is polished but paid (free trial only), so start with a free one unless you want to pay. Install both the browser extension and the phone app.',
+            'Make the master passphrase long: four or five random words you can picture beat a short complex one.',
+            'If you forget the master passphrase, no one can recover it, that is the point, so write it down once and keep it somewhere physically safe until you have memorized it.',
+            'Success: you can unlock the manager on both your computer and your phone.'
+          ] },
+          { text: 'Turn on multi-factor authentication for your email first, then every account that offers it.', detail: [
+            'Multi-factor authentication (MFA) adds a second step after your password, so a stolen password alone is not enough to get in.',
+            'Start with your email, because whoever controls your email can reset the password on every other account.',
+            'Turn it on in your email account’s Security settings. An authenticator app like Google Authenticator or Authy beats text-message codes, since a SIM swap can let someone steal codes sent by text.',
+            'Then enable it on your other important accounts: bank, school, and anything tied to your money or identity.',
+            'Save each account’s backup or recovery codes in your password manager — except your email’s: keep those somewhere not locked behind that same email (printed, or another secure spot), so a lockout can’t trap you out of everything.',
+            'Success: logging into your email now asks for a code from your authenticator, not just a password.'
+          ] },
+          { text: 'Replace reused passwords with unique ones the manager generates.', detail: [
+            'Reusing one password means a single breach can unlock all of those accounts, so this is the highest-value fix.',
+            'Open the security or vault-health check in your manager; it flags reused and weak passwords.',
+            'For each flagged account, log in, go to change password, let the manager generate a long random one, and save it. Start with email, bank, and school, then work down.',
+            'Success: the manager’s health check shows few or no reused passwords left.'
+          ] },
+          { text: 'Check your email at haveibeenpwned.com to see where it has shown up in breaches.', detail: [
+            'Go to haveibeenpwned.com and enter your email to see which known breaches it has appeared in.',
+            'A hit does not mean you are hacked right now; it means that address, and maybe an old password, leaked somewhere, so any account still using that old password is at risk.',
+            'For any listed site where you reused a password, change it now (you may have already in the last step).',
+            'Optional: turn on Notify me so it emails you if your address shows up in a future breach.',
+            'Success: you have your list of breaches and have changed the password on any account still using a leaked one.'
+          ] },
+          { text: 'Write a one-page audit: what you changed, what kinds of gaps you found, and what you would tell a friend to do.', detail: [
+            'Summarize it: a password manager is in place, MFA is on for email and key accounts, reused passwords are replaced, and what your breach check turned up at a high level.',
+            'Add what surprised you and the one thing you would tell a friend to do first.',
+            'Keep it about the process and the lessons, not your actual passwords or the exact sites and breaches tied to you.',
+            'Success: you have a short write-up of what you hardened and why.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'This assumes you already have a portfolio repo. If you have not made one yet, do Start a security portfolio first, or just create a new repo on github.com right now (green New button).',
+            'Easiest path, entirely in the browser: open your repo on github.com, click Add file then Create new file, type account-security/README.md as the name, and paste your one-page audit in.',
+            'Write the audit in general terms: no real passwords, no exact breach names, and no list of your own affected accounts. If you add a screenshot, crop or blur anything personal like email addresses or account names.',
+            'If you prefer working from a local clone, add the folder and file there and push it:',
+            { cmd: 'git add .\ngit commit -m "Add account security audit writeup"\ngit push' },
+            'Success: the write-up is visible in your repo on github.com and you have a link to it.'
+          ] }
+        ],
+        skills: ['Account security', 'Multi-factor authentication', 'Threat awareness', 'Security writing'],
+        resume: 'Conducted a personal security audit: deployed a password manager, enabled MFA across accounts, remediated reused credentials, and documented findings in a one-page report.',
+        linkedin: 'Did a security audit on my own accounts this week: password manager, MFA everywhere, killed off every reused password, and checked my exposure in known breaches. Defending yourself is the best first lesson in defending anyone else. #cybersecurity #security',
+        prompt: 'I am a cybersecurity student. I ran a personal security audit: I set up a password manager, enabled MFA across my accounts, replaced reused passwords, and checked my breach exposure. Here is what I found and fixed (no personal secrets): [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about account security and MFA. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'ids', level: 'Advanced', tag: 'Defense \u00b7 Networking',
+        name: 'Catch an attack with an IDS',
+        one: 'Run an intrusion detection system and watch it flag a simulated attack.',
+        why: 'Detecting an attack in progress is the core of blue-team work, and this is a standout project for an infrastructure-defense internship.',
+        note: 'Only generate attack traffic against machines you own, inside your lab.',
+        steps: ['In your home lab, pick a Linux VM to act as the sensor and install Suricata.', 'Point Suricata at the VM network interface and load its default ruleset.', 'From your Kali VM, run a loud nmap scan against the sensor to generate traffic.', 'Open the Suricata logs (eve.json or fast.log) and find the alerts your scan triggered.', 'Write one custom rule, for example an alert on traffic to a specific port, and test it.', 'Document the alert: what fired, why, and what a defender would do next.', push],
+        skills: ['Intrusion detection', 'Suricata', 'Rule writing', 'Alert triage'],
+        resume: 'Deployed a Suricata intrusion detection system in a virtual lab; generated and detected attack traffic, authored a custom detection rule, and documented alert triage.',
+        linkedin: 'Set up Suricata in my lab this week and watched it light up the moment I scanned the sensor. Writing my own detection rule and seeing it fire was the moment detection finally clicked. #cybersecurity #blueteam #IDS',
+        prompt: 'I am a cybersecurity student focused on network and infrastructure defense. I deployed a Suricata IDS in my home lab, generated attack traffic from Kali, detected the alerts, and wrote a custom rule. Here is exactly what I did and what fired: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a SOC or blue-team role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'webapp', level: 'Intermediate', tag: 'Offense \u00b7 Web',
+        name: 'Hack a web app you are allowed to break',
+        one: 'Find real web vulnerabilities in an app built to be hacked.',
+        why: 'Web application security is one of the biggest hiring areas. OWASP Juice Shop lets you practice attacks legally, on your own machine.',
+        note: 'Only attack apps you own or are authorized to test. Juice Shop running on your own machine is yours.',
+        steps: ['Run OWASP Juice Shop locally with its one-line Docker command, or, if you cannot install Docker, use the hosted demo at demo.owasp-juice.shop (a sneak-peek instance with no guaranteed uptime).', 'Open it in your browser and use it like a normal customer first.', 'Open your browser developer tools and watch the requests the app makes.', 'Work through the built-in challenge list, starting with the one-star challenges.', 'Solve at least one injection challenge and one broken-access-control challenge.', 'Write up two flaws: what the bug was, how you exploited it, and how a developer would fix it.', push],
+        skills: ['Web app security', 'OWASP Top 10', 'Browser dev tools', 'Vulnerability write-ups'],
+        resume: 'Identified and exploited web vulnerabilities (injection, broken access control) in OWASP Juice Shop; documented each flaw with its impact and remediation.',
+        linkedin: 'Spent this week breaking OWASP Juice Shop, an app built to be hacked. Finding an injection bug myself and then understanding the fix taught me more about web security than any slide deck. #cybersecurity #appsec #owasp',
+        prompt: 'I am a cybersecurity student. I practiced web application security on OWASP Juice Shop, and solved injection and broken-access-control challenges. Here is what I found and how I exploited it: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for an application security role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'memory', level: 'Advanced', tag: 'Forensics \u00b7 Memory',
+        name: 'Investigate a memory image',
+        one: 'Pull evidence out of a computer\u2019s memory the way a forensics analyst does.',
+        why: 'Digital forensics and incident response is a high-demand lane, and memory analysis is a signature skill. It is a strong, uncommon project for a student.',
+        note: 'Only analyze memory images you captured yourself or are authorized to use, such as public practice samples.',
+        steps: ['Install Volatility 3 in your lab.', 'Download a public practice memory image; many CTFs and DFIR courses provide one.', 'List the running processes in the image and spot anything that looks out of place.', 'List the network connections the machine had open at the moment of capture.', 'Pull a suspicious process\u2019s details, including any command line it was launched with.', 'Write a short timeline: what the machine was doing and what you would flag for a responder.', push],
+        skills: ['Memory forensics', 'Volatility', 'Incident response', 'Evidence analysis'],
+        resume: 'Performed memory forensics with Volatility on practice images; enumerated processes and network connections and documented findings in an incident timeline.',
+        linkedin: 'Dug into a memory image with Volatility this week and pulled the running processes and open network connections out of a single snapshot of RAM. Forensics feels like detective work and I am hooked. #cybersecurity #DFIR #forensics',
+        prompt: 'I am a cybersecurity student. I did memory forensics with Volatility 3 on a practice memory image: I enumerated processes and network connections and flagged suspicious activity. Here is what I found: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a DFIR or SOC role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'logs', level: 'Beginner', tag: 'Defense \u00b7 Blue team',
+        name: 'Find the break-in in the logs',
+        one: 'Dig through real log files and spot the attack hiding in them.',
+        why: 'Reading logs is what a SOC analyst does all day. It is the most common entry-level cyber skill and a great first blue-team project.',
+        note: 'Use sample logs or your own machine\u2019s logs, never logs from a system you do not own.',
+        steps: [
+          { text: 'Grab an auth log: use a public sample log set, or your own Linux VM\u2019s /var/log/auth.log.', detail: [
+            'Recommended: download a public SSH brute-force log sample. It has real attacker IPs mixed in with normal traffic, which is what makes the find-the-attacker step actually teach something; a single localhost source does not.',
+            'A good source is the loghub dataset on GitHub, which includes an OpenSSH log (a file named something like OpenSSH_2k.log). In the commands below, use that filename wherever you see /var/log/auth.log, and you can drop sudo since it is your own downloaded file.',
+            'Hands-on extra: on the Linux VM from your home lab, generate your own failed logins. Make sure the SSH server is running, then try to log in as a user that does not exist a few times with wrong passwords.',
+            { cmd: 'sudo systemctl enable --now ssh' },
+            { cmd: 'ssh baduser@localhost' },
+            'Before moving on, confirm the attempts actually logged as Failed password. If this prints 0 (some setups refuse password logins), do not fight it, just use the public sample instead.',
+            { cmd: 'sudo grep -c "Failed password" /var/log/auth.log' },
+            'Success: your log (sample or your own) has Failed password lines to analyze; the count above is greater than 0.'
+          ] },
+          { text: 'Open it and read a few normal lines so you know what boring looks like.', detail: [
+            'The auth log is at /var/log/auth.log on Debian, Ubuntu, and Kali; on Red Hat or CentOS it is /var/log/secure. Reading the system log needs sudo; a downloaded sample does not.',
+            { cmd: 'sudo less /var/log/auth.log' },
+            'Scroll a few lines so you know what normal entries look like (logins, sudo, cron). Press q to quit.',
+            'If you are reading your own live log, new lines will not appear while less is open; that is normal, just reopen it for the latest.',
+            'Success: you can recognize ordinary lines, so the attack lines will stand out.'
+          ] },
+          { text: 'Use grep to pull every failed login, for example grep "Failed password" auth.log.', detail: [
+            'Filter the log for failed password attempts.',
+            { cmd: 'sudo grep "Failed password" /var/log/auth.log' },
+            'Each line shows the username someone tried and the IP it came from, right after the word from.',
+            'Success: you see Failed password lines, often many in a short span; that is brute forcing.'
+          ] },
+          { text: 'Count the attempts per source IP and find the one that tried over and over.', detail: [
+            'Pull the source IP out of each failed line, then count how many times each one appears, highest first. Anchoring on the word from grabs exactly the attacker address, not any other number on the line.',
+            { cmd: 'sudo grep "Failed password" /var/log/auth.log | grep -oP "from \\K[0-9.]+" | sort | uniq -c | sort -nr' },
+            'Each piece after a pipe does one job: grep -oP keeps just the address after the word from, sort groups them, uniq -c counts duplicates, and sort -nr puts the biggest count on top.',
+            'Success: with a real sample, one or a few IPs clearly stand out with far more failed attempts than the rest. Those are your attackers.'
+          ] },
+          { text: 'Check whether that same IP ever succeeded (grep "Accepted"). That is your break-in.', detail: [
+            'Look at everything the top IP did. Replace the address with the one you found at the top of the last step.',
+            { cmd: 'sudo grep "203.0.113.10" /var/log/auth.log' },
+            'An Accepted password line from that same IP, after all those failures, means the brute force worked. Only Failed lines means they were kept out.',
+            { cmd: 'sudo grep "Accepted password" /var/log/auth.log' },
+            'Success: you can say whether the attacker got in, and if so, into which account.'
+          ] },
+          { text: 'Write a short note: which account, which IP, how many tries, and when it got in.', detail: [
+            'Summarize what you found: the attacker IP, how many failed attempts, which usernames it tried, whether it ever succeeded and into which account, and the time window it happened in.',
+            'This is exactly what a SOC analyst writes up as an indicator after spotting a brute force.',
+            'Success: you have a short, factual incident note a teammate could act on.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'Save your key evidence: send the ranked IP counts to a file, and screenshot the attacker\u2019s lines.',
+            { cmd: 'sudo grep "Failed password" /var/log/auth.log | grep -oP "from \\K[0-9.]+" | sort | uniq -c | sort -nr > top-ips.txt' },
+            'In your cybersecurity-projects repo, add a folder named log-analysis.',
+            'Write a README.md: how you got the log, the command you used to rank IPs, the attacker IP and its attempt count, whether it succeeded, and your short incident note.',
+            'If you used a public sample you can publish freely. Do not publish raw logs from a real system; they can contain usernames and addresses you should not expose, so use snippets.',
+            'Commit and push it:',
+            { cmd: 'git add .\ngit commit -m "Add log analysis writeup"\ngit push' }
+          ] }
+        ],
+        skills: ['Log analysis', 'grep and the command line', 'Brute-force detection', 'Incident reporting'],
+        resume: 'Analyzed authentication logs to detect a brute-force attack: isolated failed logins by source IP, identified a successful compromise, and documented the timeline.',
+        linkedin: 'Spent this week reading auth logs and tracing a brute-force attempt down to the IP that finally got in. Reading logs sounds boring until you realize you are watching an attack replay in slow motion. #cybersecurity #blueteam #SOC',
+        prompt: 'I am a cybersecurity student. I analyzed authentication logs, found a brute-force attack by isolating failed logins per IP, and identified the IP that eventually succeeded. Here is what I found: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a SOC or blue-team role. Be specific and skip buzzwords.'
+      },
+      {
+        id: 'tabletop', level: 'Beginner', tag: 'Defense \u00b7 Incident response',
+        name: 'Run an incident-response tabletop',
+        one: 'Walk a pretend breach through the steps a real response team would take.',
+        why: 'Knowing the incident-response process matters as much as the tools. A tabletop is how real teams practice, and it is easy to run with a few friends.',
+        note: 'No hacking required. This is a discussion exercise you can run anywhere.',
+        steps: ['Pick a scenario, like an employee clicked a phishing link and their laptop is acting strange.', 'Learn the six NIST phases: preparation, detection and analysis, containment, eradication, recovery, and lessons learned.', 'Gather two or three people (club members work great) and walk the scenario through each phase out loud.', 'At each phase, write down who does what and what decision gets made.', 'Throw in one curveball midway, like a second machine is now affected.', 'Write a one-page after-action report: what went well, what was confusing, and what you would prepare in advance.', push],
+        skills: ['Incident response process', 'NIST IR framework', 'Decision-making', 'After-action reporting'],
+        resume: 'Facilitated an incident-response tabletop exercise mapped to the NIST IR lifecycle; documented roles, decisions, and after-action improvements.',
+        linkedin: 'Ran my first incident-response tabletop this week with a few club members. No hacking, just walking a fake breach through every phase and realizing how many decisions happen before anyone touches a keyboard. #cybersecurity #incidentresponse #blueteam',
+        prompt: 'I am a cybersecurity student. I facilitated an incident-response tabletop following the NIST incident-response phases, with a phishing scenario and a mid-exercise curveball, and wrote an after-action report. Here is what we covered and what I learned: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about incident response. Be specific and skip buzzwords.'
+      }
+    ];
+
+var INTERVIEW = {
+  'homelab': [{q:'Why did you put your lab VMs on a host-only network?', a:'So the vulnerable target VM cant reach the internet or my real home network. Anything I break or any malware stays sealed inside the lab instead of leaking out to the rest of my system.'}, {q:'What do VM snapshots give you?', a:'It’s a saved state I can roll back to instantly, so after I break or infect a box, I just restore the snapshot instead of rebuilding the whole VM.'}, {q:'Whats the difference between host-only, NAT, and bridged VM networking?', a:'Host-only keeps VMs talking only to each other and the host, with no internet. NAT gives them outbound internet through the host but nothing can reach them inbound. Bridged makes a VM look like a real device on your actual network. A security lab uses host-only so nothing leaks out.'}],
+  'nmap': [{q:'Whats the difference between a host-discovery scan and a service scan?', a:'Host discovery just finds which IPs are alive on the subnet, like taking an inventory of devices. A service scan then probes one hosts open ports to see what services and versions are running. You enumerate hosts first, then dig into specific ones.'}, {q:'Why does the idea that you cant defend what you havent inventoried matter?', a:'You can’t protect a device you don’t know is there. An open port on a forgotten machine is exactly what an attacker finds first, so an accurate inventory is the baseline — you can only patch, monitor, or firewall what you know exists.'}, {q:'Is it legal to run nmap against a network?', a:'Only on a network you own or have explicit written permission to test. Scanning someone elses network without authorization can be illegal, so in my project I only scanned my own home network.'}],
+  'wireshark': [{q:'Walk me through the TCP three-way handshake.', a:'SYN from the client to start the connection, SYN-ACK back from the server acknowledging and sending its own sequence number, then ACK from the client. After those three packets the connection is established and data can flow. I identified all three in my own capture.'}, {q:'What does Follow TCP Stream do, and why is it useful?', a:'It stitches all the packets from one TCP conversation back together, so instead of reading them one at a time I see the whole exchange — like an HTTP request and its response — as one readable conversation.'}, {q:'If you saw login credentials in plaintext in a capture, what would that tell you?', a:'That the traffic wasnt encrypted, for example plain HTTP instead of HTTPS. Its a real finding, because anyone on the network path could sniff that data, and the fix is to move the service to TLS or an encrypted protocol.'}],
+  'logs': [{q:'How did you detect a brute-force attempt in the logs?', a:'I used grep to pull every failed-login line from the auth log, then counted attempts per source IP. One IP with a ton of failures in a short window is the brute-force signature — that’s just many rapid password guesses against one account.'}, {q:'How do you tell an attempted break-in from a successful one?', a:'A success logs differently, like an Accepted password entry. If the same IP that had dozens of failures then shows an accepted login, thats the moment the brute force worked. Failures alone are an attempt; a following success means compromise.'}, {q:'You found a successful brute-force login. What do you do?', a:'Treat it as an incident: record the account, source IP, time, and attempt count, then lock or reset that account, block the IP, and recommend defenses like rate-limiting, key-based SSH, MFA, and fail2ban. Thats the write-up I produced.'}],
+  'account-audit': [{q:'Why does enabling MFA on your email matter most?', a:'Email is the reset point for every other account, so whoever controls it can trigger password resets everywhere. Securing email first with MFA means a stolen password alone cant cascade into all your other accounts.'}, {q:'Why are unique generated passwords better than one strong password reused everywhere?', a:'Reuse means a single breach unlocks every account sharing that password, which is how credential-stuffing attacks work. Unique passwords contain the damage to one site, and a password manager makes that practical because you dont have to remember them.'}, {q:'What does it mean if your email shows up on Have I Been Pwned?', a:'It means that address, and often an old password, appeared in a known data breach. It doesnt mean Im actively hacked, but any account still using that leaked password is at risk, so I rotate those right away.'}],
+  'portfolio': [{q:'Walk me through a project on your GitHub.', a:'I pick one repo and tell its story using the README structure: the goal, what I did, what I found, and one thing Id do differently. Having the write-up already there means I can speak to a real, specific project instead of generalities.'}, {q:'Why keep a public security portfolio as a student?', a:'Its evidence. Anyone can list skills on a resume, but a public repo of write-ups, configs, and results lets a hiring manager verify Ive actually done hands-on work, and GitHub is where they look.'}, {q:'Why does it matter what you push to a public repo?', a:'A public repo is visible to everyone, so real passwords, keys, internal IPs, or live malicious links would leak secrets or republish something dangerous. I redact personal data, defang URLs, and never commit raw captures, which shows I understand operational security.'}],
+  'phish': [{q:'What do SPF and DKIM tell you, and does passing them mean the email is legitimate?', a:'SPF checks that the sending server is authorized for the domain, and DKIM checks the message was signed by the domain and not altered. A fail is a strong red flag, but a pass does not mean legit, because an attacker can pass both on their own lookalike domain. Its one signal, not a verdict.'}, {q:'How do you investigate a suspicious link without putting yourself at risk?', a:'Never click it. I read the real destination from the raw header, defang it so no one clicks it by accident, and submit it to a sandbox or reputation service like urlscan.io or VirusTotal that visits it in isolation. I also strip any personal tokens before submitting.'}, {q:'What are the top indicators that an email is phishing?', a:'A sender or display-name mismatch, a Reply-To that differs from the From address, SPF/DKIM/DMARC failures, a destination domain that isnt the brand it claims, urgency or threats, generic greetings, and risky attachment types. I document those as indicators of compromise in a short report.'}],
+};
+
+var FEATURED = ['homelab','nmap','wireshark','logs','account-audit','portfolio','phish'];
+var ARCHIVED = []; // IDs rotated out of This week -> they appear under Past runbooks (browsable, never deleted). To rotate: move an id from FEATURED into ARCHIVED.
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function two(n){return (n<10?'0':'')+n;}
+function levelDot(l){var m={Essential:'#0F1B35',Beginner:'#2E7D52',Intermediate:'#B7791F',Advanced:'#8E1B30'};return m[l]||'#4A5570';}
+
+/* =================== TERMINAL =================== */
+var FLAG='flag{garnet_and_blue}';
+function intro(){return [
+  {kind:'out',text:'IC CAE Cybersecurity Club, SC State University'},
+  {kind:'out',text:'Type help and press Enter, or tap a quick command.'}
+];}
+function respond(cmd){
+  var parts=String(cmd).split(/\s+/);
+  var name=parts[0].toLowerCase();
+  var arg=parts.slice(1).join(' ').trim();
+  switch(name){
+    case 'help': return ['whoami      who you are right now','about       what this club is','meet        the next meeting','join        how to join','ls          list files (try ls -a)','cat FILE    print a file','submit X    submit a flag','clear       clear the screen'];
+    case 'whoami': return ['guest','Not a member yet. Run join to fix that.'];
+    case 'about': return ['Founded in 2020 in the Department of Computer Science and Mathematics.','We train on both sides: garnet for red team, blue for blue team.'];
+    case 'meet': return MEETING.tba
+      ? ['The next meeting is announced in the GroupMe.', 'Run join to get the link, or tap Get meeting reminders on the page.', 'Bring a laptop if you have one.']
+      : ['Next meeting: '+MEETING.day+', '+MEETING.time, 'Where: '+MEETING.room, 'Bring a laptop if you have one.'];
+    case 'join': return ['1. Come to a meeting. No experience needed.','2. Join the group chat for reminders.','3. Pick a side: garnet, blue, or both.'];
+    case 'ls': return arg.indexOf('-a')!==-1 ? ['.flag   about.txt   meet.txt'] : ['about.txt   meet.txt'];
+    case 'cat':
+      if(!arg) return [{kind:'err',text:'cat: which file? Try ls -a first.'}];
+      if(arg==='.flag') return [{kind:'flag',text:btoa(FLAG)},{kind:'ok',text:'Encoded, not encrypted. Decode it, then type submit followed by the flag.'}];
+      if(arg==='about.txt') return respond('about');
+      if(arg==='meet.txt') return respond('meet');
+      return [{kind:'err',text:'cat: '+arg+': no such file'}];
+    case 'base64': return [{kind:'err',text:'base64: not installed here. Try CyberChef or any Linux terminal.'}];
+    case 'submit':
+      if(!arg) return [{kind:'err',text:'submit: put the flag after the command.'}];
+      if(arg===FLAG) return [{kind:'ok',text:'Correct. Screenshot this and show an officer at the next meeting.'}];
+      return [{kind:'err',text:'Not quite. Decode the file and try again.'}];
+    case 'sudo': return [{kind:'err',text:'guest is not in the sudoers file. This incident will be reported.'}];
+    default: return [{kind:'err',text:name+': command not found. Try help.'}];
+  }
+}
+var termLines = intro();
+var TC={cmd:'#E6E9F0',out:'#C4CCDD',ok:'#8FB4FF',err:'#FF8FA3',flag:'#FFFFFF'};
+function renderTerm(){
+  var el=document.getElementById('termBody');
+  el.innerHTML = termLines.map(function(l){
+    if(l.kind==='cmd') return '<div class="ln"><span class="prompt">guest@scsu:~$</span> '+esc(l.text)+'</div>';
+    var c=TC[l.kind]||TC.out; var w=l.kind==='flag'?'600':'400';
+    return '<div class="ln" style="color:'+c+';font-weight:'+w+'">'+esc(l.text)+'</div>';
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function runCmd(raw){
+  var cmd=String(raw||'').trim();
+  var input=document.getElementById('termInput');
+  if(!cmd){ input.value=''; return; }
+  if(cmd.toLowerCase()==='clear'){ termLines=[]; input.value=''; renderTerm(); return; }
+  var out=respond(cmd).map(function(o){return typeof o==='string'?{kind:'out',text:o}:o;});
+  termLines=termLines.concat([{kind:'cmd',text:cmd}],out).slice(-60);
+  input.value=''; renderTerm();
+}
+function initTerm(){
+  renderTerm();
+  var input=document.getElementById('termInput');
+  document.getElementById('termRun').addEventListener('click',function(){runCmd(input.value);input.focus();});
+  input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); runCmd(input.value);} });
+  var chips=['help','whoami','ls -a','meet','join','clear'];
+  var box=document.getElementById('chips');
+  chips.forEach(function(c){
+    var b=document.createElement('button'); b.className='chip'; b.textContent=c;
+    b.addEventListener('click',function(){ runCmd(c); input.focus(); });
+    box.appendChild(b);
+  });
+}
+
+/* =================== BANK =================== */
+var openId=null, openSteps={}, copied=null, view='week';
+var byId={}; PROJECTS.forEach(function(p){byId[p.id]=p;});
+
+function stepDetailHTML(step){
+  if(!step.detail || !step.detail.length) return '';
+  return '<div class="detail">'+step.detail.map(function(d){
+    if(d && typeof d==='object' && d.cmd) return '<div class="cmd">'+esc(d.cmd)+'</div>';
+    var t = (typeof d==='string')?d:((d&&d.text)||'');
+    return '<div class="pz">'+esc(t)+'</div>';
+  }).join('')+'</div>';
+}
+
+function runbookHTML(p){
+  var idx=FEATURED.indexOf(p.id);
+  var num = idx>=0 ? two(idx+1) : '';
+  var why = p.why || p.one || '';
+  var noteLabel = p.setup ? 'Heads up:' : 'Rule of play:';
+  var stepsTitle = p.setup ? 'The steps' : 'The runbook';
+  var h='';
+  h+='<div class="rb">';
+  h+='<button class="back" data-act="back">&larr; Back to the bank</button>';
+  h+='<div class="meta">'+(num?'<span class="num">'+num+'</span>':'')+'<span class="tag">'+esc(p.tag)+'</span><span class="lvl"><i class="ldot" style="background:'+levelDot(p.level)+'"></i>'+esc(p.level)+'</span></div>';
+  h+='<h3 class="name">'+esc(p.name)+'</h3>';
+  h+='<p class="why">'+esc(why)+'</p>';
+  if(p.note) h+='<div class="note"><b>'+noteLabel+'</b> '+esc(p.note)+'</div>';
+  h+='<div class="blocktitle">'+stepsTitle+'</div>';
+  h+='<ul class="steps">';
+  (p.steps||[]).forEach(function(raw,i){
+    var text = typeof raw==='string'?raw:raw.text;
+    var hasD = !!(raw && typeof raw==='object' && raw.detail && raw.detail.length);
+    var isOpen = hasD && !!openSteps[i];
+    h+='<li class="step"><div class="hd"><span class="n">'+two(i+1)+'</span><span class="tx">'+esc(text)+'</span></div>';
+    if(hasD){
+      h+='<button class="toggle" data-act="togstep" data-i="'+i+'">'+(isOpen?'Hide detailed steps':'Show detailed steps')+'</button>';
+      if(isOpen) h+=stepDetailHTML(raw);
+    }
+    h+='</li>';
+  });
+  h+='</ul>';
+  if(p.skills && p.skills.length){
+    h+='<div class="blocktitle">What it proves</div><div class="skills">'+p.skills.map(function(s){return '<span class="sk">'+esc(s)+'</span>';}).join('')+'</div>';
+  }
+  var hasProof = p.resume||p.linkedin||p.prompt;
+  if(hasProof){
+    h+='<div class="blocktitle">Turn it into career proof</div><div class="proof">';
+    if(p.resume) h+=proofCard('résumé','resume',p.resume,'');
+    if(p.linkedin) h+=proofCard('LinkedIn','linkedin',p.linkedin,'');
+    if(p.prompt) h+=proofCard('Hand it to AI','prompt',p.prompt,'Paste your own notes where it says [paste your notes], then give this to Claude or any AI.');
+    h+='</div>';
+  }
+  var iv = INTERVIEW[p.id];
+  if(iv && iv.length){
+    h+='<div class="blocktitle">Interview questions you can now answer</div><div class="iv">';
+    iv.forEach(function(x){ h+='<div class="ivq"><p class="q">'+esc(x.q)+'</p><p class="a">'+esc(x.a)+'</p></div>'; });
+    h+='</div>';
+  }
+  if(p.whyBox) h+='<div class="blocktitle">Why this matters</div><div class="whybox">'+esc(p.whyBox)+'</div>';
+  h+='<p class="report">Spot an error or something out of date here? Tell us in the <a href="'+GROUPME+'" target="_blank" rel="noopener">GroupMe</a> so we can fix it.</p>';
+  h+='</div>';
+  return h;
+}
+function proofCard(label,key,val,hint){
+  var done = copied===key;
+  var h='<div class="p"><div class="lab"><h5>For your '+esc(label)+'</h5><button class="copy'+(done?' done':'')+'" data-act="copy" data-key="'+key+'">'+(done?'Copied ✓':'Copy')+'</button></div>';
+  if(hint) h+='<p class="hint">'+esc(hint)+'</p>';
+  h+='<div class="val">'+esc(val)+'</div></div>';
+  return h;
+}
+function cardHTML(p,showNum){
+  var idx=FEATURED.indexOf(p.id);
+  var num = (showNum && idx>=0) ? two(idx+1) : '';
+  var h='<button class="card" data-act="open" data-id="'+esc(p.id)+'">';
+  h+='<div class="top"><span class="tag">'+esc(p.tag)+'</span>'+(num?'<span class="num">'+num+'</span>':'')+'</div>';
+  h+='<h4>'+esc(p.name)+'</h4>';
+  h+='<p>'+esc(p.one)+'</p>';
+  h+='<span class="lvl"><i class="ldot" style="background:'+levelDot(p.level)+'"></i>'+esc(p.level)+'</span>';
+  h+='<span class="open">Open the runbook &rarr;</span>';
+  h+='</button>';
+  return h;
+}
+function renderBank(){
+  var mount=document.getElementById('bankView');
+  if(openId && byId[openId]){ mount.innerHTML=runbookHTML(byId[openId]); return; }
+  if(view==='past'){ mount.innerHTML=archiveHTML(); return; }
+  var pinned = PROJECTS.filter(function(p){return p.setup;});
+  var featured = FEATURED.map(function(id){return byId[id];}).filter(Boolean);
+  var h='';
+  h+='<h3 class="subhead">Start here<span class="m">Set these up once. They hold everything else you build.</span></h3>';
+  h+='<div class="grid pinned">'+pinned.map(function(p){return cardHTML(p,false);}).join('')+'</div>';
+  h+='<h3 class="subhead">This week’s bank<span class="m">Do the ones that interest you. No permission needed.</span></h3>';
+  h+='<div class="grid">'+featured.map(function(p){return cardHTML(p,true);}).join('')+'</div>';
+  h+='<div class="pastbar"><button class="pastlink" data-act="toPast">Past runbooks &rarr;</button></div>';
+  mount.innerHTML=h;
+}
+function archiveHTML(){
+  var archived = ARCHIVED.map(function(id){return byId[id];}).filter(Boolean);
+  var h='';
+  h+='<button class="pastback" data-act="toWeek">&larr; Back to this week</button>';
+  h+='<h3 class="subhead">Past runbooks<span class="m">Everything that has been featured before. Nothing disappears &mdash; come back and finish any of them.</span></h3>';
+  if(!archived.length){
+    h+='<div class="empty"><h4>No past runbooks yet</h4><p>As new runbooks take the weekly spotlight, the earlier ones collect here &mdash; so you can always come back and finish what you started.</p></div>';
+  } else {
+    h+='<div class="grid">'+archived.map(function(p){return cardHTML(p,false);}).join('')+'</div>';
+  }
+  return h;
+}
+function copyField(key){
+  var p=byId[openId]; if(!p) return;
+  var text = key==='resume'?p.resume : key==='linkedin'?p.linkedin : p.prompt;
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){copied=key;renderBank();},function(){copied=key;renderBank();});
+    } else { copied=key; renderBank(); }
+  }catch(e){ copied=key; renderBank(); }
+}
+function initBank(){
+  renderBank();
+  document.getElementById('bankView').addEventListener('click',function(e){
+    var t=e.target.closest('[data-act]'); if(!t) return;
+    var act=t.getAttribute('data-act');
+    if(act==='open'){ openId=t.getAttribute('data-id'); openSteps={}; copied=null; renderBank();
+      document.getElementById('bank').scrollIntoView({behavior:'smooth',block:'start'}); }
+    else if(act==='back'){ openId=null; openSteps={}; copied=null; renderBank();
+      document.getElementById('bank').scrollIntoView({behavior:'smooth',block:'start'}); }
+    else if(act==='togstep'){ var i=+t.getAttribute('data-i'); openSteps[i]=!openSteps[i]; renderBank(); }
+    else if(act==='copy'){ copyField(t.getAttribute('data-key')); }
+    else if(act==='toPast'){ view='past'; openId=null; openSteps={}; copied=null; renderBank(); document.getElementById('bank').scrollIntoView({behavior:'smooth',block:'start'}); }
+    else if(act==='toWeek'){ view='week'; openId=null; openSteps={}; copied=null; renderBank(); document.getElementById('bank').scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+}
+
+/* =================== misc fills =================== */
+function initMeta(){
+  if(MEETING.tba){
+    document.getElementById('meetWhen').textContent = 'Check the GroupMe for the date & time';
+    document.getElementById('meetRoom').textContent = '';
+  } else {
+    document.getElementById('meetWhen').textContent = MEETING.day + ' — ' + MEETING.time;
+    document.getElementById('meetRoom').textContent = MEETING.room;
+  }
+  // week-of: Monday of current week
+  var d=new Date(); var day=(d.getDay()+6)%7; d.setDate(d.getDate()-day);
+  var mon=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getMonth()];
+  document.getElementById('weekflag').textContent='WEEK OF '+mon+' '+d.getDate();
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  initTerm(); initBank(); initMeta();
+});
+})();
+</script>
+</body>
+</html>

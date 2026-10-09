@@ -108,8 +108,12 @@ h1,h2,h3{margin:0}
 .chips .lbl{font-family:var(--mono);font-size:11px;color:var(--mut);align-self:center;margin-right:2px;text-transform:uppercase;letter-spacing:.12em}
 .chip{font-family:var(--mono);font-size:12.5px;background:#fff;border:1px solid var(--line);color:var(--navy);border-radius:999px;padding:5px 12px;cursor:pointer}
 .chip:hover{border-color:var(--blue);color:var(--blue)}
-.chip.fill{border-style:dashed;border-color:var(--blue);color:var(--blue)}
-.chip.fill::before{content:"A ";font-weight:700}
+.lvltabs{display:flex;gap:6px;margin:0 0 -1px}
+.lvltab{font-family:var(--mono);font-size:12.5px;background:#fff;border:1px solid var(--line);color:var(--navy);border-radius:9px 9px 0 0;padding:8px 18px;cursor:pointer;font-weight:600}
+.lvltab:hover{color:var(--blue)}
+.lvltab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lvlpane{display:none}
+.lvlpane.on{display:block}
 .ctf-note{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px}
 .ctf-note h4{font-size:15px;color:var(--navy);margin:0 0 6px}
 .ctf-note p{margin:0;font-size:14px;color:var(--mut)}
@@ -296,22 +300,47 @@ footer a:hover{color:#fff;text-decoration:underline}
   <p class="eyebrow">Your first challenge</p>
   <h2 class="sec-title">Capture the flag</h2>
   <p class="sec-sub">A flag is hidden in the terminal below — the kind of capture-the-flag puzzle we run at meetings. Want a nudge? Type <b>start</b>. Solve it and you've done your first CTF.</p>
-  <div class="termwrap">
-    <div class="term" id="termbox">
-      <div class="term-bar">
-        <span class="dot" style="background:#FF5F57"></span>
-        <span class="dot" style="background:#FEBC2E"></span>
-        <span class="dot" style="background:#28C840"></span>
-        <span class="t">guest@scsu: ~</span>
+  <div class="lvltabs" role="tablist" aria-label="Challenge levels">
+    <button class="lvltab on" data-lvl="1" role="tab" aria-selected="true" aria-controls="lvlpane1" id="lvltab1">Level 1</button>
+    <button class="lvltab" data-lvl="2" role="tab" aria-selected="false" aria-controls="lvlpane2" id="lvltab2">Level 2</button>
+  </div>
+  <div class="lvlpane on" data-lvl="1" id="lvlpane1" role="tabpanel" aria-labelledby="lvltab1">
+    <div class="termwrap">
+      <div class="term" id="termbox">
+        <div class="term-bar">
+          <span class="dot" style="background:#FF5F57"></span>
+          <span class="dot" style="background:#FEBC2E"></span>
+          <span class="dot" style="background:#28C840"></span>
+          <span class="t">guest@scsu: ~</span>
+        </div>
+        <div class="term-body" id="termBody"></div>
+        <div class="term-row">
+          <span class="prompt">guest@scsu:~$</span>
+          <input id="termInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="terminal input">
+          <button id="termRun">Run</button>
+        </div>
       </div>
-      <div class="term-body" id="termBody"></div>
-      <div class="term-row">
-        <span class="prompt">guest@scsu:~$</span>
-        <input id="termInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="terminal input">
-        <button id="termRun">Run</button>
-      </div>
+      <div class="chips" id="chips"><span class="lbl">Quick</span></div>
     </div>
-    <div class="chips" id="chips"><span class="lbl">Quick</span></div>
+  </div>
+  <div class="lvlpane" data-lvl="2" id="lvlpane2" role="tabpanel" aria-labelledby="lvltab2">
+    <div class="termwrap">
+      <div class="term" id="termbox2">
+        <div class="term-bar">
+          <span class="dot" style="background:#FF5F57"></span>
+          <span class="dot" style="background:#FEBC2E"></span>
+          <span class="dot" style="background:#28C840"></span>
+          <span class="t">guest@scsu: ~  &#8212;  level 2</span>
+        </div>
+        <div class="term-body" id="termBody2"></div>
+        <div class="term-row">
+          <span class="prompt">guest@scsu:~$</span>
+          <input id="termInput2" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="level 2 terminal input">
+          <button id="termRun2">Run</button>
+        </div>
+      </div>
+      <div class="chips" id="chips2"><span class="lbl">Quick</span></div>
+    </div>
   </div>
 </div></section>
 
@@ -1158,6 +1187,9 @@ function levelDot(l){var m={Essential:'#0F1B35',Beginner:'#2E7D52',Intermediate:
 
 /* =================== TERMINAL =================== */
 var FLAG='flag{garnet_and_blue}';
+var FLAG2='flag{caught_in_the_logs}';
+function toHex(s){ return s.split('').map(function(c){return c.charCodeAt(0).toString(16).padStart(2,'0');}).join(''); }
+var FLAG2HEX=toHex(FLAG2);
 function intro(){return [
   {kind:'out',text:'IC CAE Cybersecurity Club, SC State University'},
   {kind:'out',text:'A real terminal. Type start to begin, or help for all commands.'}
@@ -1166,11 +1198,14 @@ function respond(cmd){
   var parts=String(cmd).split(/\s+/);
   var name=parts[0].toLowerCase();
   var arg=parts.slice(1).join(' ').trim();
+  var raw=String(cmd).trim();
+  var norm=function(s){return String(s).toLowerCase().replace(/[^a-z0-9]/g,'');};
+  var inner=FLAG.replace(/^flag\{/i,'').replace(/\}$/,'');
   if(/^[123](?:[\s,]+[123])+$/.test(String(cmd).trim())) return ['All of it, that is the spirit.','1) Come to a meeting: any major, any year, no experience needed.','2) Group chat: tap Get meeting reminders on the page to join.','3) Pick a side: type garnet, blue, or both.'];
   switch(name){
-    case 'help': return ['start       what to do here','whoami      who you are right now','about       what this club is','meet        the next meeting','join        how to join','ls          list files (try ls -a)','cat FILE    print a file','decode X    decode base64 text','submit X    submit a flag','clear       clear the screen'];
-    case 'whoami': return ['guest','Not a member yet. Solve the hidden flag, then run join to fix that.'];
-    case 'start': case 'mission': return ['This terminal is a small taste of what the club actually does.','Your mission, in three moves:','1) Find the hidden flag: run ls -a, then cat the file that starts with a dot.','2) Decode and submit it: submit flag{...}, your first capture-the-flag solve.','3) Join for the real thing: type join, then scroll down to the bank for runbooks that become resume lines.'];
+    case 'help': return ['Commands you can type:','  ls          list the files here (add -a to show hidden ones)','  cat FILE    show what is inside a file','  submit X    submit your decoded answer','  about       what this club is','  join        how to join','  clear       clear the screen','  start       remind me of the goal'];
+    case 'whoami': return ['guest',{kind:'note',text:'Not a member yet. Find and submit the hidden flag, then run join.'}];
+    case 'start': case 'mission': return ['Goal: find the hidden flag in this terminal, decode it, and submit it.',{kind:'note',text:'No terminal experience needed. After each command, a note explains what you are looking at and hints what to try next.'},'First, see what files are here: type  ls  and press Run.'];
     case 'about': return ['Founded in 2020 in the Department of Computer Science and Mathematics.','We train on both sides: garnet for red team, blue for blue team.'];
     case 'meet': return MEETING.tba
       ? ['The next meeting is announced in the GroupMe.', 'Run join to get the link, or tap Get meeting reminders on the page.', 'Bring a laptop if you have one.']
@@ -1182,86 +1217,143 @@ function respond(cmd){
     case 'garnet': case 'red': return ['Garnet it is. Red team.','You learn to attack systems you have permission to attack: CTFs, web exploits, recon.','Come to a meeting and run join to make it official.'];
     case 'blue': return ['Blue it is. Blue team.','You learn to defend: harden networks, read the logs, run down intrusions.','Come to a meeting and run join to make it official.'];
     case 'both': return ['Both sides. The best way to learn.','Attack to understand defense, defend to understand attack.','Come to a meeting and run join to make it official.'];
-    case 'ls': return arg.indexOf('-a')!==-1 ? ['.flag   about.txt   meet.txt'] : ['about.txt   meet.txt'];
+    case 'ls':
+      if(arg.indexOf('-a')!==-1) return ['.flag   about.txt   meet.txt',{kind:'note',text:'A hidden file showed up: .flag (names that start with a dot are hidden). To read what is inside a file, type  cat  then the file name.'}];
+      return ['about.txt   meet.txt',{kind:'note',text:'Those are the normal files. Terminals can also hide files whose names start with a dot. Show the hidden ones too with:  ls -a'}];
     case 'cat':
       if(!arg) return [{kind:'err',text:'cat: which file? Try ls -a first.'}];
-      if(arg==='.flag') return [{kind:'flag',text:btoa(FLAG)},{kind:'ok',text:'Encoded, not encrypted. Decode it right here: type decode and paste that text (or use CyberChef). Then submit the flag.'}];
+      if(arg==='.flag') return [{kind:'flag',text:btoa(FLAG)},{kind:'note',text:'That is not random text. It has been encoded (this looks like Base64). Copy it and decode it with a free tool like CyberChef (cyberchef.io), or ask an AI to "decode this Base64." When you have the real text, submit it with:  submit <the decoded text>'}];
       if(arg==='about.txt') return respond('about');
       if(arg==='meet.txt') return respond('meet');
       return [{kind:'err',text:'cat: '+arg+': no such file'}];
-    case 'decode':
-      if(!arg) return [{kind:'err',text:'decode: paste the text after it, e.g. decode <the output of cat .flag>.'}];
-      try{ var d=atob(arg.trim()); return [{kind:'ok',text:d},{kind:'out',text:'That was base64. In a real shell: echo <text> | base64 -d. Now submit followed by the flag.'}]; }
-      catch(e){ return [{kind:'err',text:'decode: that is not valid base64. Copy the exact output from cat .flag.'}]; }
-    case 'base64':
-      if(arg.indexOf('-d')!==-1){ try{ return [{kind:'ok',text:atob(arg.replace('-d','').trim())}]; } catch(e){ return [{kind:'err',text:'base64: that is not valid base64.'}]; } }
-      return [{kind:'err',text:'base64: add -d and the text, e.g. base64 -d <text>. Or just use decode.'}];
+    case 'decode': case 'base64': case 'base32':
+      return [{kind:'note',text:'This terminal will not decode it for you - that is the puzzle. Copy the encoded text from  cat .flag  and decode it with a free tool like CyberChef (cyberchef.io), or ask an AI to decode it. Then submit the result with  submit <answer>.'}];
     case 'submit':
-      if(!arg) return [{kind:'err',text:'submit: put the flag after the command.'}];
-      if(arg===FLAG) return [{kind:'ok',text:'Correct. Your first capture-the-flag solve.'},{kind:'out',text:'Screenshot it for an officer at the next meeting, then scroll down to the bank and try a real project.'}];
-      return [{kind:'err',text:'Not quite. Decode the file and try again.'}];
+      if(!arg) return [{kind:'err',text:'submit: type your decoded answer after it, like  submit flag{...}'}];
+      if(norm(arg)===norm(FLAG)||norm(arg)===norm(inner)) return [{kind:'ok',text:'Correct! You found it, decoded it, and submitted it - your first capture-the-flag solve.'},{kind:'note',text:'Screenshot it for an officer at the next meeting. Ready for a harder one? Tap the Level 2 tab above. Or scroll down to the bank and try a real project.'}];
+      if(arg===btoa(FLAG)) return [{kind:'err',text:'That is still the encoded text. Decode it first (CyberChef or an AI), then submit what it turns into.'}];
+      return [{kind:'err',text:'Not quite. Make sure you decoded the text from  cat .flag  and submitted exactly what it says.'}];
     case 'sudo': return [{kind:'err',text:'guest is not in the sudoers file. This incident will be reported.'}];
-    default: return [{kind:'err',text:name+': command not found. Try help.'}];
+    default:
+      if(/flag\s*\{/i.test(raw) || norm(raw)===norm(FLAG) || norm(raw)===norm(inner)){
+        var ans=/flag\s*\{/i.test(raw)?raw:('flag{'+inner+'}');
+        return [{kind:'note',text:'So close - that looks like the answer. Answers go in with the submit command. Type:  submit '+ans}];
+      }
+      return [{kind:'err',text:name+': command not found. Try help.'}];
   }
 }
-var termLines = intro();
-var TC={cmd:'#E6E9F0',out:'#C4CCDD',ok:'#8FB4FF',err:'#FF8FA3',flag:'#FFFFFF'};
-function renderTerm(){
-  var el=document.getElementById('termBody');
-  el.innerHTML = termLines.map(function(l){
-    if(l.kind==='cmd') return '<div class="ln"><span class="prompt">guest@scsu:~$</span> '+esc(l.text)+'</div>';
-    var c=TC[l.kind]||TC.out; var w=l.kind==='flag'?'600':'400';
-    return '<div class="ln" style="color:'+c+';font-weight:'+w+'">'+esc(l.text)+'</div>';
-  }).join('');
-  el.scrollTop=el.scrollHeight;
+function intro2(){return [
+  {kind:'out',text:'IC CAE Cybersecurity Club - Level 2: the log hunt'},
+  {kind:'out',text:'A suspicious login is hiding in a server log. Type start to begin, or help for all commands.'}
+];}
+function respond2(cmd){
+  var parts=String(cmd).split(/\s+/);
+  var name=parts[0].toLowerCase();
+  var arg=parts.slice(1).join(' ').trim();
+  var raw=String(cmd).trim();
+  var norm=function(s){return String(s).toLowerCase().replace(/[^a-z0-9]/g,'');};
+  var inner=FLAG2.replace(/^flag\{/i,'').replace(/\}$/,'');
+  switch(name){
+    case 'help': return ['Commands you can type:','  ls               list the files here','  cat FILE         show what is inside a file','  grep WORD FILE   search inside FILE for lines containing WORD','  submit X         submit your decoded answer','  clear            clear the screen','  start            remind me of the goal'];
+    case 'start': case 'mission': return ['Level 2: a suspicious login is hiding in a long server log. Find it, decode the tag it left behind, and submit it.',{kind:'note',text:'Same idea as Level 1, with new tools. After each command a note explains what you are seeing. Start by listing the files: type  ls  and press Run.'}];
+    case 'ls': return ['auth.log   readme.txt',{kind:'note',text:'Two files: auth.log (a server login log) and readme.txt (a note left for you). Read the note first so you know what you are hunting for.'}];
+    case 'cat':
+      if(!arg) return [{kind:'err',text:'cat: which file? Run ls to see the files.'}];
+      if(arg==='readme.txt') return ['INCIDENT NOTE','Around 3 AM the alarm tripped. Every alert line in auth.log is tagged with the word ALERT.','Find that line and read the tag the intruder left behind.',{kind:'note',text:'So your keyword is ALERT. But auth.log has thousands of lines, so scrolling is hopeless. You search inside a file with a new command: grep WORD FILE. Run help to see it.'}];
+      if(arg==='auth.log') return ['2026-10-08 02:58:11 sshd: Accepted password for deng from 10.0.0.14','2026-10-08 03:01:46 sshd: Failed password for guest from 10.0.0.52','2026-10-08 03:07:22 sshd: Accepted password for mbryant from 10.0.0.9','2026-10-08 03:19:50 sshd: Accepted password for staff from 10.0.0.31','... (1,996 more lines)',{kind:'note',text:'Thousands of ordinary logins - you will not spot the one that matters by scrolling. Search inside the file for a word instead: grep WORD FILE.'}];
+      return [{kind:'err',text:'cat: '+arg+': no such file. Run ls to see what is here.'}];
+    case 'grep':
+      var gp=arg.split(/\s+/); var word=(gp[0]||'').replace(/['"]/g,''); var file=(gp[1]||'').replace(/['"]/g,'');
+      if(!word) return [{kind:'err',text:'grep: usage is  grep WORD FILE  - search FILE for lines that contain WORD.'}];
+      if(!file) return [{kind:'note',text:'Almost - grep also needs to know which file to search. Try:  grep '+word+' auth.log'}];
+      if(file!=='auth.log') return [{kind:'err',text:'grep: '+file+': no such file. The log is called auth.log.'}];
+      if(word.toUpperCase()==='ALERT') return ['2026-10-08 03:14:07 sshd: ALERT accepted login from 203.0.113.9  tag='+FLAG2HEX,{kind:'note',text:'One hit out of thousands. The tag= at the end is encoded, and this time it looks like hexadecimal (only digits 0-9 and letters a-f). Decode it with CyberChef (cyberchef.io) or an AI, then submit the result:  submit <answer>'}];
+      if(['ACCEPTED','FAILED','PASSWORD','SSHD','LOGIN','FROM'].indexOf(word.toUpperCase())!==-1) return ['2026-10-08 02:58:11 sshd: Accepted password for deng from 10.0.0.14','2026-10-08 03:07:22 sshd: Accepted password for mbryant from 10.0.0.9','... (many more matches)',{kind:'note',text:'Lots of ordinary logins match that word - nothing flagged. The incident note names the exact keyword to search for; re-read it with  cat readme.txt.'}];
+      return [{kind:'err',text:'grep: no lines in auth.log contain "'+word+'". Check the keyword in readme.txt.'}];
+    case 'decode': case 'base64': case 'hex': case 'xxd':
+      return [{kind:'note',text:'This terminal will not decode it for you - that is the puzzle. Copy the tag= value from the ALERT line and decode it with CyberChef (cyberchef.io) or an AI, then submit the result.'}];
+    case 'submit':
+      if(!arg) return [{kind:'err',text:'submit: type your decoded answer after it, like  submit flag{...}'}];
+      if(norm(arg)===norm(FLAG2)||norm(arg)===norm(inner)) return [{kind:'ok',text:'Correct! You searched the log, found the flagged line, and decoded the tag. Level 2 cleared.'},{kind:'note',text:'That is real blue-team work. You do it for real in the "Find the break-in in the logs" runbook down in the bank.'}];
+      if(arg.toLowerCase()===FLAG2HEX) return [{kind:'err',text:'That is still the hexadecimal code. Decode it first (CyberChef or an AI), then submit what it turns into.'}];
+      return [{kind:'err',text:'Not quite. Decode the tag= value from the ALERT line, then submit exactly what it says.'}];
+    case 'sudo': return [{kind:'err',text:'guest is not in the sudoers file. This incident will be reported.'}];
+    default:
+      if(/flag\s*\{/i.test(raw) || norm(raw)===norm(FLAG2) || norm(raw)===norm(inner)){
+        var ans=/flag\s*\{/i.test(raw)?raw:('flag{'+inner+'}');
+        return [{kind:'note',text:'So close - that looks like the answer. Answers go in with the submit command. Type:  submit '+ans}];
+      }
+      return [{kind:'err',text:name+': command not found. Try help.'}];
+  }
 }
-function runCmd(raw){
-  var cmd=String(raw||'').trim();
-  var input=document.getElementById('termInput');
-  if(!cmd){ input.value=''; return; }
-  if(cmd.toLowerCase()==='clear'){ termLines=[]; input.value=''; renderTerm(); renderChips(CHIP_DEFAULT); return; }
-  var out=respond(cmd).map(function(o){return typeof o==='string'?{kind:'out',text:o}:o;});
-  termLines=termLines.concat([{kind:'cmd',text:cmd}],out).slice(-60);
-  input.value=''; renderTerm(); renderChips(chipsFor(cmd));
-}
-var CHIP_DEFAULT=[{label:'start'},{label:'ls -a'},{label:'join'},{label:'meet'},{label:'help'},{label:'clear'}];
-function chipsFor(cmd){
-  var c=String(cmd||'').toLowerCase().trim();
-  if(c==='ls -a') return [{label:'cat .flag'},{label:'join'},{label:'help'},{label:'clear'}];
-  if(c==='cat .flag') return [{label:'decode .flag',fill:'decode '+btoa(FLAG)},{label:'join'},{label:'help'},{label:'clear'}];
-  if(c.indexOf('decode')===0||c.indexOf('base64')===0) return [{label:'submit',fill:'submit '},{label:'join'},{label:'help'},{label:'clear'}];
-  if(c.indexOf('submit')===0) return [{label:'join'},{label:'start'},{label:'help'},{label:'clear'}];
-  return CHIP_DEFAULT;
-}
-function renderChips(list){
-  var box=document.getElementById('chips'); if(!box) return;
-  box.innerHTML='<span class="lbl">Quick</span>';
-  var input=document.getElementById('termInput');
-  list.forEach(function(it){
-    var b=document.createElement('button'); b.className='chip'; b.textContent=it.label;
-    if(it.fill) b.className='chip fill';
-    b.addEventListener('click',function(){
-      if(it.fill){ if(input){ input.value=it.fill; input.focus(); } return; }
-      runCmd(it.cmd||it.label); if(input) input.focus();
+var TC={cmd:'#E6E9F0',out:'#C4CCDD',ok:'#8FB4FF',err:'#FF8FA3',flag:'#FFFFFF',note:'#9FB3E0'};
+function makeTerm(opts){
+  var lines=opts.intro();
+  var history=[], hist=0;
+  function render(){
+    var el=document.getElementById(opts.body); if(!el) return;
+    el.innerHTML=lines.map(function(l){
+      if(l.kind==='cmd') return '<div class="ln"><span class="prompt">'+opts.prompt+'</span> '+esc(l.text)+'</div>';
+      var c=TC[l.kind]||TC.out; var w=l.kind==='flag'?'600':'400';
+      return '<div class="ln" style="color:'+c+';font-weight:'+w+'">'+esc(l.text)+'</div>';
+    }).join('');
+    el.scrollTop=el.scrollHeight;
+  }
+  function run(raw){
+    var cmd=String(raw||'').trim();
+    var input=document.getElementById(opts.input);
+    if(!cmd){ if(input) input.value=''; return; }
+    history.push(cmd); if(history.length>10) history.shift(); hist=history.length;
+    if(cmd.toLowerCase()==='clear'){ lines=[]; if(input) input.value=''; render(); return; }
+    var out=opts.respond(cmd).map(function(o){return typeof o==='string'?{kind:'out',text:o}:o;});
+    lines=lines.concat([{kind:'cmd',text:cmd}],out).slice(-60);
+    if(input) input.value=''; render();
+  }
+  function renderChips(){
+    var box=document.getElementById(opts.chips); if(!box) return;
+    box.innerHTML='<span class="lbl">Quick</span>';
+    var input=document.getElementById(opts.input);
+    (opts.chipList||[]).forEach(function(c){
+      var b=document.createElement('button'); b.className='chip'; b.textContent=c;
+      b.addEventListener('click',function(){ run(c); if(input) input.focus(); });
+      box.appendChild(b);
     });
-    box.appendChild(b);
-  });
+  }
+  return {
+    init:function(){
+      render(); renderChips();
+      var input=document.getElementById(opts.input);
+      var runBtn=document.getElementById(opts.run);
+      if(runBtn) runBtn.addEventListener('click',function(){ run(input.value); input.focus(); });
+      if(input) input.addEventListener('keydown',function(e){
+        if(e.key==='Enter'){ e.preventDefault(); run(input.value); return; }
+        if(e.key==='ArrowUp' && history.length){ e.preventDefault(); hist=Math.max(0,hist-1); input.value=history[hist]||''; var a=input.value.length; try{ input.setSelectionRange(a,a); }catch(_){} return; }
+        if(e.key==='ArrowDown' && history.length){ e.preventDefault(); hist=Math.min(history.length,hist+1); input.value=(hist>=history.length)?'':(history[hist]||''); var d=input.value.length; try{ input.setSelectionRange(d,d); }catch(_){} return; }
+      });
+    },
+    focus:function(){ var i=document.getElementById(opts.input); if(i){ try{ i.focus({preventScroll:true}); }catch(_){ i.focus(); } } },
+    flash:function(){ var b=document.getElementById(opts.box); if(b){ b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); setTimeout(function(){ b.classList.remove('flash'); },750); } }
+  };
 }
+var TERM1=makeTerm({body:'termBody',input:'termInput',run:'termRun',chips:'chips',box:'termbox',prompt:'guest@scsu:~$',intro:intro,respond:respond,chipList:['start','help','ls','join','clear']});
+var TERM2=makeTerm({body:'termBody2',input:'termInput2',run:'termRun2',chips:'chips2',box:'termbox2',prompt:'guest@scsu:~$',intro:intro2,respond:respond2,chipList:['start','help','ls','clear']});
+function activeTerm(){ var p=document.querySelector('.lvlpane.on'); return (p&&p.getAttribute('data-lvl')==='2')?TERM2:TERM1; }
 function initTerm(){
-  renderTerm();
-  var input=document.getElementById('termInput');
-  document.getElementById('termRun').addEventListener('click',function(){runCmd(input.value);input.focus();});
-  input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); runCmd(input.value);} });
-  renderChips(CHIP_DEFAULT);
+  TERM1.init(); TERM2.init();
+  var tabs=document.querySelectorAll('.lvltab');
+  Array.prototype.forEach.call(tabs,function(t){
+    t.addEventListener('click',function(){
+      var lvl=t.getAttribute('data-lvl');
+      Array.prototype.forEach.call(document.querySelectorAll('.lvltab'),function(x){ var on=x===t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on?'true':'false'); });
+      Array.prototype.forEach.call(document.querySelectorAll('.lvlpane'),function(p){ p.classList.toggle('on', p.getAttribute('data-lvl')===lvl); });
+      (lvl==='2'?TERM2:TERM1).focus();
+    });
+  });
   var tryBtn=document.getElementById('tryCtf');
   if(tryBtn){ tryBtn.addEventListener('click',function(e){
     e.preventDefault();
-    var sec=document.getElementById('ctf');
-    sec.scrollIntoView({behavior:'smooth',block:'start'});
-    try{ input.focus({preventScroll:true}); }catch(_){ input.focus(); }
-    var box=document.getElementById('termbox');
-    box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
-    setTimeout(function(){ box.classList.remove('flash'); }, 750);
+    document.getElementById('ctf').scrollIntoView({behavior:'smooth',block:'start'});
+    activeTerm().focus(); activeTerm().flash();
   }); }
 }
 

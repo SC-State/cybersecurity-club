@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IC CAE Cybersecurity Club — SC State</title>
 <meta name="description" content="The IC CAE Cybersecurity Club at South Carolina State University. Train red team and blue team, and build an internship-ready portfolio from the bank of hands-on project runbooks.">
+<meta name="theme-color" content="#0F1B35">
+<link rel="canonical" href="https://sc-state.github.io/cybersecurity-club/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IC CAE Cybersecurity Club">
+<meta property="og:title" content="IC CAE Cybersecurity Club — SC State">
+<meta property="og:description" content="Train red team and blue team, and build an internship-ready portfolio from a library of hands-on cybersecurity project runbooks.">
+<meta property="og:url" content="https://sc-state.github.io/cybersecurity-club/">
+<meta property="og:image" content="https://sc-state.github.io/cybersecurity-club/og-image.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Garnet &amp; Blue — IC CAE Cybersecurity Club at SC State">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IC CAE Cybersecurity Club — SC State">
+<meta name="twitter:description" content="Train red team and blue team, and build an internship-ready portfolio from a library of hands-on cybersecurity project runbooks.">
+<meta name="twitter:image" content="https://sc-state.github.io/cybersecurity-club/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230F1B35'/%3E%3Cpath d='M32 10 L32 54 Q14 48 14 28 L14 18 Z' fill='%238E1B30'/%3E%3Cpath d='M32 10 L32 54 Q50 48 50 28 L50 18 Z' fill='%231D4FA3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +40,7 @@ html,body{overflow-x:hidden}
 body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--blue)}
 img{max-width:100%}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
 h1,h2,h3{margin:0}
 .sec{padding:76px 0}
@@ -39,26 +54,41 @@ h1,h2,h3{margin:0}
 
 /* top bar */
 .topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:18px;color:var(--navy);text-decoration:none}
-.brand .mark{width:22px;height:22px;border-radius:5px;background:linear-gradient(105deg,var(--garnet) 0 50%,var(--blue) 50% 100%)}
-.topnav{display:flex;gap:24px}
-.topnav a{color:var(--navy);text-decoration:none;font-weight:600;font-size:15px}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.brand .mark{width:30px;height:30px;border-radius:5px;background:linear-gradient(90deg,var(--garnet) 0 50%,var(--blue) 50% 100%);flex:none}
+.brand .bt{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.brand .bt b{font-size:16px;font-weight:700;color:var(--navy);white-space:nowrap}
+.brand .bt i{font-style:normal;font-size:12.5px;color:var(--mut);white-space:nowrap}
+.brand .bt-short{display:none}
+.topnav{display:flex;align-items:center;gap:30px}
+.topnav a{color:var(--navy);text-decoration:none;font-weight:500;font-size:15.5px}
 .topnav a:hover{color:var(--garnet)}
+.topnav a.navjoin{display:inline-flex;align-items:center;height:42px;padding:0 20px;background:var(--blue);color:#fff;border-radius:5px;font-weight:600}
+.topnav a.navjoin:hover{background:#17408a;color:#fff}
 
 /* hero */
-.hero{background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);border-bottom:1px solid var(--line)}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-top:64px;padding-bottom:72px}
-.hero .wrap>div{min-width:0}
-.hero h1{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.92;font-size:clamp(46px,8vw,92px);letter-spacing:.005em;color:var(--navy)}
-.hero h1 .g{color:var(--garnet)} .hero h1 .b{color:var(--blue)}
-.hero .lede{font-size:19px;color:#2A3346;margin:22px 0 0;max-width:46ch}
-.hero .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 30px}
-.hero .split .p{border-left:3px solid var(--garnet);padding:2px 0 2px 14px}
-.hero .split .p.b{border-color:var(--blue)}
-.hero .split h4{margin:0 0 4px;font-size:15px;font-weight:700;color:var(--navy)}
-.hero .split p{margin:0;font-size:14px;color:var(--mut)}
+.hero{background:var(--bg);border-bottom:1px solid var(--line)}
+.hero .wrap{padding-top:80px;padding-bottom:0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;column-gap:72px;align-items:end;padding-bottom:92px}
+.wordmark{font-family:var(--disp);margin:0;font-weight:900;line-height:.84;letter-spacing:-.01em;display:flex;flex-direction:column;text-transform:uppercase;font-size:clamp(60px,14vw,200px)}
+.wordmark .g{color:var(--garnet)}
+.wordmark .l2 .amp{color:var(--navy)}
+.wordmark .l2 .b{color:var(--blue)}
+.hero-right{display:flex;flex-direction:column;gap:26px;padding-bottom:12px;min-width:0}
+.hero-right .lede{margin:0;font-size:21px;line-height:1.45;font-weight:500;color:var(--ink)}
+.points{display:flex;flex-direction:column;gap:18px}
+.pt{display:grid;grid-template-columns:14px minmax(0,1fr);column-gap:14px;align-items:start}
+.pt .chip{width:14px;height:14px;margin-top:5px;border-radius:2px}
+.pt .chip.g{background:var(--garnet)} .pt .chip.b{background:var(--blue)}
+.pt h4{margin:0;font-weight:700;font-size:17px;color:var(--navy)}
+.pt p{margin:4px 0 0;font-size:16px;line-height:1.5;color:var(--mut)}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.seam{height:8px;display:flex}
+.seam>span{flex:1}
+.seam .sg{background:var(--garnet)} .seam .sb{background:var(--blue)}
+.ctfsec{background:var(--bg);border-bottom:1px solid var(--line)}
+.termwrap{max-width:720px;margin-top:28px}
 
 /* terminal */
 .term{background:var(--term);border:1px solid var(--term-line);border-radius:10px;overflow:hidden;max-width:100%;box-shadow:0 20px 50px -24px rgba(8,16,40,.5)}
@@ -66,6 +96,8 @@ h1,h2,h3{margin:0}
 .term-bar .dot{width:11px;height:11px;border-radius:50%}
 .term-bar .t{margin-left:10px;font-family:var(--mono);font-size:12px;color:#8793AE}
 .term-body{padding:16px;font-family:var(--mono);font-size:13.5px;line-height:1.65;height:300px;overflow:auto}
+.term.flash{animation:termflash .75s ease}
+@keyframes termflash{0%,100%{box-shadow:0 20px 50px -24px rgba(8,16,40,.5)}30%{box-shadow:0 20px 50px -24px rgba(8,16,40,.5),0 0 0 4px rgba(29,79,163,.6)}}
 .term-body .ln{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
 .term-body .prompt{color:#5F79C9}
 .term-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid var(--term-line);background:#0E1730}
@@ -76,6 +108,8 @@ h1,h2,h3{margin:0}
 .chips .lbl{font-family:var(--mono);font-size:11px;color:var(--mut);align-self:center;margin-right:2px;text-transform:uppercase;letter-spacing:.12em}
 .chip{font-family:var(--mono);font-size:12.5px;background:#fff;border:1px solid var(--line);color:var(--navy);border-radius:999px;padding:5px 12px;cursor:pointer}
 .chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.fill{border-style:dashed;border-color:var(--blue);color:var(--blue)}
+.chip.fill::before{content:"A ";font-weight:700}
 .ctf-note{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px}
 .ctf-note h4{font-size:15px;color:var(--navy);margin:0 0 6px}
 .ctf-note p{margin:0;font-size:14px;color:var(--mut)}
@@ -158,6 +192,8 @@ h1,h2,h3{margin:0}
 .proof .copy{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
 .proof .copy.done{background:#2E7D52}
 .proof .val{font-size:14.5px;color:#2A3346;white-space:pre-wrap}
+.proof .shot{margin:11px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mut)}
+.proof .shot b{color:#3A4558}
 .proof .hint{font-size:12.5px;color:var(--mut);margin:0 0 8px}
 .whybox{background:#F3F6FC;border:1px solid #DDE6F4;border-radius:10px;padding:16px;font-size:14.5px;color:#39435A}
 .pastbar{margin-top:28px;text-align:center}
@@ -185,6 +221,8 @@ h1,h2,h3{margin:0}
 .steps3 .s h4{font-size:16px;color:var(--navy);margin:8px 0 6px}
 .steps3 .s p{margin:0;font-size:14px;color:var(--mut)}
 .join .cta{display:flex;flex-wrap:wrap;gap:12px}
+.join .advisor{margin:16px 0 0;font-size:14px;color:var(--mut)}
+.join .advisor a{color:var(--blue)}
 
 /* footer */
 footer{background:var(--navy);color:#C4CCDD;padding:54px 0 30px}
@@ -198,17 +236,24 @@ footer a:hover{color:#fff;text-decoration:underline}
 .fbar p{font-size:13.5px;color:#9AA6C0}
 
 @media(max-width:860px){
-  .hero .wrap{grid-template-columns:1fr;gap:34px;padding-top:40px}
+  .hero .wrap{padding-top:40px}
+  .hero-grid{grid-template-columns:1fr;column-gap:0;row-gap:28px;align-items:start;padding-bottom:52px}
   .defn,.stats,.sides,.steps3,.fcols{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
-  .topnav{display:none}
+  .topnav{gap:0}
+  .topnav a:not(.navjoin){display:none}
   .sec{padding:54px 0}
   .rb{padding:22px}
 }
+@media(max-width:560px){
+  .brand .bt{display:none}
+  .brand .bt-short{display:inline;font-family:var(--body);font-size:16px;font-weight:700;color:var(--navy);white-space:nowrap}
+  .topnav a.navjoin{height:40px;padding:0 16px}
+}
 @media(max-width:480px){
-  .hero .split{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr}
   .step .toggle,.detail{margin-left:0}
+  .brand .bt i{display:none}
 }
 
 </style>
@@ -216,37 +261,48 @@ footer a:hover{color:#fff;text-decoration:underline}
 <body>
 
 <header class="topbar"><div class="wrap">
-  <a class="brand" href="#top"><span class="mark"></span>IC CAE Cyber</a>
+  <a class="brand" href="#top"><span class="mark"></span><span class="bt"><b>IC CAE Cybersecurity Club</b><i>South Carolina State University</i></span><span class="bt-short">IC CAE Cyber</span></a>
   <nav class="topnav">
     <a href="#about">About</a>
-    <a href="#sides">Red / Blue</a>
-    <a href="#bank">The Bank</a>
-    <a href="#join">Join</a>
+    <a href="#sides">What we do</a>
+    <a href="#bank">The bank</a>
+    <a class="navjoin" href="https://groupme.com/join_group/109767668/8WQ9oDR2" target="_blank" rel="noopener">Join the club</a>
   </nav>
 </div></header>
 
 <a id="top"></a>
 <section class="hero"><div class="wrap">
-  <div>
-    <p class="eyebrow">IC CAE Cybersecurity Club · SC State University</p>
-    <h1><span class="g">GARNET</span> &amp; <span class="b">BLUE</span></h1>
-    <p class="lede">SC State's colors happen to be the two sides of cybersecurity. We're the campus club that trains on both.</p>
-    <div class="split">
-      <div class="p"><h4>Garnet — red team</h4><p>Attack systems you have permission to attack, and find the gaps before anyone else does.</p></div>
-      <div class="p b"><h4>Blue — blue team</h4><p>Harden networks, watch the logs, and respond when something gets through.</p></div>
-    </div>
-    <div class="cta">
-      <a class="btn btn-garnet" href="#join">Join the club</a>
-      <a class="btn btn-ghost" href="#ctf">Try the flag challenge</a>
+  <div class="hero-grid">
+    <h1 class="wordmark" aria-label="Garnet and Blue">
+      <span class="g">GARNET</span>
+      <span class="l2"><span class="amp">&amp;</span> <span class="b">BLUE</span></span>
+    </h1>
+    <div class="hero-right">
+      <p class="lede">SC State's colors happen to be the two sides of cybersecurity. We're the campus club that trains on both.</p>
+      <div class="points">
+        <div class="pt"><span class="chip g" aria-hidden="true"></span><div><h4>Garnet is the red team.</h4><p>Attack systems you have permission to attack, and find the gaps before anyone else does.</p></div></div>
+        <div class="pt"><span class="chip b" aria-hidden="true"></span><div><h4>Blue is the blue team.</h4><p>Harden networks, watch the logs, and respond when something gets through.</p></div></div>
+      </div>
+      <div class="cta">
+        <a class="btn btn-garnet" href="https://groupme.com/join_group/109767668/8WQ9oDR2" target="_blank" rel="noopener">Join the club</a>
+        <a class="btn btn-ghost" href="#ctf" id="tryCtf">Try the flag challenge</a>
+      </div>
     </div>
   </div>
-  <div>
-    <div class="term" id="ctf">
+</div></section>
+<div class="seam" aria-hidden="true"><span class="sg"></span><span class="sb"></span></div>
+
+<section class="sec ctfsec" id="ctf"><div class="wrap">
+  <p class="eyebrow">Your first challenge</p>
+  <h2 class="sec-title">Capture the flag</h2>
+  <p class="sec-sub">A flag is hidden in the terminal below — the kind of capture-the-flag puzzle we run at meetings. Want a nudge? Type <b>start</b>. Solve it and you've done your first CTF.</p>
+  <div class="termwrap">
+    <div class="term" id="termbox">
       <div class="term-bar">
         <span class="dot" style="background:#FF5F57"></span>
         <span class="dot" style="background:#FEBC2E"></span>
         <span class="dot" style="background:#28C840"></span>
-        <span class="t">guest@scsu-cyber: ~</span>
+        <span class="t">guest@scsu: ~</span>
       </div>
       <div class="term-body" id="termBody"></div>
       <div class="term-row">
@@ -256,13 +312,6 @@ footer a:hover{color:#fff;text-decoration:underline}
       </div>
     </div>
     <div class="chips" id="chips"><span class="lbl">Quick</span></div>
-  </div>
-</div></section>
-
-<section class="sec" style="padding-bottom:0"><div class="wrap">
-  <div class="ctf-note">
-    <h4>Find the flag.</h4>
-    <p>A hidden file in this terminal holds an encoded flag. Find it, decode it, and submit it — that's a capture-the-flag challenge in miniature, the kind of thing we practice at meetings. Solved it? Screenshot the result and show an officer at the next meeting. Hint: hidden files start with a dot — start with <b>ls -a</b>.</p>
   </div>
 </div></section>
 
@@ -333,8 +382,9 @@ footer a:hover{color:#fff;text-decoration:underline}
   </div>
   <div class="cta">
     <a class="btn btn-garnet" href="https://groupme.com/join_group/109767668/8WQ9oDR2" target="_blank" rel="noopener">Get meeting reminders</a>
-    <a class="btn btn-ghost" href="mailto:nbookert@scsu.edu">Email the advisor</a>
+    <a class="btn btn-ghost" id="advBtn" href="mailto:nbookert@scsu.edu?subject=IC%20CAE%20Cybersecurity%20Club">Email the advisor</a>
   </div>
+  <p class="advisor">Advisor: Dr. Nyteisha Bookert · <a href="mailto:nbookert@scsu.edu?subject=IC%20CAE%20Cybersecurity%20Club">nbookert@scsu.edu</a></p>
 </div></section>
 
 <footer><div class="wrap">
@@ -346,8 +396,8 @@ footer a:hover{color:#fff;text-decoration:underline}
     <div>
       <h3>SC State links</h3>
       <ul>
-        <li><a href="https://mcs.scsu.edu/">Computer Science and Mathematics</a></li>
-        <li><a href="https://mcs.scsu.edu/cybersecurity/">Center of Excellence in Cybersecurity</a></li>
+        <li><a href="https://www.scsu.edu/academics/departments/computer-science-and-mathematics/">Computer Science and Mathematics</a></li>
+        <li><a href="https://scsu.edu/academics/departments/computer-science-and-mathematics/center_excellence_cybersecurity/">Center of Excellence in Cybersecurity</a></li>
         <li><a href="https://scsu.edu/academics/programs/cybersecurity.php">Cybersecurity degree</a></li>
       </ul>
     </div>
@@ -533,7 +583,70 @@ var PROJECTS = [
         name: 'Harden a Linux server',
         one: 'Lock down a fresh server the way a real sysadmin would.',
         why: 'Defending infrastructure is a whole career lane. This is the starter move.',
-        steps: ['Spin up a fresh Linux VM in your lab, or a free-tier cloud server.', 'Create a non-root user with sudo, and stop logging in as root.', 'Set up SSH key login, then disable password login in the SSH config.', 'Turn on the host firewall (UFW) and allow only the ports you need.', 'Install fail2ban and enable automatic security updates.', 'Run a Lynis audit and fix the easy wins it flags.', push],
+        note: 'Keep your current SSH session open while you change SSH and firewall settings, and test a new connection before closing it, so a typo cannot lock you out.',
+        steps: [
+          { text: 'Spin up a fresh Ubuntu Server 24.04 LTS VM in your lab.', detail: [
+            'Pinned setup: Ubuntu Server 24.04 LTS in VirtualBox, the same lab you built in Build a cybersecurity home lab. Download the Server ISO from ubuntu.com/download/server.',
+            'Give the VM about 2 GB RAM and 20 GB disk. During the install, create your login user and tick Install OpenSSH server so you can connect to it.',
+            'Keep it on a host-only or NAT network so the lab stays isolated.',
+            'Log in and bring it fully up to date before you change anything:',
+            { cmd: 'sudo apt update && sudo apt upgrade -y' },
+            'Success: you can log into the fresh server and it reports no pending updates.'
+          ] },
+          { text: 'Use a non-root user with sudo, not root directly.', detail: [
+            'Working as root means one typo or one compromise has full control. Ubuntu already gives you a sudo user and a locked root account, which is what you want.',
+            'If you are on a cloud server that drops you straight in as root, create a normal user and give it sudo:',
+            { cmd: 'sudo adduser secadmin\nsudo usermod -aG sudo secadmin' },
+            'Then log in as that user from now on and use sudo for admin tasks.',
+            'Success: running sudo whoami as your normal user returns root, and you are not logging in as root directly.'
+          ] },
+          { text: 'Set up SSH key login, then turn password and root login off.', detail: [
+            'Passwords can be brute-forced; an SSH key cannot be guessed. Generate a key on your own machine (not the server):',
+            { cmd: 'ssh-keygen -t ed25519' },
+            'Copy the public key to the server, then confirm key login works before you change anything:',
+            { cmd: 'ssh-copy-id secadmin@SERVER_IP\nssh secadmin@SERVER_IP' },
+            'Now create /etc/ssh/sshd_config.d/99-hardening.conf (sudo nano /etc/ssh/sshd_config.d/99-hardening.conf) with these three lines:',
+            { cmd: 'PasswordAuthentication no\nPermitRootLogin no\nKbdInteractiveAuthentication no' },
+            'Restart SSH with sudo systemctl restart ssh. IMPORTANT: keep your current session open and open a NEW ssh connection to confirm your key still works before closing anything, so a typo cannot lock you out.',
+            'Success: a new SSH session logs in with your key, and password and root logins are refused.'
+          ] },
+          { text: 'Turn on the UFW firewall and allow only what you need.', detail: [
+            'A host firewall blocks every port except the ones you explicitly open. Set a default-deny posture, and allow SSH before you enable it or you will lock yourself out:',
+            { cmd: 'sudo ufw default deny incoming\nsudo ufw default allow outgoing\nsudo ufw allow OpenSSH\nsudo ufw enable' },
+            'Check what is open:',
+            { cmd: 'sudo ufw status verbose' },
+            'Success: ufw status shows active, OpenSSH allowed, and everything else denied.'
+          ] },
+          { text: 'Install fail2ban and turn on automatic security updates.', detail: [
+            'fail2ban watches the auth log and temporarily bans IPs that fail login over and over, which shuts down brute-force attempts. Install it:',
+            { cmd: 'sudo apt install fail2ban -y' },
+            'Create /etc/fail2ban/jail.local (sudo nano /etc/fail2ban/jail.local) with:',
+            { cmd: '[sshd]\nenabled = true\nbackend = systemd\nmaxretry = 5\nbantime = 1h' },
+            'backend = systemd tells fail2ban to read SSH failures from the system journal instead of a log file. On a full Ubuntu Server install it would work either way, but a minimal or cloud image often has no /var/log/auth.log, and without this line the jail loads, looks active, and silently bans no one.',
+            'Enable it and confirm the jail is watching SSH:',
+            { cmd: 'sudo systemctl enable --now fail2ban\nsudo fail2ban-client status sshd' },
+            'Prove it actually bans, not just loads: from a different machine (not the one holding your working session), try to SSH in as a made-up user five or six times, like ssh nobody@SERVER_IP, then check the jail again:',
+            { cmd: 'sudo fail2ban-client status sshd' },
+            'That test IP should now appear under "Banned IP list." To lift a ban, including if you ever lock yourself out, run this from the VM console, which fail2ban can never block:',
+            { cmd: 'sudo fail2ban-client set sshd unbanip BANNED_IP' },
+            'Turn on automatic security patching so the box stays current:',
+            { cmd: 'sudo apt install unattended-upgrades -y\nsudo dpkg-reconfigure -plow unattended-upgrades' },
+            'Success: fail2ban-client status sshd shows the jail active and your test IP in the banned list, and unattended-upgrades is enabled.'
+          ] },
+          { text: 'Run a Lynis audit and fix a few of the wins it flags.', detail: [
+            'Lynis scans the system and scores how hardened it is, with concrete suggestions.',
+            { cmd: 'sudo apt install lynis -y\nsudo lynis audit system' },
+            'At the end it prints a hardening index (a score) plus Warnings and Suggestions. Read them, pick a few clear wins to fix (it will suggest things like kernel sysctl tweaks or a GRUB password), and re-run to watch the score move. Do not chase a perfect score.',
+            'Success: Lynis runs, you have a hardening index, and you have fixed a few of its top suggestions.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'In your portfolio repo, add a folder named server-hardening with a README: what you changed (key-based SSH, password and root login disabled, UFW default-deny, fail2ban, automatic updates), your before-and-after Lynis score, and one line on what each control defends against.',
+            'Before you push, keep it safe: no real server IP addresses, no private keys, and no usernames you reuse elsewhere. A screenshot of the Lynis hardening index is fine.',
+            'Browser path, or from a local clone:',
+            { cmd: 'git add .\ngit commit -m "Add Linux server hardening writeup"\ngit push' },
+            'Success: the write-up is in your repo with before-and-after evidence and no secrets.'
+          ] }
+        ],
         skills: ['Linux administration', 'SSH key auth', 'Host firewalls', 'System hardening'],
         resume: 'Hardened a Linux server with key-based SSH, host firewall (UFW), fail2ban, and automated patching; verified posture with a Lynis audit.',
         linkedin: 'Spent this week hardening a Linux box: SSH keys only, firewall locked down, fail2ban watching for brute force, auto-updates on. Ran a Lynis audit at the end to check my work. Defense is detail work and I am here for it. #cybersecurity #blueteam #linux',
@@ -754,7 +867,7 @@ var PROJECTS = [
         note: 'Never put real passwords, keys, or anything from a system you do not own into a public repo.',
         steps: [
           { text: 'Make a new public repository called something like cybersecurity-projects.', detail: [
-            'This assumes you already have a GitHub account. If not, do the Set up a professional GitHub account essential first.',
+            'This assumes you already have a GitHub account. If not, do the Create a GitHub account essential first.',
             'On github.com, click New (the green button on your Repositories tab, or the + menu at the top right then New repository). Name it cybersecurity-projects — lowercase with a hyphen, since GitHub turns spaces into dashes anyway.',
             'Set it to Public so employers can actually see it, and check Add a README file so the repo is not empty.',
             'Click Create repository.',
@@ -871,7 +984,53 @@ var PROJECTS = [
         one: 'Find real web vulnerabilities in an app built to be hacked.',
         why: 'Web application security is one of the biggest hiring areas. OWASP Juice Shop lets you practice attacks legally, on your own machine.',
         note: 'Only attack apps you own or are authorized to test. Juice Shop running on your own machine is yours.',
-        steps: ['Run OWASP Juice Shop locally with its one-line Docker command, or, if you cannot install Docker, use the hosted demo at demo.owasp-juice.shop (a sneak-peek instance with no guaranteed uptime).', 'Open it in your browser and use it like a normal customer first.', 'Open your browser developer tools and watch the requests the app makes.', 'Work through the built-in challenge list, starting with the one-star challenges.', 'Solve at least one injection challenge and one broken-access-control challenge.', 'Write up two flaws: what the bug was, how you exploited it, and how a developer would fix it.', push],
+        steps: [
+          { text: 'Run OWASP Juice Shop on your own machine.', detail: [
+            'Pinned setup: OWASP Juice Shop, a deliberately-vulnerable app made for practice, run as your OWN local copy so everything you do is legal and isolated. Easiest way is Docker, inside your lab:',
+            { cmd: 'docker run -d -p 3000:3000 bkimminich/juice-shop' },
+            'If Docker is not installed yet (on Kali or Ubuntu):',
+            { cmd: 'sudo apt install docker.io -y\nsudo systemctl enable --now docker' },
+            'Then open http://localhost:3000 in your browser.',
+            'Guardrail: only ever attack this local copy, or another app you own or are explicitly authorized to test. Never a real website.',
+            'When you are done for the session, find the container and stop it (your challenge progress resets, which is fine for practice):',
+            { cmd: 'docker ps\ndocker stop CONTAINER_ID' },
+            'Success: Juice Shop loads in your browser at localhost:3000, and you know how to stop it when you are done.'
+          ] },
+          { text: 'Use it like a normal customer first.', detail: [
+            'Register an account, browse products, add something to your basket, leave a review. Seeing how it is supposed to work makes the flaws obvious later.',
+            'Success: you have clicked through the normal shopping flow.'
+          ] },
+          { text: 'Open your browser dev tools and watch the traffic.', detail: [
+            'Press F12 and open the Network tab. As you log in, search, and open products, watch the requests the app makes to its /rest/ and /api/ endpoints, and what comes back.',
+            'Optional: for deeper work, Burp Suite Community Edition (free, already on Kali) lets you intercept and change requests, but the browser Network tab is plenty to start.',
+            'Success: you can see the app\'s API requests and responses in the Network tab.'
+          ] },
+          { text: 'Find the Score Board and start the challenges.', detail: [
+            'Juice Shop hides its Score Board, and finding it is the first challenge. Hint: it is a page the menu does not link to. Try the URL http://localhost:3000/#/score-board.',
+            'The Score Board lists every challenge by difficulty (star rating). Start with the one-star challenges.',
+            'Success: the Score Board is open and you can see the challenge list.'
+          ] },
+          { text: 'Solve one injection and one broken-access-control challenge.', detail: [
+            'SQL injection (login bypass): at the login page, put \' OR 1=1-- in the email field and anything in the password field. The app pastes your input straight into its SQL query, so OR 1=1 makes the condition always true and logs you in as the first user, usually the admin. That is an authentication bypass.',
+            'Broken access control: while logged in, find the request that loads your basket in the Network tab (something like /rest/basket/1). Change the number to another id, like /rest/basket/2, and you may see another user\'s basket, because the server never checks the basket belongs to you. That is an insecure direct object reference.',
+            'These map to two of the OWASP Top 10: Injection and Broken Access Control.',
+            'Stuck? Each challenge has a hint on the Score Board, and the free guide Pwning OWASP Juice Shop walks through every one.',
+            'Success: at least one injection and one access-control challenge show as solved on the Score Board.'
+          ] },
+          { text: 'Write up two flaws: the bug, the exploit, and the fix.', detail: [
+            'For each of your two vulnerabilities, write four things: what it was (name it), how you exploited it (the exact steps or payload), the impact (logged in as admin, saw another user\'s data), and how a developer fixes it.',
+            'The fixes matter most: parameterized queries (prepared statements) stop SQL injection because user input is treated as data, not query code; server-side authorization checks that the resource belongs to the logged-in user stop broken access control.',
+            'Being able to explain the fix is what separates someone who ran an exploit from someone who understands security.',
+            'Success: a short report with two vulnerabilities, each with its exploit, impact, and remediation.'
+          ] },
+          { text: 'Write it up and push it to your GitHub portfolio repo, so the work is something you can link to.', detail: [
+            'In your portfolio repo, add a folder named web-app-security with a README holding your two write-ups.',
+            'It is fine to describe Juice Shop exploits in detail (it is public and built for exactly this), but frame it as practice on your own local instance, and never include a real target of any kind.',
+            'Browser path, or from a local clone:',
+            { cmd: 'git add .\ngit commit -m "Add web app security writeup (Juice Shop)"\ngit push' },
+            'Success: your write-up is in your repo, framed as authorized practice, with no real target.'
+          ] }
+        ],
         skills: ['Web app security', 'OWASP Top 10', 'Browser dev tools', 'Vulnerability write-ups'],
         resume: 'Identified and exploited web vulnerabilities (injection, broken access control) in OWASP Juice Shop; documented each flaw with its impact and remediation.',
         linkedin: 'Spent this week breaking OWASP Juice Shop, an app built to be hacked. Finding an injection bug myself and then understanding the fix taught me more about web security than any slide deck. #cybersecurity #appsec #owasp',
@@ -967,6 +1126,8 @@ var PROJECTS = [
     ];
 
 var INTERVIEW = {
+  'harden': [{q:'Why disable SSH password authentication and use keys instead?', a:'Passwords can be brute-forced or phished; an SSH key is a long cryptographic secret that can\'t be guessed, and the private key never leaves my machine. Turning password auth off closes the most common way servers get taken over, which is automated password guessing.'}, {q:'What does fail2ban actually do for you?', a:'It watches the auth log and temporarily firewalls out any IP that fails login too many times. It won\'t stop a correct key login, but it shuts down brute-force attempts fast, which cuts both the risk and the log noise.'}, {q:'Why set the firewall to default-deny instead of just blocking known-bad ports?', a:'Default-deny means only the ports I explicitly allow, like SSH, are reachable and everything else is closed, including services I forgot were running. Blocking known-bad ports is a blocklist that misses whatever you didn\'t think of; default-deny is an allowlist, which is the safer posture.'}],
+  'webapp': [{q:'You bypassed a login with \' OR 1=1--. What is actually happening, and how do you fix it?', a:'The app builds its SQL query by pasting my input straight into the query string, so my input changes the query\'s logic: OR 1=1 makes the WHERE always true and logs me in as the first user. The fix is parameterized queries, where input is passed as data, not code, so it can never change the query.'}, {q:'What is broken access control, in your own words?', a:'It\'s when the app lets you reach data or actions that should be off-limits, like changing an id in a request to view another user\'s basket because the server never checks the resource is yours. The fix is enforcing authorization on the server for every request instead of trusting the client.'}, {q:'Why practice on something like Juice Shop instead of a real website?', a:'Because attacking a system you don\'t own or aren\'t authorized to test is illegal. Juice Shop is built to be hacked and I run my own copy, so it\'s a safe, legal lab. Knowing that line is itself part of being hireable in security.'}],
   'homelab': [{q:'Why did you put your lab VMs on a host-only network?', a:'So the vulnerable target VM cant reach the internet or my real home network. Anything I break or any malware stays sealed inside the lab instead of leaking out to the rest of my system.'}, {q:'What do VM snapshots give you?', a:'It’s a saved state I can roll back to instantly, so after I break or infect a box, I just restore the snapshot instead of rebuilding the whole VM.'}, {q:'Whats the difference between host-only, NAT, and bridged VM networking?', a:'Host-only keeps VMs talking only to each other and the host, with no internet. NAT gives them outbound internet through the host but nothing can reach them inbound. Bridged makes a VM look like a real device on your actual network. A security lab uses host-only so nothing leaks out.'}],
   'nmap': [{q:'Whats the difference between a host-discovery scan and a service scan?', a:'Host discovery just finds which IPs are alive on the subnet, like taking an inventory of devices. A service scan then probes one hosts open ports to see what services and versions are running. You enumerate hosts first, then dig into specific ones.'}, {q:'Why does the idea that you cant defend what you havent inventoried matter?', a:'You can’t protect a device you don’t know is there. An open port on a forgotten machine is exactly what an attacker finds first, so an accurate inventory is the baseline — you can only patch, monitor, or firewall what you know exists.'}, {q:'Is it legal to run nmap against a network?', a:'Only on a network you own or have explicit written permission to test. Scanning someone elses network without authorization can be illegal, so in my project I only scanned my own home network.'}],
   'wireshark': [{q:'Walk me through the TCP three-way handshake.', a:'SYN from the client to start the connection, SYN-ACK back from the server acknowledging and sending its own sequence number, then ACK from the client. After those three packets the connection is established and data can flow. I identified all three in my own capture.'}, {q:'What does Follow TCP Stream do, and why is it useful?', a:'It stitches all the packets from one TCP conversation back together, so instead of reading them one at a time I see the whole exchange — like an HTTP request and its response — as one readable conversation.'}, {q:'If you saw login credentials in plaintext in a capture, what would that tell you?', a:'That the traffic wasnt encrypted, for example plain HTTP instead of HTTPS. Its a real finding, because anyone on the network path could sniff that data, and the fix is to move the service to TLS or an encrypted protocol.'}],
@@ -974,6 +1135,18 @@ var INTERVIEW = {
   'account-audit': [{q:'Why does enabling MFA on your email matter most?', a:'Email is the reset point for every other account, so whoever controls it can trigger password resets everywhere. Securing email first with MFA means a stolen password alone cant cascade into all your other accounts.'}, {q:'Why are unique generated passwords better than one strong password reused everywhere?', a:'Reuse means a single breach unlocks every account sharing that password, which is how credential-stuffing attacks work. Unique passwords contain the damage to one site, and a password manager makes that practical because you dont have to remember them.'}, {q:'What does it mean if your email shows up on Have I Been Pwned?', a:'It means that address, and often an old password, appeared in a known data breach. It doesnt mean Im actively hacked, but any account still using that leaked password is at risk, so I rotate those right away.'}],
   'portfolio': [{q:'Walk me through a project on your GitHub.', a:'I pick one repo and tell its story using the README structure: the goal, what I did, what I found, and one thing Id do differently. Having the write-up already there means I can speak to a real, specific project instead of generalities.'}, {q:'Why keep a public security portfolio as a student?', a:'Its evidence. Anyone can list skills on a resume, but a public repo of write-ups, configs, and results lets a hiring manager verify Ive actually done hands-on work, and GitHub is where they look.'}, {q:'Why does it matter what you push to a public repo?', a:'A public repo is visible to everyone, so real passwords, keys, internal IPs, or live malicious links would leak secrets or republish something dangerous. I redact personal data, defang URLs, and never commit raw captures, which shows I understand operational security.'}],
   'phish': [{q:'What do SPF and DKIM tell you, and does passing them mean the email is legitimate?', a:'SPF checks that the sending server is authorized for the domain, and DKIM checks the message was signed by the domain and not altered. A fail is a strong red flag, but a pass does not mean legit, because an attacker can pass both on their own lookalike domain. Its one signal, not a verdict.'}, {q:'How do you investigate a suspicious link without putting yourself at risk?', a:'Never click it. I read the real destination from the raw header, defang it so no one clicks it by accident, and submit it to a sandbox or reputation service like urlscan.io or VirusTotal that visits it in isolation. I also strip any personal tokens before submitting.'}, {q:'What are the top indicators that an email is phishing?', a:'A sender or display-name mismatch, a Reply-To that differs from the From address, SPF/DKIM/DMARC failures, a destination domain that isnt the brand it claims, urgency or threats, generic greetings, and risky attachment types. I document those as indicators of compromise in a short report.'}],
+};
+
+var SHOT = {
+  'harden': 'Your sudo ufw status verbose output, or the Lynis hardening-index score at the end of the audit. Crop or blur any real server IP or hostname.',
+  'webapp': 'The Juice Shop Score Board showing your solved challenges, or your Network tab on the injected login request. Make sure it\'s your local Juice Shop (localhost), never a real site.',
+  'homelab': 'Your VirtualBox window showing both VMs on the host-only network, or Kali successfully pinging the target. Nothing personal to hide here.',
+  'nmap': 'Your nmap scan output or the inventory table you built. Crop or blur any real public IPs or device names first.',
+  'wireshark': 'The Wireshark window showing the three-way handshake or your dns filter. Scrub any real IPs or hostnames tied to you.',
+  'logs': 'Your terminal with the grep command and the repeated failed logins from one IP. Use the sample log, or redact real IPs.',
+  'account-audit': 'Be careful here: your password managers security report with the site names blurred, or a screen confirming MFA is on. Never show real accounts, emails, or your breach list.',
+  'portfolio': 'Your GitHub portfolio repo or profile README. Its already public, so theres nothing to hide.',
+  'phish': 'The Show original auth-results table (SPF/DKIM), or your indicators list. Keep every URL defanged and your real email cropped out.',
 };
 
 var FEATURED = ['homelab','nmap','wireshark','logs','account-audit','portfolio','phish'];
@@ -987,31 +1160,45 @@ function levelDot(l){var m={Essential:'#0F1B35',Beginner:'#2E7D52',Intermediate:
 var FLAG='flag{garnet_and_blue}';
 function intro(){return [
   {kind:'out',text:'IC CAE Cybersecurity Club, SC State University'},
-  {kind:'out',text:'Type help and press Enter, or tap a quick command.'}
+  {kind:'out',text:'A real terminal. Type start to begin, or help for all commands.'}
 ];}
 function respond(cmd){
   var parts=String(cmd).split(/\s+/);
   var name=parts[0].toLowerCase();
   var arg=parts.slice(1).join(' ').trim();
+  if(/^[123](?:[\s,]+[123])+$/.test(String(cmd).trim())) return ['All of it, that is the spirit.','1) Come to a meeting: any major, any year, no experience needed.','2) Group chat: tap Get meeting reminders on the page to join.','3) Pick a side: type garnet, blue, or both.'];
   switch(name){
-    case 'help': return ['whoami      who you are right now','about       what this club is','meet        the next meeting','join        how to join','ls          list files (try ls -a)','cat FILE    print a file','submit X    submit a flag','clear       clear the screen'];
-    case 'whoami': return ['guest','Not a member yet. Run join to fix that.'];
+    case 'help': return ['start       what to do here','whoami      who you are right now','about       what this club is','meet        the next meeting','join        how to join','ls          list files (try ls -a)','cat FILE    print a file','decode X    decode base64 text','submit X    submit a flag','clear       clear the screen'];
+    case 'whoami': return ['guest','Not a member yet. Solve the hidden flag, then run join to fix that.'];
+    case 'start': case 'mission': return ['This terminal is a small taste of what the club actually does.','Your mission, in three moves:','1) Find the hidden flag: run ls -a, then cat the file that starts with a dot.','2) Decode and submit it: submit flag{...}, your first capture-the-flag solve.','3) Join for the real thing: type join, then scroll down to the bank for runbooks that become resume lines.'];
     case 'about': return ['Founded in 2020 in the Department of Computer Science and Mathematics.','We train on both sides: garnet for red team, blue for blue team.'];
     case 'meet': return MEETING.tba
       ? ['The next meeting is announced in the GroupMe.', 'Run join to get the link, or tap Get meeting reminders on the page.', 'Bring a laptop if you have one.']
       : ['Next meeting: '+MEETING.day+', '+MEETING.time, 'Where: '+MEETING.room, 'Bring a laptop if you have one.'];
     case 'join': return ['1. Come to a meeting. No experience needed.','2. Join the group chat for reminders.','3. Pick a side: garnet, blue, or both.'];
+    case '1': return ['Come to a meeting. Any major, any year, no experience needed.','Run meet for the next date, or tap Get meeting reminders on the page.'];
+    case '2': return ['Join the group chat for reminders.','Tap Get meeting reminders on the page to open the GroupMe invite.'];
+    case '3': return ['Pick a side: type garnet, blue, or both.','garnet = red team (attack), blue = blue team (defend), both = the best way to learn.'];
+    case 'garnet': case 'red': return ['Garnet it is. Red team.','You learn to attack systems you have permission to attack: CTFs, web exploits, recon.','Come to a meeting and run join to make it official.'];
+    case 'blue': return ['Blue it is. Blue team.','You learn to defend: harden networks, read the logs, run down intrusions.','Come to a meeting and run join to make it official.'];
+    case 'both': return ['Both sides. The best way to learn.','Attack to understand defense, defend to understand attack.','Come to a meeting and run join to make it official.'];
     case 'ls': return arg.indexOf('-a')!==-1 ? ['.flag   about.txt   meet.txt'] : ['about.txt   meet.txt'];
     case 'cat':
       if(!arg) return [{kind:'err',text:'cat: which file? Try ls -a first.'}];
-      if(arg==='.flag') return [{kind:'flag',text:btoa(FLAG)},{kind:'ok',text:'Encoded, not encrypted. Decode it, then type submit followed by the flag.'}];
+      if(arg==='.flag') return [{kind:'flag',text:btoa(FLAG)},{kind:'ok',text:'Encoded, not encrypted. Decode it right here: type decode and paste that text (or use CyberChef). Then submit the flag.'}];
       if(arg==='about.txt') return respond('about');
       if(arg==='meet.txt') return respond('meet');
       return [{kind:'err',text:'cat: '+arg+': no such file'}];
-    case 'base64': return [{kind:'err',text:'base64: not installed here. Try CyberChef or any Linux terminal.'}];
+    case 'decode':
+      if(!arg) return [{kind:'err',text:'decode: paste the text after it, e.g. decode <the output of cat .flag>.'}];
+      try{ var d=atob(arg.trim()); return [{kind:'ok',text:d},{kind:'out',text:'That was base64. In a real shell: echo <text> | base64 -d. Now submit followed by the flag.'}]; }
+      catch(e){ return [{kind:'err',text:'decode: that is not valid base64. Copy the exact output from cat .flag.'}]; }
+    case 'base64':
+      if(arg.indexOf('-d')!==-1){ try{ return [{kind:'ok',text:atob(arg.replace('-d','').trim())}]; } catch(e){ return [{kind:'err',text:'base64: that is not valid base64.'}]; } }
+      return [{kind:'err',text:'base64: add -d and the text, e.g. base64 -d <text>. Or just use decode.'}];
     case 'submit':
       if(!arg) return [{kind:'err',text:'submit: put the flag after the command.'}];
-      if(arg===FLAG) return [{kind:'ok',text:'Correct. Screenshot this and show an officer at the next meeting.'}];
+      if(arg===FLAG) return [{kind:'ok',text:'Correct. Your first capture-the-flag solve.'},{kind:'out',text:'Screenshot it for an officer at the next meeting, then scroll down to the bank and try a real project.'}];
       return [{kind:'err',text:'Not quite. Decode the file and try again.'}];
     case 'sudo': return [{kind:'err',text:'guest is not in the sudoers file. This incident will be reported.'}];
     default: return [{kind:'err',text:name+': command not found. Try help.'}];
@@ -1032,23 +1219,50 @@ function runCmd(raw){
   var cmd=String(raw||'').trim();
   var input=document.getElementById('termInput');
   if(!cmd){ input.value=''; return; }
-  if(cmd.toLowerCase()==='clear'){ termLines=[]; input.value=''; renderTerm(); return; }
+  if(cmd.toLowerCase()==='clear'){ termLines=[]; input.value=''; renderTerm(); renderChips(CHIP_DEFAULT); return; }
   var out=respond(cmd).map(function(o){return typeof o==='string'?{kind:'out',text:o}:o;});
   termLines=termLines.concat([{kind:'cmd',text:cmd}],out).slice(-60);
-  input.value=''; renderTerm();
+  input.value=''; renderTerm(); renderChips(chipsFor(cmd));
+}
+var CHIP_DEFAULT=[{label:'start'},{label:'ls -a'},{label:'join'},{label:'meet'},{label:'help'},{label:'clear'}];
+function chipsFor(cmd){
+  var c=String(cmd||'').toLowerCase().trim();
+  if(c==='ls -a') return [{label:'cat .flag'},{label:'join'},{label:'help'},{label:'clear'}];
+  if(c==='cat .flag') return [{label:'decode .flag',fill:'decode '+btoa(FLAG)},{label:'join'},{label:'help'},{label:'clear'}];
+  if(c.indexOf('decode')===0||c.indexOf('base64')===0) return [{label:'submit',fill:'submit '},{label:'join'},{label:'help'},{label:'clear'}];
+  if(c.indexOf('submit')===0) return [{label:'join'},{label:'start'},{label:'help'},{label:'clear'}];
+  return CHIP_DEFAULT;
+}
+function renderChips(list){
+  var box=document.getElementById('chips'); if(!box) return;
+  box.innerHTML='<span class="lbl">Quick</span>';
+  var input=document.getElementById('termInput');
+  list.forEach(function(it){
+    var b=document.createElement('button'); b.className='chip'; b.textContent=it.label;
+    if(it.fill) b.className='chip fill';
+    b.addEventListener('click',function(){
+      if(it.fill){ if(input){ input.value=it.fill; input.focus(); } return; }
+      runCmd(it.cmd||it.label); if(input) input.focus();
+    });
+    box.appendChild(b);
+  });
 }
 function initTerm(){
   renderTerm();
   var input=document.getElementById('termInput');
   document.getElementById('termRun').addEventListener('click',function(){runCmd(input.value);input.focus();});
   input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); runCmd(input.value);} });
-  var chips=['help','whoami','ls -a','meet','join','clear'];
-  var box=document.getElementById('chips');
-  chips.forEach(function(c){
-    var b=document.createElement('button'); b.className='chip'; b.textContent=c;
-    b.addEventListener('click',function(){ runCmd(c); input.focus(); });
-    box.appendChild(b);
-  });
+  renderChips(CHIP_DEFAULT);
+  var tryBtn=document.getElementById('tryCtf');
+  if(tryBtn){ tryBtn.addEventListener('click',function(e){
+    e.preventDefault();
+    var sec=document.getElementById('ctf');
+    sec.scrollIntoView({behavior:'smooth',block:'start'});
+    try{ input.focus({preventScroll:true}); }catch(_){ input.focus(); }
+    var box=document.getElementById('termbox');
+    box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+    setTimeout(function(){ box.classList.remove('flash'); }, 750);
+  }); }
 }
 
 /* =================== BANK =================== */
@@ -1097,8 +1311,8 @@ function runbookHTML(p){
   var hasProof = p.resume||p.linkedin||p.prompt;
   if(hasProof){
     h+='<div class="blocktitle">Turn it into career proof</div><div class="proof">';
-    if(p.resume) h+=proofCard('résumé','resume',p.resume,'');
-    if(p.linkedin) h+=proofCard('LinkedIn','linkedin',p.linkedin,'');
+    if(p.resume) h+=proofCard('For your résumé','resume',p.resume,'');
+    if(p.linkedin) h+=proofCard('For your LinkedIn','linkedin',p.linkedin,'',SHOT[p.id]);
     if(p.prompt) h+=proofCard('Hand it to AI','prompt',p.prompt,'Paste your own notes where it says [paste your notes], then give this to Claude or any AI.');
     h+='</div>';
   }
@@ -1113,11 +1327,13 @@ function runbookHTML(p){
   h+='</div>';
   return h;
 }
-function proofCard(label,key,val,hint){
+function proofCard(label,key,val,hint,foot){
   var done = copied===key;
-  var h='<div class="p"><div class="lab"><h5>For your '+esc(label)+'</h5><button class="copy'+(done?' done':'')+'" data-act="copy" data-key="'+key+'">'+(done?'Copied ✓':'Copy')+'</button></div>';
+  var h='<div class="p"><div class="lab"><h5>'+esc(label)+'</h5><button class="copy'+(done?' done':'')+'" data-act="copy" data-key="'+key+'">'+(done?'Copied ✓':'Copy')+'</button></div>';
   if(hint) h+='<p class="hint">'+esc(hint)+'</p>';
-  h+='<div class="val">'+esc(val)+'</div></div>';
+  h+='<div class="val">'+esc(val)+'</div>';
+  if(foot) h+='<p class="shot"><b>Suggested screenshot:</b> '+esc(foot)+'</p>';
+  h+='</div>';
   return h;
 }
 function cardHTML(p,showNum){
@@ -1198,8 +1414,19 @@ function initMeta(){
   document.getElementById('weekflag').textContent='WEEK OF '+mon+' '+d.getDate();
 }
 
+function initAdvisor(){
+  var a=document.getElementById('advBtn'); if(!a) return;
+  var orig=a.textContent, t=null;
+  a.addEventListener('click',function(){
+    try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText('nbookert@scsu.edu'); } }catch(e){}
+    a.textContent='Copied \u2713';
+    if(t) clearTimeout(t);
+    t=setTimeout(function(){ a.textContent=orig; }, 1800);
+    // no preventDefault: the mailto still opens a mail app for anyone who has one
+  });
+}
 document.addEventListener('DOMContentLoaded',function(){
-  initTerm(); initBank(); initMeta();
+  initTerm(); initBank(); initMeta(); initAdvisor();
 });
 })();
 </script>

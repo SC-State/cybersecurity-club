@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home lab setup walkthrough — IC CAE Cybersecurity Club</title>
+<meta name="description" content="A zero-experience, click-by-click walkthrough for building your cybersecurity home lab: VirtualBox, Kali Linux, a target machine, and a safe isolated network.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --garnet:#8E1B30; --blue:#1D4FA3; --navy:#0F1B35;
+    --ink:#0F1B35; --mut:#5b6472; --line:#e4e8ef; --bg:#f4f6fa; --paper:#ffffff;
+    --disp:'Big Shoulders Display',sans-serif; --body:'Public Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+  header{background:var(--paper);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy);text-decoration:none;font-size:15px}
+  .mark{display:inline-flex}
+  .mark span{width:13px;height:20px;border-radius:2px;display:block}
+  .mark .g{background:var(--garnet)} .mark .b{background:var(--blue);margin-left:3px}
+  .back{font-family:var(--mono);font-size:12.5px;color:var(--blue);text-decoration:none}
+  .back:hover{text-decoration:underline}
+
+  .hero{padding:52px 0 26px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 10px}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(36px,7vw,60px);line-height:.95;letter-spacing:.01em;text-transform:uppercase;margin:0 0 16px;color:var(--navy)}
+  .lede{font-size:18px;color:#39414f;max-width:62ch;margin:0 0 14px}
+  .lede b{color:var(--navy)}
+  .time{font-family:var(--mono);font-size:12.5px;color:var(--mut)}
+
+  .seam{height:5px;display:flex;margin:30px 0}
+  .seam .g{background:var(--garnet);flex:1} .seam .b{background:var(--blue);flex:1}
+
+  .toc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 24px}
+  .toc .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:0 0 10px}
+  .toc ol{margin:0;padding-left:20px}
+  .toc li{margin:0 0 5px}
+  .toc a{color:var(--blue);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  section.part{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 24px;margin:0 0 20px}
+  .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--navy);display:inline-block;padding:3px 9px;border-radius:999px;margin:0 0 10px}
+  .tag.best{background:var(--garnet)}
+  h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,5vw,34px);text-transform:uppercase;color:var(--navy);margin:0 0 6px;line-height:1}
+  .sub{color:var(--mut);margin:0 0 16px;font-size:15px}
+  p.body{margin:0 0 12px} p.body:last-child{margin:0} b{color:var(--navy)}
+
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0}
+  ol.steps>li{counter-increment:s;position:relative;padding:0 0 18px 44px;margin:0}
+  ol.steps>li:last-child{padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:0;top:-2px;width:30px;height:30px;border-radius:8px;background:var(--navy);color:#fff;font-family:var(--mono);font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center}
+  ol.steps>li .h{font-weight:700;color:var(--navy)}
+  ol.steps p{margin:4px 0 0}
+  kbd{font-family:var(--mono);font-size:.86em;background:#eef1f7;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--navy);white-space:nowrap}
+  code.inline{font-family:var(--mono);font-size:.86em;background:#eef1f7;border-radius:5px;padding:1px 6px;color:var(--garnet)}
+  pre{background:var(--navy);color:#e9edf6;font-family:var(--mono);font-size:13.5px;line-height:1.65;border-radius:10px;padding:14px 16px;margin:10px 0 0;overflow-x:auto}
+
+  .note{border-left:3px solid var(--blue);background:#eef3fb;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0 0;font-size:14.5px}
+  .note.warn{border-left-color:var(--garnet);background:#fbeef0}
+  .note b{color:var(--navy)}
+  ul.plain{margin:6px 0 0;padding-left:20px} ul.plain li{margin:0 0 6px}
+
+  details.snag{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px 18px;margin:0 0 10px}
+  details.snag summary{cursor:pointer;font-weight:700;color:var(--navy);padding:12px 0;list-style:none}
+  details.snag summary::-webkit-details-marker{display:none}
+  details.snag summary::before{content:'+ ';font-family:var(--mono);color:var(--garnet)}
+  details.snag[open] summary::before{content:'– '}
+  details.snag .body{padding:0 0 14px;color:#39414f;font-size:14.5px}
+  details.snag .body p{margin:0 0 8px} details.snag .body p:last-child{margin:0}
+
+  .cta{background:var(--navy);color:#fff;border-radius:16px;padding:26px 24px;margin:12px 0 0;text-align:center}
+  .cta .t{font-family:var(--disp);font-weight:800;font-size:clamp(23px,5vw,31px);text-transform:uppercase;margin:0 0 6px}
+  .cta p{margin:0 auto;color:#c6d0e4;font-size:15px;max-width:54ch}
+  .cta a{color:#9fc0ff;text-decoration:none;border-bottom:1px solid #4a6aa8}
+
+  h3.block{font-family:var(--disp);font-weight:800;font-size:26px;text-transform:uppercase;color:var(--navy);margin:34px 0 14px}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 48px}
+  footer .wrap{color:var(--mut);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--blue);text-decoration:none}
+  a.link{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent}
+  a.link:hover{border-bottom-color:var(--blue)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="./index.html"><span class="mark"><span class="g"></span><span class="b"></span></span> IC CAE Cybersecurity Club</a>
+    <a class="back" href="./index.html#rb=homelab">&larr; back to the runbook</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Full walkthrough</p>
+    <h1>Build your home lab</h1>
+    <p class="lede">The home lab is the one setup half the bank depends on — and it's the step that trips people up most. This is the <b>never-done-this-before</b> version: every click, every fiddly bit, and the fixes for what usually goes wrong. Do it once and reuse it all year.</p>
+    <p class="time">⏱ Give yourself an afternoon the first time. ☕ You'll download a few GB, so get on good Wi-Fi.</p>
+  </div>
+
+  <div class="seam"><span class="g"></span><span class="b"></span></div>
+
+  <section class="part">
+    <span class="tag best">First, the idea</span>
+    <h2>What you're building</h2>
+    <p class="body">A <b>virtual machine</b> (VM) is a whole second computer running inside a window on your real one. You can install an operating system in it, break things, even get it infected — and your actual laptop is never touched. Delete the VM and make a new one anytime.</p>
+    <p class="body">Your lab is <b>two VMs on a private network</b>: <b>Kali Linux</b> (the attacker machine, loaded with security tools) and a deliberately-weak <b>target</b> machine to practice on. They can talk to each other but not to the internet or your real network — so nothing you do can escape or cause real harm.</p>
+    <div class="note"><b>The free program that runs VMs is VirtualBox.</b> That's what you install first.</div>
+  </section>
+
+  <div class="toc">
+    <div class="lbl">The five parts</div>
+    <ol>
+      <li><a href="#p1">Install VirtualBox</a></li>
+      <li><a href="#p2">Add Kali Linux (the attacker)</a></li>
+      <li><a href="#p3">Add a target machine</a></li>
+      <li><a href="#p4">Put them on a private network</a></li>
+      <li><a href="#p5">Boot both and confirm they can see each other</a></li>
+    </ol>
+  </div>
+
+  <section class="part" id="p1">
+    <span class="tag">Part 1</span>
+    <h2>Install VirtualBox</h2>
+    <ol class="steps">
+      <li><span class="h">Download it.</span><p>Go to <code class="inline">virtualbox.org</code> → <kbd>Downloads</kbd>, and pick your system: <b>Windows hosts</b>, <b>macOS / Intel hosts</b>, or <b>Linux</b>. Run the installer and accept the defaults. On Windows, click <b>Yes / Install</b> if it warns about installing a network driver — it needs that.</p></li>
+      <li><span class="h">Add the Extension Pack.</span><p>On the same download page, download the <b>VirtualBox Extension Pack</b> (one file for all systems). Then in VirtualBox open <kbd>File</kbd> → <kbd>Tools</kbd> → <kbd>Extension Pack Manager</kbd> → <kbd>Install</kbd>, and pick the file you downloaded.</p></li>
+      <li><span class="h">Open it once to check.</span><p>Launch VirtualBox — you should see the <b>VirtualBox Manager</b> with an empty list of machines on the left. That's success for Part 1.</p></li>
+    </ol>
+    <div class="note warn"><b>Apple Silicon Mac (M1/M2/M3)?</b> Regular VirtualBox doesn't run the standard Intel images well. Use <b>UTM</b> (free, from <code class="inline">mac.getutm.app</code>) with an ARM Kali image instead — and for your target, use a browser-based <b>TryHackMe</b> room rather than a local Intel VM. The rest of this guide's concepts still apply.</div>
+  </section>
+
+  <section class="part" id="p2">
+    <span class="tag">Part 2</span>
+    <h2>Add Kali Linux — the attacker</h2>
+    <p class="sub">Kali is a Linux system pre-loaded with security tools. You'll grab a ready-made VirtualBox image so you don't have to install an OS from scratch.</p>
+    <ol class="steps">
+      <li><span class="h">Download the Kali VirtualBox image.</span><p>Go to <code class="inline">kali.org/get-kali</code> → the <b>Virtual Machines</b> tab → the <b>VirtualBox</b> image (64-bit). This is a prebuilt VM, not an installer — it saves hours. It's a big file (a few GB), so let it finish.</p></li>
+      <li><span class="h">Extract the download.</span><p>The file is a <code class="inline">.7z</code> archive — a compressed folder. You need a tool to unzip it: <b>7-Zip</b> on Windows (free, <code class="inline">7-zip.org</code>) or <b>Keka</b> on Mac (free, <code class="inline">keka.io</code>). Right-click the <code class="inline">.7z</code> file → <b>Extract here / Extract to…</b>. You'll get a folder with a few files inside, including one that ends in <code class="inline">.vbox</code>.</p></li>
+      <li><span class="h">Add it to VirtualBox.</span><p>In VirtualBox, click <kbd>Machine</kbd> → <kbd>Add</kbd>, browse to the extracted folder, and select the <code class="inline">.vbox</code> file. Kali now appears in your machine list — you did not have to install anything.</p>
+        <div class="note"><b>Note the login.</b> Kali's default username and password are both <code class="inline">kali</code>. You'll need them when it boots.</div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="part" id="p3">
+    <span class="tag">Part 3</span>
+    <h2>Add a target machine</h2>
+    <p class="sub">You need something to practice <i>on</i>. The classic choice is <b>Metasploitable 2</b> — a Linux machine built to be full of holes. (Prefer zero hassle? See the easy alternative at the end of this part.)</p>
+    <ol class="steps">
+      <li><span class="h">Download Metasploitable 2.</span><p>Get it from its official page, <code class="inline">sourceforge.net/projects/metasploitable</code>. It downloads as a <code class="inline">.zip</code>; extract it (right-click → Extract) and you'll find a disk file ending in <code class="inline">.vmdk</code>.</p></li>
+      <li><span class="h">Create a VM that uses that disk.</span><p>In VirtualBox click <kbd>New</kbd>. Name it <code class="inline">Metasploitable2</code>, set Type <b>Linux</b> and Version <b>Ubuntu (32-bit)</b> — Metasploitable 2 is an old 32-bit system, so do not pick a 64-bit option or it may not boot. Click Next. Give it about <b>512 MB</b> RAM. When it asks about a hard disk, choose <b>“Use an existing virtual hard disk file,”</b> click the folder icon → <b>Add</b>, and pick the <code class="inline">.vmdk</code> you extracted. Click <b>Create</b>.</p>
+        <div class="note"><b>Note the login.</b> Metasploitable's username and password are both <code class="inline">msfadmin</code>.</div>
+      </li>
+    </ol>
+    <div class="note"><b>Easy alternative (no second VM):</b> if the target is giving you trouble, use a free <b>TryHackMe</b> room in your browser instead — it gives you a target machine to attack without any local setup. Your Kali VM can still be the attacker for everything else in the bank.</div>
+  </section>
+
+  <section class="part" id="p4">
+    <span class="tag">Part 4</span>
+    <h2>Put them on a private network</h2>
+    <p class="sub">This is the safety step: a <b>host-only network</b> lets your two VMs talk to each other but not to the internet or your real Wi-Fi. Nothing you do can escape the lab.</p>
+    <ol class="steps">
+      <li><span class="h">Create the private network.</span><p>In VirtualBox: <kbd>File</kbd> → <kbd>Tools</kbd> → <kbd>Network Manager</kbd> → the <b>Host-only Networks</b> tab → <kbd>Create</kbd>. It makes a network, usually numbered <code class="inline">192.168.56.0/24</code>. You only do this once.</p></li>
+      <li><span class="h">Attach each VM to it.</span><p>For <b>each</b> VM (Kali and the target): select it, open <kbd>Settings</kbd> → <kbd>Network</kbd> → <kbd>Adapter 1</kbd>, set <b>Attached to: Host-only Adapter</b>, and in the Name dropdown pick the network you just created. Click OK. Do this for both machines so they're on the <i>same</i> network.</p></li>
+      <li><span class="h">(Optional) give Kali internet to update tools.</span><p>If you want Kali to reach the internet (to update its tools), open its Settings → Network → <kbd>Adapter 2</kbd>, tick <b>Enable Network Adapter</b>, and set <b>Attached to: NAT</b>. Keep all your actual attacking on the host-only adapter. The target stays host-only only.</p></li>
+    </ol>
+  </section>
+
+  <section class="part" id="p5">
+    <span class="tag">Part 5</span>
+    <h2>Boot both and confirm they see each other</h2>
+    <ol class="steps">
+      <li><span class="h">Start both VMs.</span><p>Select each one and click <kbd>Start</kbd>. A window opens and the machine boots. Log in with the credentials from earlier — Kali is <code class="inline">kali</code>/<code class="inline">kali</code>, the target is <code class="inline">msfadmin</code>/<code class="inline">msfadmin</code>.</p></li>
+      <li><span class="h">Find each machine's IP address.</span><p>On <b>Kali</b>, open a terminal (the icon in the top bar) and run:</p>
+        <pre>ip a</pre>
+        <p>On the <b>target</b>, at its login prompt, run:</p>
+        <pre>ifconfig</pre>
+        <p>Look for an address that starts with <code class="inline">192.168.56.</code> on each — that's its address on your private network. Write the target's down.</p>
+      </li>
+      <li><span class="h">Ping the target from Kali.</span><p>Back on Kali, ping the target's address (replace it with the one you wrote down — the example below uses the usual Metasploitable address):</p>
+        <pre>ping -c 4 192.168.56.101</pre>
+        <p><b>Four replies = success.</b> Your two machines can see each other, safely isolated. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop a ping that keeps going.</p>
+      </li>
+      <li><span class="h">Take a snapshot of each VM.</span><p>Power a VM off, select it, open its <b>Snapshots</b> view (top right), and click <kbd>Take</kbd>. Name it <code class="inline">clean install</code>. A snapshot is a saved point in time — after any messy experiment, select it and click <b>Restore</b> to roll back in seconds.</p>
+        <div class="note"><b>Snapshots are not backups</b> — they live inside the same VM file. Keep the original Kali download too, just in case.</div>
+      </li>
+    </ol>
+    <div class="note warn" style="margin-top:18px"><b>That's the lab.</b> You now have an attacker, a target, and a safe sealed network — the foundation for most of the bank.</div>
+  </section>
+
+  <h3 class="block">If something goes wrong</h3>
+
+  <details class="snag">
+    <summary>The VM won't start, or only 32-bit options show up</summary>
+    <div class="body"><p>This is the most common one: <b>virtualization (VT-x / AMD-V) is turned off in your computer's BIOS/UEFI.</b> Restart, press the key that opens BIOS/UEFI during boot (often <kbd>F2</kbd>, <kbd>F10</kbd>, <kbd>Del</kbd>, or <kbd>Esc</kbd> — the screen usually says which), find a setting named <b>Virtualization</b>, <b>VT-x</b>, <b>SVM</b>, or <b>AMD-V</b>, enable it, save, and reboot.</p><p>On <b>Windows</b>, Hyper-V or "Core Isolation / Memory Integrity" can also block VirtualBox. If VMs still won't run 64-bit, search "turn Windows features on or off," and try turning off <b>Hyper-V</b> and <b>Windows Hypervisor Platform</b>, then restart.</p></div>
+  </details>
+
+  <details class="snag">
+    <summary>The two VMs can't ping each other</summary>
+    <div class="body"><p>Almost always the network adapters don't match. Check that <b>both</b> VMs have Adapter 1 set to <b>Host-only Adapter</b> on the <b>same</b> network name (Part 4, step 2). Both addresses should start with <code class="inline">192.168.56.</code> — if one doesn't, fix its adapter and reboot that VM.</p><p>Also make sure you're pinging the address the target actually showed in <code class="inline">ifconfig</code>, not the example in this guide.</p></div>
+  </details>
+
+  <details class="snag">
+    <summary>Kali has no internet (for updating tools)</summary>
+    <div class="body"><p>Host-only on its own has no internet by design. Add a second adapter set to <b>NAT</b> (Part 4, step 3) and reboot Kali. Keep all attacking on the host-only adapter.</p></div>
+  </details>
+
+  <details class="snag">
+    <summary>I'm on an Apple Silicon Mac (M1/M2/M3)</summary>
+    <div class="body"><p>Standard VirtualBox and the Intel Kali/Metasploitable images don't run well on Apple Silicon. Use <b>UTM</b> (<code class="inline">mac.getutm.app</code>) with an <b>ARM</b> Kali image for your attacker, and use a browser-based <b>TryHackMe</b> room as your target instead of a local Intel VM. You still get a real lab, just assembled a bit differently.</p></div>
+  </details>
+
+  <div class="cta">
+    <div class="t">Lab's up — now use it</div>
+    <p>Head back to the <a href="./index.html#rb=homelab">home lab runbook</a> to finish the write-up, then it's the foundation for Nmap, Wireshark, the logs project, and more. Found a snag we didn't cover? Tell us in the GroupMe.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>IC CAE Cybersecurity Club — South Carolina State University</span>
+    <span><a href="./index.html">Back to the site</a></span>
+  </div>
+</footer>
+</body>
+</html>

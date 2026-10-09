@@ -178,6 +178,15 @@ h1,h2,h3{margin:0}
 .rb .note{background:#FFF6E9;border:1px solid #F0D9AE;border-radius:9px;padding:13px 16px;font-size:14px;color:#6B4F17;margin-bottom:24px}
 .rb .note b{color:#5A3E0C}
 .rb .blocktitle{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:16px;letter-spacing:.04em;color:var(--navy);margin:26px 0 12px}
+.rb .termtip{background:#eef3fb;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:11px 15px;margin:0 0 14px;font-size:13.5px;color:#39414f;line-height:1.55}
+.rb .termtip b{color:var(--navy)}
+.rb .guidecard{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--navy);color:#fff;border-radius:12px;padding:14px 18px;margin:14px 0 0;text-decoration:none}
+.rb .guidecard:hover{background:#15264a}
+.rb .guidecard .gc-t{font-weight:700;font-size:15px;line-height:1.35}
+.rb .guidecard .gc-a{font-family:var(--mono);font-size:20px;color:#9fc0ff;flex:none}
+.rb .pushhint{font-family:var(--mono);font-size:12.5px;color:var(--mut);margin:14px 0 0}
+.rb .pushhint a{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent}
+.rb .pushhint a:hover{border-bottom-color:var(--blue)}
 .steps{list-style:none;margin:0;padding:0;counter-reset:st;display:flex;flex-direction:column;gap:10px}
 .step{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
 .step .hd{display:flex;gap:12px;align-items:flex-start}
@@ -541,8 +550,10 @@ var PROJECTS = [
         name: 'Build a cybersecurity home lab',
         one: 'Spin up isolated virtual machines so you can break things safely.',
         why: 'Almost every other project in the bank runs inside a lab. Build it once and reuse it all semester. Give yourself an afternoon the first time.',
+        guide: { url: 'https://sc-state.github.io/cybersecurity-club/home-lab-setup.html', label: 'Never set up a virtual machine before? Follow the full click-by-click walkthrough' },
         steps: [
           { text: 'Install VirtualBox (free) on your laptop or desktop.', detail: [
+            'New to virtual machines? A VM is a whole second computer running inside a window on your real one. You can install Kali, break things, even get it infected, and your actual laptop is never touched. Delete the VM and make a new one anytime. That is why security people practice in VMs, and VirtualBox is the free program that runs them.',
             'Open virtualbox.org and download the build for your operating system: Windows hosts, macOS hosts, or Linux.',
             'Run the installer and accept the defaults. On Windows, allow the network driver it installs when prompted.',
             'From the same page, download the VirtualBox Extension Pack, then add it in VirtualBox under File, Tools, Extension Pack Manager.',
@@ -597,17 +608,6 @@ var PROJECTS = [
         prompt: 'I am a cybersecurity student. I built a home lab: VirtualBox with Kali Linux and a vulnerable target VM on an isolated host-only network, using snapshots. Here is what I actually did and ran: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about the skills this shows. Be specific and skip buzzwords.'
       },
       {
-        id: 'ctf', level: 'Beginner', tag: 'Offense \u00b7 CTF',
-        name: 'Build a CTF track record',
-        one: 'Solve a set of beginner hacking puzzles and rack up a score you can cite.',
-        why: 'Capture the flag is how a lot of people fall for this field. One challenge is a nice afternoon; a track record across categories is a resume line.',
-        steps: ['Make a free account at picoCTF.org and open the picoGym practice area at play.picoctf.org/practice.', 'Start with a one-star General Skills challenge to learn the ropes.', 'Work through several challenges across at least two categories; General Skills, Forensics, and Cryptography are good first ones.', 'Use the hints when you are stuck. They are there to teach, not to cheat.', 'Keep a note for each solve: the challenge, its category, and how you cracked it.', 'Check your picoGym score so you have a number to point to.', push],
-        skills: ['Problem solving', 'Cryptography basics', 'Forensics basics', 'Persistence'],
-        resume: 'Solved multiple capture-the-flag challenges on picoCTF across several categories (general skills, forensics, cryptography); tracked solutions and score.',
-        linkedin: 'Been grinding picoGym this week and cleared challenges across a few categories; general skills, forensics, a bit of crypto. Watching the score climb as the puzzles finally click is weirdly addictive. #cybersecurity #CTF',
-        prompt: 'I am a cybersecurity student. I worked through multiple picoCTF challenges across several categories (general skills, forensics, cryptography) and tracked my score. Here is what I solved and how: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about the skills this shows. Be specific and skip buzzwords.'
-      },
-      {
         id: 'harden', level: 'Intermediate', tag: 'Defense \u00b7 Blue team',
         name: 'Harden a Linux server',
         one: 'Lock down a fresh server the way a real sysadmin would.',
@@ -636,6 +636,7 @@ var PROJECTS = [
             { cmd: 'ssh-copy-id secadmin@SERVER_IP\nssh secadmin@SERVER_IP' },
             'Now create /etc/ssh/sshd_config.d/99-hardening.conf (sudo nano /etc/ssh/sshd_config.d/99-hardening.conf) with these three lines:',
             { cmd: 'PasswordAuthentication no\nPermitRootLogin no\nKbdInteractiveAuthentication no' },
+            'New to nano? It is a text editor that runs in the terminal. Type (or paste) your lines, then save with Ctrl+O and press Enter, and exit with Ctrl+X. The shortcuts are listed along the bottom of the screen (the ^ means Ctrl).',
             'Restart SSH with sudo systemctl restart ssh. IMPORTANT: keep your current session open and open a NEW ssh connection to confirm your key still works before closing anything, so a typo cannot lock you out.',
             'Success: a new SSH session logs in with your key, and password and root logins are refused.'
           ] },
@@ -1016,6 +1017,7 @@ var PROJECTS = [
         steps: [
           { text: 'Run OWASP Juice Shop on your own machine.', detail: [
             'Pinned setup: OWASP Juice Shop, a deliberately-vulnerable app made for practice, run as your OWN local copy so everything you do is legal and isolated. Easiest way is Docker, inside your lab:',
+            'New to Docker? It runs an app in a self-contained box with all its pieces already inside, so instead of installing Juice Shop and its dependencies by hand, one command downloads and starts the whole thing. The -p 3000:3000 part makes it reachable in your browser at port 3000.',
             { cmd: 'docker run -d -p 3000:3000 bkimminich/juice-shop' },
             'If Docker is not installed yet (on Kali or Ubuntu):',
             { cmd: 'sudo apt install docker.io -y\nsudo systemctl enable --now docker' },
@@ -1139,18 +1141,6 @@ var PROJECTS = [
         resume: 'Analyzed authentication logs to detect a brute-force attack: isolated failed logins by source IP, identified a successful compromise, and documented the timeline.',
         linkedin: 'Spent this week reading auth logs and tracing a brute-force attempt down to the IP that finally got in. Reading logs sounds boring until you realize you are watching an attack replay in slow motion. #cybersecurity #blueteam #SOC',
         prompt: 'I am a cybersecurity student. I analyzed authentication logs, found a brute-force attack by isolating failed logins per IP, and identified the IP that eventually succeeded. Here is what I found: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points for a SOC or blue-team role. Be specific and skip buzzwords.'
-      },
-      {
-        id: 'tabletop', level: 'Beginner', tag: 'Defense \u00b7 Incident response',
-        name: 'Run an incident-response tabletop',
-        one: 'Walk a pretend breach through the steps a real response team would take.',
-        why: 'Knowing the incident-response process matters as much as the tools. A tabletop is how real teams practice, and it is easy to run with a few friends.',
-        note: 'No hacking required. This is a discussion exercise you can run anywhere.',
-        steps: ['Pick a scenario, like an employee clicked a phishing link and their laptop is acting strange.', 'Learn the six NIST phases: preparation, detection and analysis, containment, eradication, recovery, and lessons learned.', 'Gather two or three people (club members work great) and walk the scenario through each phase out loud.', 'At each phase, write down who does what and what decision gets made.', 'Throw in one curveball midway, like a second machine is now affected.', 'Write a one-page after-action report: what went well, what was confusing, and what you would prepare in advance.', push],
-        skills: ['Incident response process', 'NIST IR framework', 'Decision-making', 'After-action reporting'],
-        resume: 'Facilitated an incident-response tabletop exercise mapped to the NIST IR lifecycle; documented roles, decisions, and after-action improvements.',
-        linkedin: 'Ran my first incident-response tabletop this week with a few club members. No hacking, just walking a fake breach through every phase and realizing how many decisions happen before anyone touches a keyboard. #cybersecurity #incidentresponse #blueteam',
-        prompt: 'I am a cybersecurity student. I facilitated an incident-response tabletop following the NIST incident-response phases, with a phishing scenario and a mid-exercise curveball, and wrote an after-action report. Here is what we covered and what I learned: [paste your notes]. Write me (1) a one-line resume bullet with a strong action verb, (2) a short, humble LinkedIn post, and (3) two interview talking points about incident response. Be specific and skip buzzwords.'
       }
     ];
 
@@ -1383,7 +1373,10 @@ function runbookHTML(p){
   h+='<h3 class="name">'+esc(p.name)+'</h3>';
   h+='<p class="why">'+esc(why)+'</p>';
   if(p.note) h+='<div class="note"><b>'+noteLabel+'</b> '+esc(p.note)+'</div>';
+  if(p.guide) h+='<a class="guidecard" href="'+esc(p.guide.url)+'" target="_blank" rel="noopener"><span class="gc-t">'+esc(p.guide.label)+'</span><span class="gc-a">&rarr;</span></a>';
   h+='<div class="blocktitle">'+stepsTitle+'</div>';
+  var hasCmd=(p.steps||[]).some(function(raw){ return raw && typeof raw==='object' && raw.detail && raw.detail.some(function(d){ return d && typeof d==='object' && d.cmd; }); });
+  if(hasCmd && !p.setup) h+='<div class="termtip"><b>New to the command line?</b> The dark boxes below are commands &mdash; you type each one into a terminal and press Enter. To open one: on <b>Windows</b> press Start and type <b>cmd</b> (Command Prompt); on <b>Mac</b> open <b>Terminal</b> (Applications &rarr; Utilities); on <b>Linux / Kali</b> open the <b>Terminal</b> app. A few runbooks have you run commands inside a VM &mdash; same idea, just in that machine\'s terminal.</div>';
   h+='<ul class="steps">';
   (p.steps||[]).forEach(function(raw,i){
     var text = typeof raw==='string'?raw:raw.text;
@@ -1397,6 +1390,7 @@ function runbookHTML(p){
     h+='</li>';
   });
   h+='</ul>';
+  if(!p.setup) h+='<p class="pushhint">New to this? <a href="https://sc-state.github.io/cybersecurity-club/write-your-readme.html" target="_blank" rel="noopener">How to write your README &rarr;</a> &nbsp;&middot;&nbsp; <a href="https://sc-state.github.io/cybersecurity-club/push-to-github.html" target="_blank" rel="noopener">How to push to GitHub &rarr;</a></p>';
   if(p.skills && p.skills.length){
     h+='<div class="blocktitle">What it proves</div><div class="skills">'+p.skills.map(function(s){return '<span class="sk">'+esc(s)+'</span>';}).join('')+'</div>';
   }
@@ -1489,6 +1483,13 @@ function initBank(){
     else if(act==='toPast'){ view='past'; openId=null; openSteps={}; copied=null; renderBank(); document.getElementById('bank').scrollIntoView({behavior:'smooth',block:'start'}); }
     else if(act==='toWeek'){ view='week'; openId=null; openSteps={}; copied=null; renderBank(); document.getElementById('bank').scrollIntoView({behavior:'smooth',block:'start'}); }
   });
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+}
+function openFromHash(){
+  var m=(location.hash||'').match(/rb=([a-z0-9-]+)/i);
+  if(m && byId[m[1]]){ openId=m[1]; openSteps={}; copied=null; view='week'; renderBank();
+    var bank=document.getElementById('bank'); if(bank) bank.scrollIntoView({behavior:'smooth',block:'start'}); }
 }
 
 /* =================== misc fills =================== */

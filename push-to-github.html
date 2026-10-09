@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Push your work to GitHub — IC CAE Cybersecurity Club</title>
+<meta name="description" content="A beginner's guide to getting your project onto GitHub — the easy website way, the GitHub Desktop app, or the git command line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --garnet:#8E1B30; --blue:#1D4FA3; --navy:#0F1B35;
+    --ink:#0F1B35; --mut:#5b6472; --line:#e4e8ef; --bg:#f4f6fa; --paper:#ffffff;
+    --disp:'Big Shoulders Display',sans-serif; --body:'Public Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+  header{background:var(--paper);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy);text-decoration:none;font-size:15px}
+  .mark{display:inline-flex}
+  .mark span{width:13px;height:20px;border-radius:2px;display:block}
+  .mark .g{background:var(--garnet)} .mark .b{background:var(--blue);margin-left:3px}
+  .back{font-family:var(--mono);font-size:12.5px;color:var(--blue);text-decoration:none}
+  .back:hover{text-decoration:underline}
+
+  .hero{padding:52px 0 26px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 10px}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,8vw,68px);line-height:.95;letter-spacing:.01em;text-transform:uppercase;margin:0 0 16px;color:var(--navy)}
+  .lede{font-size:18px;color:#39414f;max-width:62ch;margin:0}
+  .lede b{color:var(--navy)}
+
+  .seam{height:5px;display:flex;margin:30px 0}
+  .seam .g{background:var(--garnet);flex:1} .seam .b{background:var(--blue);flex:1}
+
+  .pick{display:grid;grid-template-columns:1fr;gap:12px;margin:8px 0 30px}
+  @media(min-width:640px){.pick{grid-template-columns:repeat(3,1fr)}}
+  .pick a{display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s}
+  .pick a:hover{border-color:var(--blue)}
+  .pick .n{font-family:var(--mono);font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}
+  .pick .t{font-family:var(--disp);font-weight:700;font-size:21px;text-transform:uppercase;color:var(--navy);margin:4px 0 4px}
+  .pick .d{font-size:13.5px;color:var(--mut);line-height:1.45}
+
+  section.path{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 24px;margin:0 0 20px}
+  .ptag{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--navy);display:inline-block;padding:3px 9px;border-radius:999px;margin:0 0 10px}
+  .ptag.best{background:var(--garnet)}
+  h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5vw,36px);text-transform:uppercase;color:var(--navy);margin:0 0 6px;line-height:1}
+  .sub{color:var(--mut);margin:0 0 18px;font-size:15px}
+
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0}
+  ol.steps>li{counter-increment:s;position:relative;padding:0 0 18px 44px;margin:0}
+  ol.steps>li:last-child{padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:0;top:-2px;width:30px;height:30px;border-radius:8px;background:var(--navy);color:#fff;font-family:var(--mono);font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center}
+  ol.steps>li .h{font-weight:700;color:var(--navy)}
+  ol.steps p{margin:4px 0 0}
+  kbd{font-family:var(--mono);font-size:.86em;background:#eef1f7;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--navy);white-space:nowrap}
+  code.inline{font-family:var(--mono);font-size:.86em;background:#eef1f7;border-radius:5px;padding:1px 6px;color:var(--garnet)}
+
+  pre{background:var(--navy);color:#e9edf6;font-family:var(--mono);font-size:13.5px;line-height:1.65;border-radius:10px;padding:14px 16px;margin:10px 0 0;overflow-x:auto}
+  pre .c{color:#8ea2c6}
+
+  .note{border-left:3px solid var(--blue);background:#eef3fb;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0 0;font-size:14.5px}
+  .note b{color:var(--navy)}
+
+  details.snag{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px 18px;margin:0 0 10px}
+  details.snag summary{cursor:pointer;font-weight:700;color:var(--navy);padding:12px 0;list-style:none}
+  details.snag summary::-webkit-details-marker{display:none}
+  details.snag summary::before{content:'+ ';font-family:var(--mono);color:var(--garnet)}
+  details.snag[open] summary::before{content:'– '}
+  details.snag .body{padding:0 0 14px;color:#39414f;font-size:14.5px}
+  details.snag .body p{margin:0 0 8px}
+  details.snag .body p:last-child{margin:0}
+
+  .cta{background:var(--navy);color:#fff;border-radius:16px;padding:26px 24px;margin:12px 0 0;text-align:center}
+  .cta .t{font-family:var(--disp);font-weight:800;font-size:clamp(24px,5vw,32px);text-transform:uppercase;margin:0 0 6px}
+  .cta p{margin:0;color:#c6d0e4;font-size:15px}
+
+  h3.block{font-family:var(--disp);font-weight:800;font-size:26px;text-transform:uppercase;color:var(--navy);margin:34px 0 14px}
+
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 48px}
+  footer .wrap{color:var(--mut);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--blue);text-decoration:none}
+  a.link{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent}
+  a.link:hover{border-bottom-color:var(--blue)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="./index.html"><span class="mark"><span class="g"></span><span class="b"></span></span> IC CAE Cybersecurity Club</a>
+    <a class="back" href="./index.html">&larr; back to the bank</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Portfolio basics</p>
+    <h1>Push your work to GitHub</h1>
+    <p class="lede">You did the project — now get it onto your GitHub, where a recruiter can actually see it. <b>Doing the work is step one; showing it is step two.</b> Here are three ways to do it, from no-install-needed to real developer workflow. Any of them works. Pick one.</p>
+  </div>
+
+  <div class="seam"><span class="g"></span><span class="b"></span></div>
+
+  <p class="eyebrow" style="margin-bottom:14px">First time? You need a GitHub account and a repo. If you don't have them, do <a class="link" href="./index.html#rb=gh-account">Create a GitHub account</a> and <a class="link" href="./index.html#rb=portfolio">Start a security portfolio</a> in the bank first — they take a few minutes.</p>
+
+  <div class="pick">
+    <a href="#web">
+      <div class="n">Easiest</div>
+      <div class="t">The website</div>
+      <div class="d">Drag your files into GitHub in your browser. Nothing to install. Best for your first upload.</div>
+    </a>
+    <a href="#desktop">
+      <div class="n">Repeatable</div>
+      <div class="t">GitHub Desktop</div>
+      <div class="d">A free app with buttons instead of commands. Great once you're doing this a lot.</div>
+    </a>
+    <a href="#cli">
+      <div class="n">Real git</div>
+      <div class="t">Command line</div>
+      <div class="d">The terminal way. A genuine skill worth learning — and itself a résumé line.</div>
+    </a>
+  </div>
+
+  <section class="path" id="web">
+    <span class="ptag best">Start here</span>
+    <h2>Path A — The website</h2>
+    <p class="sub">No installing anything. You just drag your files into your repo in the browser.</p>
+    <ol class="steps">
+      <li><span class="h">Open your repo on github.com.</span><p>Go to <code class="inline">github.com/your-username/your-repo</code> — the repo you made in <a class="link" href="./index.html#rb=portfolio">Start a security portfolio</a> (for most people that's <code class="inline">cybersecurity-projects</code>).</p></li>
+      <li><span class="h">Click <kbd>Add file</kbd> → <kbd>Upload files</kbd>.</span><p>It's a button near the top right of the file list.</p></li>
+      <li><span class="h">Drag your files into the box.</span><p>Drop in your write-up (<code class="inline">README.md</code>) and any screenshots. To put them inside a folder, instead click <kbd>Add file</kbd> → <kbd>Create new file</kbd> and type the folder and file together, like <code class="inline">home-lab/README.md</code> — the slash makes the folder.</p></li>
+      <li><span class="h">Write a short message and commit.</span><p>Scroll down, type something like "Add home lab write-up" in the box, leave "Commit directly to the main branch," and click <kbd>Commit changes</kbd>.</p></li>
+      <li><span class="h">Done — it's live.</span><p>Refresh the page and your files are there, at <code class="inline">github.com/your-username/your-repo</code>. That link is what you paste in the GroupMe.</p></li>
+    </ol>
+    <div class="note"><b>Images not showing in your README?</b> The image file has to be in the <b>same folder</b> as the <code class="inline">README.md</code>, and you link it like <code class="inline">![scan results](screenshot.png)</code> using the real file name.</div>
+  </section>
+
+  <section class="path" id="desktop">
+    <span class="ptag">Easy app</span>
+    <h2>Path B — GitHub Desktop</h2>
+    <p class="sub">A free app that does git with buttons — no commands, no passwords to fight with. Nice once you're uploading often.</p>
+    <ol class="steps">
+      <li><span class="h">Install GitHub Desktop.</span><p>Download it from <code class="inline">desktop.github.com</code> (Windows and macOS), install, and sign in with your GitHub account.</p></li>
+      <li><span class="h">Clone your repo.</span><p>Go to <kbd>File</kbd> → <kbd>Clone repository</kbd>, pick your repo from the list, and choose a folder on your computer to keep it in.</p></li>
+      <li><span class="h">Add your files.</span><p>Open that folder on your computer (the app shows a "Show in Finder / Explorer" button) and copy your write-up and screenshots into it. GitHub Desktop will notice the new files automatically.</p></li>
+      <li><span class="h">Commit and push.</span><p>Back in the app, type a summary like "Add home lab write-up" at the bottom left, click <kbd>Commit to main</kbd>, then click <kbd>Push origin</kbd> at the top. That sends it to GitHub.</p></li>
+      <li><span class="h">Check it online.</span><p>Open your repo on github.com and your files are there. Grab the link for the GroupMe.</p></li>
+    </ol>
+  </section>
+
+  <section class="path" id="cli">
+    <span class="ptag">Real git</span>
+    <h2>Path C — Command line</h2>
+    <p class="sub">The terminal way. Slightly more to learn, but using git is a genuine skill — and a line on your résumé on its own.</p>
+    <div class="note"><b>Where do these commands go?</b> Into a terminal. On <b>Windows</b> press Start and type <b>cmd</b> to open Command Prompt (PowerShell works too); on <b>Mac</b> open <b>Terminal</b> (Applications &rarr; Utilities &rarr; Terminal); on <b>Linux / Kali</b> open the <b>Terminal</b> app. Type each line and press <kbd>Enter</kbd>.</div>
+    <ol class="steps">
+      <li><span class="h">Install Git.</span><p>Get it from <code class="inline">git-scm.com</code> (Windows). macOS and most Linux already have it — check with <code class="inline">git --version</code>. On Kali and Ubuntu: <code class="inline">sudo apt install git</code>.</p></li>
+      <li><span class="h">Tell git who you are (once).</span>
+        <pre>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</pre>
+      </li>
+      <li><span class="h">Clone your repo and go into it.</span><p>Copy the HTTPS URL from the green <kbd>Code</kbd> button on your repo page, then:</p>
+        <pre>git clone https://github.com/your-username/your-repo.git
+cd your-repo</pre>
+      </li>
+      <li><span class="h">Add your files into that folder.</span><p>Copy your write-up and screenshots into the cloned folder (make a subfolder like <code class="inline">home-lab/</code> if you want).</p></li>
+      <li><span class="h">Stage, commit, and push.</span>
+        <pre>git add .
+git commit -m "Add home lab write-up"
+git push</pre>
+      </li>
+      <li><span class="h">Sign in when it asks.</span><p>On your first push, git opens a browser window to sign in to GitHub — do that and it remembers you. (If it asks for a password in the terminal instead, GitHub no longer accepts your account password there; create a <b>Personal Access Token</b> under <kbd>Settings</kbd> → <kbd>Developer settings</kbd> → <kbd>Personal access tokens</kbd> and paste that as the password.)</p></li>
+    </ol>
+  </section>
+
+  <h3 class="block">If something goes wrong</h3>
+
+  <details class="snag">
+    <summary>"Authentication failed" or it keeps asking for a password</summary>
+    <div class="body"><p>GitHub stopped accepting your account password for git in the terminal. Use a <b>Personal Access Token</b> instead: on github.com go to <kbd>Settings</kbd> → <kbd>Developer settings</kbd> → <kbd>Personal access tokens</kbd> → <kbd>Tokens (classic)</kbd> → <kbd>Generate new token</kbd>, give it the <code class="inline">repo</code> scope, copy it, and paste it when git asks for your password.</p><p>Or skip all of that and use <b>Path A (website)</b> or <b>Path B (GitHub Desktop)</b> — neither one makes you deal with tokens.</p></div>
+  </details>
+
+  <details class="snag">
+    <summary>My screenshot isn't showing in the README</summary>
+    <div class="body"><p>The image file has to be uploaded into the <b>same folder</b> as the <code class="inline">README.md</code> that references it, and the link has to use the exact file name: <code class="inline">![alt text](screenshot.png)</code>. GitHub is case-sensitive, so <code class="inline">Screenshot.PNG</code> and <code class="inline">screenshot.png</code> are different files.</p></div>
+  </details>
+
+  <details class="snag">
+    <summary>My README doesn't show up on the repo's front page</summary>
+    <div class="body"><p>GitHub only auto-displays a file named exactly <code class="inline">README.md</code> (that capitalization). If yours is <code class="inline">readme.txt</code> or <code class="inline">Readme.md</code>, rename it to <code class="inline">README.md</code>.</p></div>
+  </details>
+
+  <details class="snag">
+    <summary>I don't have a repo yet</summary>
+    <div class="body"><p>Do the two quick runbooks in the bank first: <a class="link" href="./index.html#rb=gh-account">Create a GitHub account</a>, then <a class="link" href="./index.html#rb=portfolio">Start a security portfolio</a>. The second one makes the repo everything else pushes into.</p></div>
+  </details>
+
+  <div class="cta">
+    <div class="t">Now paste the link</div>
+    <p>Once it's up, drop your repo link in the GroupMe. One project already puts you ahead of most applicants.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>IC CAE Cybersecurity Club — South Carolina State University</span>
+    <span><a href="./index.html">Back to the site</a></span>
+  </div>
+</footer>
+</body>
+</html>
